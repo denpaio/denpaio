@@ -1,0 +1,22 @@
+AllCops:
+  Include:
+    - '**/config.ru'
+    - '**/Rakefile'
+  Exclude:
+    - 'db/migrate/*'
+    - 'db/schema.rb'
+
+Rails:
+  Enabled: true
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/FileName:
+  Enabled: false
