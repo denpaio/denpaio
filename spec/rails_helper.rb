@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -54,8 +55,4 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
-  # Ensure that if we are running js tests, we are using latest webpack assets
-  # This will use the defaults of :js and :server_rendering meta tags
-  ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
 end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Shown below are the defaults for configuration
 ReactOnRails.configure do |config|
   # Client bundles are configured in application.js
@@ -58,6 +59,12 @@ ReactOnRails.configure do |config|
   # If you're using JRuby, you can increase `pool_size` to have real multi-threaded rendering.
   config.server_renderer_pool_size = 1 # increase if you're on JRuby
   config.server_renderer_timeout = 20 # seconds
+
+  ################################################################################
+  # I18N OPTIONS
+  ################################################################################
+  # Replace the following line to the location where you keep translation.js & default.js.
+  config.i18n_dir = Rails.root.join('client', 'app', 'libs', 'i18n')
 
   ################################################################################
   # MISCELLANEOUS OPTIONS
