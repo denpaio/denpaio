@@ -1,7 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= I18n.locale %>">
   <head>
-    <title>Denpaio</title>
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+    <meta charset="utf-8" />
+    <meta property="og:title" content="<%= yield(:title) %>" />
+    <meta property="og:site_name" content="<%= yield(:site_name) %>" />
+    <meta property="og:image" content="<%= yield(:image) %>" />
+    <meta name="description" property="og:description" content="<%= yield(:description) %>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
