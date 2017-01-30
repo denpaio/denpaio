@@ -37,6 +37,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use responders for using respond_to and respond_with placeholder methods
+gem 'responders'
 # Use iTunes for searching data on the iTunes store
 gem 'itunes'
 
