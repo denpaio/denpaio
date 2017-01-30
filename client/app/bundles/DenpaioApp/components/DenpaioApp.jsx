@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
+import Radium from 'radium';
 
+@Radium
 export default class DenpaioApp extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
