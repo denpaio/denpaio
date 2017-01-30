@@ -37,6 +37,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use iTunes for searching data on the iTunes store
+gem 'itunes'
+
 # Use Foundation as UI framework
 gem 'foundation-rails'
 # Use react_on_rails for integrating Ruby on Rails with modern JavaScript tooling and libraries
