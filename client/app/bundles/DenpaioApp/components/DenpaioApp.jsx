@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
+import SearchBar from './SearchBar';
+import DanmakuBar from './DanmakuBar';
 
-@Radium
 export default class DenpaioApp extends React.Component {
   static propTypes = {
-    name: PropTypes.string.isRequired, // this is passed from the Rails view
+    default_background_image: PropTypes.string.isRequired,
   };
 
   /**
@@ -16,32 +16,41 @@ export default class DenpaioApp extends React.Component {
 
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
-    this.state = { name: this.props.name };
+    this.state = {
+      name: 'Guest',
+      defaultBackgroundImage: this.props.default_background_image,
+    };
   }
 
-  updateName = (name) => {
-    this.setState({ name });
+  handleSearch = (keyword) => {
+    this.setState({ keyword });
   };
 
   render() {
+    backgroundStyle['backgroundImage'] = `url(${this.state.defaultBackgroundImage})`;
+
     return (
-      <div>
-        <h3>
-          Hello, {this.state.name}!
-        </h3>
-        <hr />
-        <form >
-          <label htmlFor="name">
-            Say hello to:
-          </label>
-          <input
-            id="name"
-            type="text"
-            value={this.state.name}
-            onChange={(e) => this.updateName(e.target.value)}
+      <div id="denpaio-app" style={backgroundStyle}>
+        <header className="player">
+          <audio src="https://stream.denpa.io/denpaio.ogg" preload="none" controls />
+          <SearchBar
+            onSearch={this.handleSearch}
           />
-        </form>
+        </header>
+        <section className="container">
+          <h3>
+            Hello, {this.state.name}!
+          </h3>
+        </section>
+        <footer className="navbar">
+          <DanmakuBar />
+        </footer>
       </div>
     );
   }
 }
+
+const backgroundStyle = {
+  backgroundSize: 'cover',
+  backgroundPosition: '50% 30%',
+};
