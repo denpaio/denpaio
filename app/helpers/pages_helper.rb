@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module PagesHelper
   def render_denpaio_app
     react_component(

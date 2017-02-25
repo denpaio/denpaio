@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Api::V1::TracksController < ApplicationController
   respond_to :xml, :json
 
