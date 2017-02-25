@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
-import SearchBar from './SearchBar';
-import DanmakuBar from './DanmakuBar';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import AppLayout from './AppLayout';
+import IndexPage from './pages/IndexPage';
+import SearchPage from './pages/SearchPage';
 
 export default class DenpaioApp extends React.Component {
   static propTypes = {
@@ -18,39 +20,18 @@ export default class DenpaioApp extends React.Component {
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     this.state = {
       name: 'Guest',
-      defaultBackgroundImage: this.props.default_background_image,
+      backgroundImage: this.props.default_background_image,
     };
   }
 
-  handleSearch = (keyword) => {
-    this.setState({ keyword });
-  };
-
   render() {
-    backgroundStyle['backgroundImage'] = `url(${this.state.defaultBackgroundImage})`;
-
     return (
-      <div id="denpaio-app" style={backgroundStyle}>
-        <header className="player">
-          <audio src="https://stream.denpa.io/denpaio.ogg" preload="none" controls />
-          <SearchBar
-            onSearch={this.handleSearch}
-          />
-        </header>
-        <section className="container">
-          <h3>
-            Hello, {this.state.name}!
-          </h3>
-        </section>
-        <footer className="navbar">
-          <DanmakuBar />
-        </footer>
-      </div>
+      <Router history={browserHistory}>
+        <Route path="/" component={AppLayout} backgroundImage={this.state.backgroundImage}>
+          <IndexRoute component={IndexPage} />
+          <Route path="search" component={SearchPage} />
+        </Route>
+      </Router>
     );
   }
 }
-
-const backgroundStyle = {
-  backgroundSize: 'cover',
-  backgroundPosition: '50% 30%',
-};

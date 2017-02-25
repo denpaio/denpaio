@@ -1,17 +1,13 @@
 import React from 'react';
 
 export default class SearchBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   handleSubmit = (e) => {
     e.preventDefault();
-    var searchbar = e.target.searchbar;
-    var keyword = searchbar.value;
-    this.props.onSearch(keyword);
+    let searchbar = e.target.searchbar;
+    let keyword = searchbar.value;
+    searchbar.value = '';
     searchbar.blur();
+    this.props.onSearch(keyword);
   };
 
   render() {

@@ -3,14 +3,9 @@ import Radium from 'radium';
 
 @Radium
 export default class DanmakuBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   sendDanmaku = (e) => {
     e.preventDefault();
-    var danmakubar = e.target.danmakubar;
+    let danmakubar = e.target.danmakubar;
     danmakubar.value = '';
     danmakubar.blur();
   };
