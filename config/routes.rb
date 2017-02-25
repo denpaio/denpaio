@@ -10,4 +10,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # TODO: Improve 404 pages
+  match '*path', to: 'pages#index', via: :all
 end
