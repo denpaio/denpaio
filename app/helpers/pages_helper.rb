@@ -4,7 +4,7 @@ module PagesHelper
     react_component(
       'DenpaioApp',
       props: {
-        default_background_image: image_url('pixiv_46722568_q70')
+        default_background_image: image_url('pixiv_46722568_q70.jpg')
       },
       prerender: false
     )
