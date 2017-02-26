@@ -73,6 +73,8 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashie (2.0.5)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     itunes (0.7.0)
       faraday_middleware (~> 0.7)
@@ -102,6 +104,7 @@ GEM
       libv8 (~> 5.3)
     minitest (5.10.1)
     multi_json (1.12.1)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     nio4r (1.2.1)
     nokogiri (1.7.0.1)
@@ -224,6 +227,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   foundation-rails
+  httparty
   itunes
   jbuilder (~> 2.5)
   jquery-rails

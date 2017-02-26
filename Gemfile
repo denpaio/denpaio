@@ -41,6 +41,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'responders'
 # Use iTunes for searching data on the iTunes store
 gem 'itunes'
+# Use HTTParty as the HTTP client
+gem 'httparty'
 
 # Use Foundation as UI framework
 gem 'foundation-rails'
