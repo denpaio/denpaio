@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'proxy/*url' => 'proxies#any', format: false
+
   # TODO: Improve 404 pages
   match '*path', to: 'pages#index', via: :all
 end
