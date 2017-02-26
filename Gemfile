@@ -43,6 +43,8 @@ gem 'responders'
 gem 'itunes'
 # Use HTTParty as the HTTP client
 gem 'httparty'
+# Use pry-rails for Pry initializer
+gem 'pry-rails'
 
 # Use Foundation as UI framework
 gem 'foundation-rails'
@@ -54,6 +56,8 @@ group :development, :test do
   gem 'byebug', platform: :mri
   # Use rspec-rails as the testing framework
   gem 'rspec-rails'
+  # Use pry-remote for connecting to Pry remotely
+  gem 'pry-remote'
   # Use RuboCop for Ruby code analysis
   gem 'rubocop', require: false
 end
