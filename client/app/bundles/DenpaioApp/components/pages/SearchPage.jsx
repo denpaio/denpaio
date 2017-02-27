@@ -62,7 +62,7 @@ export default class SearchPage extends React.Component {
                 <td>{result.track_name}</td>
                 <td>{result.artist_name}</td>
                 <td>{result.collection_name}</td>
-                <td>{result.track_time_millis}</td>
+                <td>{result.track_time_millis.toHumanDuration()}</td>
               </tr>
             )
           }
@@ -71,3 +71,12 @@ export default class SearchPage extends React.Component {
     );
   }
 }
+
+Object.assign(Number.prototype, {
+  toHumanDuration() {
+    let minutes = parseInt(this / 60000);
+    let seconds = parseInt(this % 60000 / 1000);
+    let padSeconds = seconds.toString().padStart(2, '0');
+    return `${minutes}:${padSeconds}`;
+  }
+});
