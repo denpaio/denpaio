@@ -8,13 +8,12 @@ export default class SpinPlayer extends React.Component {
     this.state = {
       isPlaying: false
     };
-    this.boundUpdatePreviewAudioIcon = this.updatePreviewAudioIcon.bind(this);
     this.eventListenerEventNames = ['play', 'pause'];
   }
 
   componentWillUnmount() {
     this.eventListenerEventNames.forEach((eventName) => {
-      this.audio.removeEventListener(eventName, this.boundUpdatePreviewAudioIcon);
+      this.audio.removeEventListener(eventName, this.updatePreviewAudioIcon);
     });
   }
 
@@ -29,7 +28,7 @@ export default class SpinPlayer extends React.Component {
     }
   }
 
-  updatePreviewAudioIcon(event) {
+  updatePreviewAudioIcon = (event) => {
     let target = event.currentTarget;
     let isPlaying = !target.paused;
     this.setState({isPlaying});
@@ -46,7 +45,7 @@ export default class SpinPlayer extends React.Component {
           preload="none"
           ref={(audio) => audio && this.eventListenerEventNames.forEach((eventName) => {
             this.audio = audio;
-            this.audio.addEventListener(eventName, this.boundUpdatePreviewAudioIcon);
+            this.audio.addEventListener(eventName, this.updatePreviewAudioIcon);
           })}
         />
       </a>
