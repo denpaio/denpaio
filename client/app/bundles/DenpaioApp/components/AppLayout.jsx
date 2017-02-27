@@ -8,6 +8,14 @@ export default class AppLayout extends React.Component {
     this.state = {};
   }
 
+  currentStyle() {
+    let pathname = this.props.location.pathname;
+    let defaultStyle = {
+      backgroundColor: 'rgba(0, 0, 0, 0.4)'
+    };
+    return pathname === '/' ? {} : defaultStyle;
+  }
+
   handleSearch = (keyword) => {
     this.setState({ keyword });
     this.props.router.push(`/search?q=${keyword}`);
@@ -24,7 +32,7 @@ export default class AppLayout extends React.Component {
             onSearch={this.handleSearch}
           />
         </header>
-        <section className="container">
+        <section className="container" style={this.currentStyle()}>
           {this.props.children}
         </section>
         <footer className="navbar">
