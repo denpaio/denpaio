@@ -20,17 +20,20 @@ export default class SpinPlayer extends React.Component {
   playOrPausePreviewAudio(event) {
     let target = event.currentTarget;
     let audio = target.querySelector('audio');
+    let audios = document.querySelectorAll('.container audio');
     if (audio.paused) {
+      audios.forEach((el) => el.pause());
       audio.play();
     } else {
       audio.pause();
-      audio.currentTime = 0;
     }
   }
 
   updatePreviewAudioIcon = (event) => {
-    let target = event.currentTarget;
-    let isPlaying = !target.paused;
+    let audio = event.currentTarget;
+    let isPlaying = !audio.paused;
+    if (audio.paused)
+      audio.currentTime = 0;
     this.setState({isPlaying});
   }
 
