@@ -57,7 +57,13 @@ CREATE TABLE schema_migrations (
 CREATE TABLE tracks (
     id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    identity character varying,
+    provider character varying DEFAULT 'itunes'::character varying NOT NULL,
+    response jsonb DEFAULT '{}'::jsonb NOT NULL,
+    sha1 character varying(40),
+    name character varying,
+    artist character varying
 );
 
 
@@ -118,6 +124,7 @@ ALTER TABLE ONLY tracks
 SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES
-('20170301010011');
+('20170301010011'),
+('20170305130106');
 
 
