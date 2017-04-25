@@ -12,6 +12,7 @@
  *
  *= require foundation
  *= require foundation_and_overrides
+ *= require danmaku
  *= require_tree .
  *= require_self
  */
