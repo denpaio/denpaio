@@ -1,8 +1,30 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import DanmakuBar from './DanmakuBar';
+import { HotKeys } from 'react-hotkeys';
 
 export default class AppLayout extends React.Component {
+  keyMap = {
+    'focusDanmakuBar': 'enter'
+  };
+
+  handleFocusDanmakuBar = (event) => {
+    event.stopPropagation();
+    if (event.target === document.activeElement &&
+       (!document.hasFocus || document.hasFocus()) &&
+       !!(event.target.type || event.target.href || ~event.target.tabIndex)
+    )
+      return;
+    let self = this;
+    setTimeout(function() {
+      self.refs.danmakubar.refs.input.focus();
+    }, 0);
+  };
+
+  handlers = {
+    'focusDanmakuBar': this.handleFocusDanmakuBar
+  };
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -25,7 +47,11 @@ export default class AppLayout extends React.Component {
     backgroundStyle['backgroundImage'] = `url(${this.props.route.backgroundImage})`;
 
     return (
-      <div id="denpaio-app" style={backgroundStyle}>
+      <HotKeys
+        id="denpaio-app"
+        keyMap={this.keyMap}
+        handlers={this.handlers}
+        style={backgroundStyle}>
         <header className="player">
           <audio src="https://stream.denpa.io/denpaio.ogg" preload="none" controls />
           <SearchBar
@@ -36,9 +62,11 @@ export default class AppLayout extends React.Component {
           {this.props.children}
         </section>
         <footer className="navbar">
-          <DanmakuBar />
+          <DanmakuBar
+            ref="danmakubar"
+          />
         </footer>
-      </div>
+      </HotKeys>
     );
   }
 }

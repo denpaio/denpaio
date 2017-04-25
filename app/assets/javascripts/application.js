@@ -19,3 +19,22 @@
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
+
+window.onload = function () {
+  function handleHotKeys(event) {
+    if (event.eventPhase !== 2)
+      return;
+
+    let denpaioApp = document.getElementById('denpaio-app');
+    let new_event = new Event(event.type, event);
+    new_event.keyCode = event.keyCode;
+    new_event.charCode = event.charCode;
+    new_event.which = event.which;
+    denpaioApp.focus();
+    denpaioApp.dispatchEvent(new_event);
+  }
+
+  document.body.addEventListener('keydown', handleHotKeys, false);
+  document.body.addEventListener('keyup', handleHotKeys, false);
+  document.body.addEventListener('keypress', handleHotKeys, false);
+};
