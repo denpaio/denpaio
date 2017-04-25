@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //= require foundation
 //= require webpack-bundle
+//= require cable
+//= require_tree ./channels
 //= require_tree .
 
 $(function(){ $(document).foundation(); });
