@@ -6,7 +6,9 @@ export default class DanmakuBar extends React.Component {
   sendDanmaku = (event) => {
     event.preventDefault();
     let input = this.refs.input;
-    window.App.danmakuChannel.send({ message: input.value });
+    let text = input.value.trim();
+    if (text)
+      window.App.danmakuChannel.send({ message: text });
     input.value = '';
     input.blur();
   };
@@ -20,6 +22,7 @@ export default class DanmakuBar extends React.Component {
           ref="input"
           type="text"
           placeholder="Write a message"
+          maxLength="100"
           style={danmakuBarStyle}
         />
       </form>
@@ -31,10 +34,11 @@ const danmakuBarStyle = {
   backgroundColor: 'transparent',
   margin: '2px',
   border: 'none',
-  maxWidth: '300px',
+  width: '320px',
+  maxWidth: '98%',
   height: '2em',
   'transition': '.5s',
   ':focus': {
-    maxWidth: '400px',
+    width: '400px',
   }
 };
