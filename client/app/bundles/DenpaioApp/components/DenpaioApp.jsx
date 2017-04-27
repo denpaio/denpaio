@@ -3,6 +3,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import AppLayout from './AppLayout';
 import IndexPage from './pages/IndexPage';
 import SearchPage from './pages/SearchPage';
+import 'whatwg-fetch';
 
 export default class DenpaioApp extends React.Component {
   static propTypes = {

@@ -36,7 +36,8 @@
     "react-icons": "^2.2.3",
     "react-on-rails": "6.4.2",
     "react-router": "^3.0.2",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {}
 }
