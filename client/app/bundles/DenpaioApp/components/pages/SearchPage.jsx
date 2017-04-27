@@ -53,6 +53,7 @@ export default class SearchPage extends React.Component {
           {
             this.state.results.map((result) =>
               <tr key={result.track_id}>
+                <td><a href="javascript:alert('Not in the opening time yet . . .')">Request</a></td>
                 <td>
                   <SpinPlayer
                     src={result.preview_url}
@@ -63,6 +64,7 @@ export default class SearchPage extends React.Component {
                 <td>{result.artist_name}</td>
                 <td>{result.collection_name}</td>
                 <td>{result.track_time_millis.toHumanDuration()}</td>
+                <td><a href={result.track_view_url} target="_blank">Buy</a></td>
               </tr>
             )
           }
