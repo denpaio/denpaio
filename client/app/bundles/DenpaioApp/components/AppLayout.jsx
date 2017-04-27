@@ -53,7 +53,10 @@ export default class AppLayout extends React.Component {
         handlers={this.handlers}
         style={backgroundStyle}>
         <header className="player">
-          <audio src="https://stream.denpa.io/denpaio.ogg" preload="none" controls />
+          <audio preload="none" controls>
+            <source src="https://stream.denpa.io/denpaio.ogg" type="audio/ogg" />
+            <source src="https://stream.denpa.io/denpaio.mp3" type="audio/mpeg" />
+          </audio>
           <SearchBar
             onSearch={this.handleSearch}
           />
