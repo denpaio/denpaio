@@ -1,5 +1,7 @@
 import React from 'react';
+import Radium from 'radium';
 
+@Radium
 export default class SearchBar extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
@@ -38,4 +40,8 @@ const searchBarStyle = {
   border: 'none',
   maxWidth: '300px',
   height: '2em',
+  boxShadow: '0px 2px 0px #cc4b37',
+  ':focus': {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  }
 };
