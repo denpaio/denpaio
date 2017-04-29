@@ -17,7 +17,24 @@ export default class SpinPlayer extends React.Component {
     });
   }
 
+  currentStyle() {
+    let defaultStyle = {
+      color: '#FFFFFF',
+      fontSize: 'larger'
+    };
+
+    if (this.props.disabled) {
+      let disabledStyle = defaultStyle;
+      disabledStyle.color = '#3b3b3b';
+      return disabledStyle;
+    }
+
+    return defaultStyle;
+  }
+
   playOrPausePreviewAudio(event) {
+    if (this.props.disabled)
+      return;
     let target = event.currentTarget;
     let audio = target.querySelector('audio');
     let audios = document.querySelectorAll('.container audio');
@@ -40,7 +57,7 @@ export default class SpinPlayer extends React.Component {
   render() {
     return (
       <a
-        style={{color: '#FFFFFF', fontSize: 'larger'}}
+        style={this.currentStyle()}
         onClick={this.playOrPausePreviewAudio.bind(this)}>
         { this.state.isPlaying ? <FaPauseCircle /> : <FaPlayCircle /> }
         <audio

@@ -57,6 +57,7 @@ export default class SearchPage extends React.Component {
                 <td>
                   <SpinPlayer
                     src={result.preview_url}
+                    disabled={result.preview_url ? '' : 'disabled'}
                   />
                 </td>
                 <td><img src={result.artwork_url60} style={{maxWidth: '30px', maxHeight: '30px'}} /></td>
