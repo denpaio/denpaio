@@ -38,6 +38,7 @@ class Api::V1::TracksController < ApplicationController
           new_uri = URI.parse(url)
           new_form_params = URI.decode_www_form(new_uri.query)
           new_form_params << ['at', ENV['ITUNES_AFFILIATE_TOKEN']]
+          new_form_params << ['app', 'iTunes']
           new_uri.query = URI.encode_www_form(new_form_params)
           result[attr] = new_uri.to_s
         end
