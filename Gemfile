@@ -37,6 +37,8 @@ gem 'redis', '~> 3.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use dotenv for environment variables management
+gem 'dotenv-rails'
 # Use responders for using respond_to and respond_with placeholder methods
 gem 'responders'
 # Use iTunes for searching data on the iTunes store
