@@ -43,6 +43,8 @@ gem 'dotenv-rails'
 gem 'responders'
 # Use iTunes for searching data on the iTunes store
 gem 'itunes'
+# Use Kaminari as paginator
+gem 'kaminari'
 # Use HTTParty as the HTTP client
 gem 'httparty'
 # Use fog-google for Google Cloud Platform
