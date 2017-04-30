@@ -45,6 +45,8 @@ gem 'responders'
 gem 'itunes'
 # Use HTTParty as the HTTP client
 gem 'httparty'
+# Use fog-google for Google Cloud Platform
+gem 'fog-google'
 # Use pry-rails for Pry initializer
 gem 'pry-rails'
 
