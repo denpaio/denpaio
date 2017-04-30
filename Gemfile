@@ -49,6 +49,8 @@ gem 'httparty'
 gem 'fog-google'
 # Use pry-rails for Pry initializer
 gem 'pry-rails'
+# Use mime-types to look up the likely MIME type definitions
+gem 'mime-types'
 
 # Use Foundation as UI framework
 gem 'foundation-rails'
