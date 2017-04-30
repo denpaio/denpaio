@@ -42,6 +42,38 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: plays; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE plays (
+    id integer NOT NULL,
+    track_id integer,
+    played_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: plays_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE plays_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: plays_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE plays_id_seq OWNED BY plays.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -90,6 +122,13 @@ ALTER SEQUENCE tracks_id_seq OWNED BY tracks.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY plays ALTER COLUMN id SET DEFAULT nextval('plays_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY tracks ALTER COLUMN id SET DEFAULT nextval('tracks_id_seq'::regclass);
 
 
@@ -99,6 +138,14 @@ ALTER TABLE ONLY tracks ALTER COLUMN id SET DEFAULT nextval('tracks_id_seq'::reg
 
 ALTER TABLE ONLY ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: plays_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY plays
+    ADD CONSTRAINT plays_pkey PRIMARY KEY (id);
 
 
 --
@@ -118,6 +165,28 @@ ALTER TABLE ONLY tracks
 
 
 --
+-- Name: index_plays_on_played_at; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_plays_on_played_at ON plays USING btree (played_at) WHERE (played_at IS NULL);
+
+
+--
+-- Name: index_plays_on_track_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_plays_on_track_id ON plays USING btree (track_id);
+
+
+--
+-- Name: fk_rails_182fa5ce9d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plays
+    ADD CONSTRAINT fk_rails_182fa5ce9d FOREIGN KEY (track_id) REFERENCES tracks(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -125,6 +194,7 @@ SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES
 ('20170301010011'),
-('20170305130106');
+('20170305130106'),
+('20170430164649');
 
 
