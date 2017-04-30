@@ -52,20 +52,39 @@ export default class SearchPage extends React.Component {
         <tbody>
           {
             this.state.results.map((result) =>
-              <tr key={result.track_id}>
-                <td><a href="javascript:alert('Not in the opening time yet . . .')">Request</a></td>
-                <td>
+              <tr key={result.response.track_id}>
+                <td
+                  style={minimumTdStyle}>
+                  <a href="javascript:alert('Not in the opening time yet . . .')">Request</a>
+                </td>
+                <td
+                  style={minimumTdStyle}>
                   <SpinPlayer
-                    src={result.preview_url}
-                    disabled={result.preview_url ? '' : 'disabled'}
+                    src={result.response.preview_url}
+                    disabled={result.response.preview_url ? '' : 'disabled'}
                   />
                 </td>
-                <td><img src={result.artwork_url60} style={{maxWidth: '30px', maxHeight: '30px'}} /></td>
-                <td>{result.track_name}</td>
-                <td>{result.artist_name}</td>
-                <td>{result.collection_name}</td>
-                <td>{result.track_time_millis.toHumanDuration()}</td>
-                <td><a href={result.track_view_url} target="_blank">Buy</a></td>
+                <td
+                  style={minimumTdStyle}>
+                  <img
+                    src={result.response.artwork_url60}
+                    style={{maxWidth: '30px', maxHeight: '30px'}}
+                  />
+                </td>
+                <td>{result.response.track_name}</td>
+                <td>{result.response.artist_name}</td>
+                <td
+                  style={minimumTdStyle}>
+                  {result.response.primary_genre_name}
+                </td>
+                <td
+                  style={minimumTdStyle}>
+                  {result.response.track_time_millis.toHumanDuration()}
+                  </td>
+                <td
+                  style={minimumTdStyle}>
+                  <a href={result.response.track_view_url} target="_blank">Buy</a>
+                </td>
               </tr>
             )
           }
@@ -83,3 +102,8 @@ Object.assign(Number.prototype, {
     return `${minutes}:${padSeconds}`;
   }
 });
+
+const minimumTdStyle = {
+  width: '1em',
+  whiteSpace: 'nowrap',
+};
