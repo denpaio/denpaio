@@ -57,6 +57,7 @@ export default class SpinPlayer extends React.Component {
   render() {
     return (
       <a
+        title={this.props.title}
         style={this.currentStyle()}
         onClick={this.playOrPausePreviewAudio.bind(this)}>
         { this.state.isPlaying ? <FaPauseCircle /> : <FaPlayCircle /> }

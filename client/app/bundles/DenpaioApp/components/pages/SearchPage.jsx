@@ -62,6 +62,7 @@ export default class SearchPage extends React.Component {
                   <SpinPlayer
                     src={result.response.preview_url}
                     disabled={result.response.preview_url ? '' : 'disabled'}
+                    title="Preview"
                   />
                 </td>
                 <td
