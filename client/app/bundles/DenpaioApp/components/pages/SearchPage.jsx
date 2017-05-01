@@ -73,6 +73,7 @@ export default class SearchPage extends React.Component {
                 </td>
                 <td>{result.response.track_name}</td>
                 <td>{result.response.artist_name}</td>
+                <td>{result.response.collection_name}</td>
                 <td
                   style={minimumTdStyle}>
                   {result.response.primary_genre_name}
