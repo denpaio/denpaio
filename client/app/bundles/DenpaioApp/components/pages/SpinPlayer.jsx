@@ -65,6 +65,7 @@ export default class SpinPlayer extends React.Component {
           preload="none"
           ref={(audio) => audio && this.eventListenerEventNames.forEach((eventName) => {
             this.audio = audio;
+            this.audio.volume = 0.7;
             this.audio.addEventListener(eventName, this.updatePreviewAudioIcon);
           })}
         />
