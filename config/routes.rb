@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :tracks do
         get :search, on: :collection
+        get :random, on: :collection
       end
     end
   end

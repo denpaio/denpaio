@@ -41,4 +41,19 @@ class Api::V1::TracksController < ApplicationController
     }
     respond_with @object
   end
+
+  def random
+    @tracks = Track.page(params[:page]).order('RANDOM()')
+
+    @tracks.each do |track|
+      add_affiliate_token_to_view_urls!(track.response)
+      proxy_insecure_urls!(track.response)
+    end
+
+    @object = {
+      result_count: @tracks.total_count,
+      results: @tracks
+    }
+    respond_with @object
+  end
 end
