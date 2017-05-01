@@ -49,6 +49,17 @@ export default class SearchPage extends React.Component {
   render() {
     return (
       <table>
+        <thead>
+          <th style={minimumTdStyle}></th>
+          <th style={minimumTdStyle}></th>
+          <th style={minimumTdStyle}></th>
+          <th>Name</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th style={minimumTdStyle}>Genre</th>
+          <th style={minimumTdStyle}>Time</th>
+          <th style={minimumTdStyle}></th>
+        </thead>
         <tbody>
           {
             this.state.results.map((result) =>
