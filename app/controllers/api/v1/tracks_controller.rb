@@ -2,6 +2,8 @@
 class Api::V1::TracksController < ApplicationController
   respond_to :xml, :json
 
+  before_action :authenticate, except: [:search, :browse, :random, :show]
+
   def search
     unless params[:q].present?
       browse
@@ -55,5 +57,22 @@ class Api::V1::TracksController < ApplicationController
       results: @tracks
     }
     respond_with @object
+  end
+
+  def show
+    @track = Track.find(params[:id])
+    render json: @track
+  end
+
+  def update
+    @track = Track.find(params[:id])
+    @track.update!(track_params)
+    render json: @track
+  end
+
+  private
+
+  def track_params
+    params.require(:track).permit(:file)
   end
 end
