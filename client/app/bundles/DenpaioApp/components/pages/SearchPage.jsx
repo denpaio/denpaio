@@ -46,19 +46,43 @@ export default class SearchPage extends React.Component {
     return this.state.keyword !== this.props.location.query.q;
   }
 
+  handleClickName(event) {
+    event.preventDefault();
+    let self = event.target;
+    let trackId = self.dataset.trackId;
+    this.props.router.push(`/tracks/${trackId}`);
+  }
+
+  nameColumn(result) {
+    if (result.id) {
+      return (
+        <a
+          href={`/tracks/${result.id}`}
+          data-track-id={result.id}
+          onClick={this.handleClickName.bind(this)}>
+          {result.response.track_name}
+        </a>
+      );
+    } else {
+      return result.response.track_name;
+    }
+  }
+
   render() {
     return (
       <table>
         <thead>
-          <th style={minimumTdStyle}></th>
-          <th style={minimumTdStyle}></th>
-          <th style={minimumTdStyle}></th>
-          <th>Name</th>
-          <th>Artist</th>
-          <th>Album</th>
-          <th style={minimumTdStyle}>Genre</th>
-          <th style={minimumTdStyle}>Time</th>
-          <th style={minimumTdStyle}></th>
+          <tr>
+            <th style={minimumTdStyle}></th>
+            <th style={minimumTdStyle}></th>
+            <th style={minimumTdStyle}></th>
+            <th>Name</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th style={minimumTdStyle}>Genre</th>
+            <th style={minimumTdStyle}>Time</th>
+            <th style={minimumTdStyle}></th>
+          </tr>
         </thead>
         <tbody>
           {
@@ -83,7 +107,7 @@ export default class SearchPage extends React.Component {
                     style={{maxWidth: '30px', maxHeight: '30px'}}
                   />
                 </td>
-                <td>{result.response.track_name}</td>
+                <td>{this.nameColumn(result)}</td>
                 <td>{result.response.artist_name}</td>
                 <td>{result.response.collection_name}</td>
                 <td

@@ -3,6 +3,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import AppLayout from './AppLayout';
 import IndexPage from './pages/IndexPage';
 import SearchPage from './pages/SearchPage';
+import TracksPage from './pages/TracksPage';
 import 'whatwg-fetch';
 
 export default class DenpaioApp extends React.Component {
@@ -31,6 +32,7 @@ export default class DenpaioApp extends React.Component {
         <Route path="/" component={AppLayout} backgroundImage={this.state.backgroundImage}>
           <IndexRoute component={IndexPage} />
           <Route path="search" component={SearchPage} />
+          <Route path="tracks/:id" component={TracksPage} />
         </Route>
       </Router>
     );
