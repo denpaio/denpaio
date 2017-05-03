@@ -12,6 +12,12 @@ App.danmakuChannel = App.cable.subscriptions.create({ channel: 'DanmakuChannel' 
     document.getElementsByClassName('container')[0].append(danmaku);
     danmaku.clientHeight; // Force rendering
     danmaku.style.transform = 'translateX(-100%)';
+
+    let danmakuHistory = document.getElementById('danmaku_history');
+    let danmakuLog = document.createElement('li');
+    danmakuLog.innerText = data.message;
+    danmakuHistory.append(danmakuLog);
+    danmakuHistory.scrollTop = danmakuHistory.scrollHeight;
   }
 });
 

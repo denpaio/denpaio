@@ -10,7 +10,8 @@ export default class DanmakuBar extends React.Component {
     if (text)
       window.App.danmakuChannel.send({ message: text });
     input.value = '';
-    input.blur();
+    if (!text)
+      input.blur();
   };
 
   render() {

@@ -68,6 +68,13 @@ export default class AppLayout extends React.Component {
           <DanmakuBar
             ref="danmakubar"
           />
+          <div
+            style={danmakuHistoryStyle}>
+            <ul
+              id="danmaku_history"
+              style={danmakuContainerStyle}>
+            </ul>
+          </div>
         </footer>
       </HotKeys>
     );
@@ -77,4 +84,19 @@ export default class AppLayout extends React.Component {
 const backgroundStyle = {
   backgroundSize: 'cover',
   backgroundPosition: '50% 30%',
+};
+
+const danmakuHistoryStyle = {
+  position: 'absolute',
+  bottom: '2.1em',
+  left: '0',
+  right: '0',
+  padding: '4px 8px',
+  backgroundColor: 'rgba(0,0,0,0.5)',
+  fontSize: 'large',
+};
+
+const danmakuContainerStyle = {
+  height: '40vh',
+  overflowY: 'scroll',
 };
