@@ -17,15 +17,27 @@ export default class DanmakuBar extends React.Component {
   render() {
     return (
       <form
+        id="danmaku-form"
         onSubmit={this.sendDanmaku}
+        tabIndex="-1"
+        style={{outline: 'none'}}
         >
         <input
+          id="danmaku-input"
           ref="input"
           type="text"
           placeholder="Write a message"
           maxLength="100"
           style={danmakuBarStyle}
         />
+        <div
+          id="danmaku-history-overlay"
+          style={danmakuHistoryOverlayStyle}>
+          <ul
+            id="danmaku-history-container"
+            style={danmakuHistoryContainerStyle}>
+          </ul>
+        </div>
       </form>
     );
   }
@@ -42,4 +54,17 @@ const danmakuBarStyle = {
   ':focus': {
     width: '400px',
   }
+};
+
+const danmakuHistoryOverlayStyle = {
+  position: 'absolute',
+  bottom: '3em',
+  left: '.5em',
+  right: '0',
+};
+
+const danmakuHistoryContainerStyle = {
+  maxHeight: '40vh',
+  overflowY: 'scroll',
+  margin: '0',
 };
