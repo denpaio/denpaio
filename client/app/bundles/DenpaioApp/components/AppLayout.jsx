@@ -40,7 +40,7 @@ export default class AppLayout extends React.Component {
 
   handleSearch = (keyword) => {
     this.setState({ keyword });
-    this.props.router.push(`/search?q=${keyword}`);
+    this.props.router.push('/search?q=' + encodeURIComponent(keyword));
   };
 
   render() {
