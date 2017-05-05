@@ -14,7 +14,7 @@ class Api::V1::PlaysController < ApplicationController
       @play = Play.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       raise unless params[:track_sha1].present?
-      @track = Track.find_by_sha1!(params[:track_sha1])
+      @track = Track.find_by_sha1(params[:track_sha1]) || Track.find(params[:track_id])
       @play = @track.plays.create!
     end
 
