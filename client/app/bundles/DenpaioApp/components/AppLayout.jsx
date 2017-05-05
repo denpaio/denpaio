@@ -1,4 +1,5 @@
 import React from 'react';
+import AudioPlayer from './AudioPlayer';
 import SearchBar from './SearchBar';
 import DanmakuBar from './DanmakuBar';
 import { HotKeys } from 'react-hotkeys';
@@ -53,10 +54,7 @@ export default class AppLayout extends React.Component {
         handlers={this.handlers}
         style={backgroundStyle}>
         <header className="player">
-          <audio preload="none" controls>
-            <source src="https://stream.denpa.io/denpaio.ogg" type="audio/ogg" />
-            <source src="https://stream.denpa.io/denpaio.mp3" type="audio/mpeg" />
-          </audio>
+          <AudioPlayer />
           <SearchBar
             onSearch={this.handleSearch}
           />

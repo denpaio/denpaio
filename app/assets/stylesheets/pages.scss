@@ -24,8 +24,6 @@
   .player {
     position: relative; /* Fix z-index of Safari */
     background-color: rgba(0, 0, 0, 0.6);
-    line-height: 32px;
-    height: 32px;
     z-index: 1;
 
     &>* {
