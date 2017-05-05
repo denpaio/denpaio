@@ -20,7 +20,7 @@ export default class DanmakuBar extends React.Component {
         id="danmaku-form"
         onSubmit={this.sendDanmaku}
         tabIndex="-1"
-        style={{outline: 'none'}}
+        style={danmakuFormStyle}
         >
         <input
           id="danmaku-input"
@@ -53,6 +53,13 @@ const danmakuBarStyle = {
   'transition': '.5s',
   ':focus': {
     width: '400px',
+  }
+};
+
+const danmakuFormStyle = {
+  ':focus': {
+    outline: 'none',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
   }
 };
 
