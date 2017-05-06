@@ -1,4 +1,6 @@
 class Api::V1::PlaysController < ApplicationController
+  before_action :authenticate, except: [:index, :create]
+
   def index
     @plays = Play.page(params[:page]).order(played_at: :desc, id: :desc)
 
@@ -7,6 +9,14 @@ class Api::V1::PlaysController < ApplicationController
       results: @plays
     }
     render json: @object, include: {track: { except: :response }}
+  end
+
+  def create
+    @track = Track.find(params[:track_id])
+    fail unless @track.sha1?
+    @play = @track.plays.create!
+
+    render json: @play, include: {track: { except: :response }}
   end
 
   def update
