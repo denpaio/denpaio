@@ -9,7 +9,7 @@ class Api::V1::PlaysController < ApplicationController
     render json: @object, include: {track: { except: :response }}
   end
 
-  def create
+  def update
     begin
       @play = Play.find(params[:id])
     rescue ActiveRecord::RecordNotFound
