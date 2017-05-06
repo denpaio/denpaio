@@ -9,7 +9,9 @@ Rails.application.routes.draw do
         get :search, on: :collection
         get :random, on: :collection
       end
-      resources :plays
+      resources :plays do
+        patch action: :update, on: :collection
+      end
     end
   end
 
