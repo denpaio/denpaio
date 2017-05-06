@@ -20,14 +20,30 @@ export default class SearchPage extends React.Component {
         return;
       }
       response.json().then(function(data) {
-        if (!data) {
-          alert(data);
-          return;
-        }
         self.setState({
           keyword: keyword,
           results: data.results
         });
+      });
+    });
+  }
+
+  fetchRequestResult(trackId) {
+    fetch('/api/v1/plays', {
+      method: 'POST',
+      body: 'track_id=' + encodeURIComponent(trackId),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+      },
+    })
+    .then((response) => {
+      if (response.status !== 200) {
+        alert(response.statusText);
+        return;
+      }
+      response.json().then(function(data) {
+        alert(`Success! Song '${data.track.name}' requested.`);
       });
     });
   }
@@ -46,11 +62,37 @@ export default class SearchPage extends React.Component {
     return this.state.keyword !== this.props.location.query.q;
   }
 
+  handleRequest(event) {
+    event.preventDefault();
+    let self = event.target;
+    let trackId = self.dataset.trackId;
+    this.fetchRequestResult(trackId);
+  }
+
   handleClickName(event) {
     event.preventDefault();
     let self = event.target;
     let trackId = self.dataset.trackId;
     this.props.router.push(`/tracks/${trackId}`);
+  }
+
+  requestColumn(result) {
+    if (result.id) {
+      return (
+        <a
+          data-track-id={result.id}
+          onClick={this.handleRequest.bind(this)}>
+          Request
+        </a>
+      );
+    } else {
+      return (
+        <a
+          onClick={ () => alert('Not completed yet QAQ') }>
+          Suggest
+        </a>
+      );
+    }
   }
 
   nameColumn(result) {
@@ -90,7 +132,7 @@ export default class SearchPage extends React.Component {
               <tr key={result.response.track_id}>
                 <td
                   style={minimumTdStyle}>
-                  <a href="javascript:alert('Not in the opening time yet . . .')">Request</a>
+                  {this.requestColumn(result)}
                 </td>
                 <td
                   style={minimumTdStyle}>
@@ -117,7 +159,7 @@ export default class SearchPage extends React.Component {
                 <td
                   style={minimumTdStyle}>
                   {result.response.track_time_millis.toHumanDuration()}
-                  </td>
+                </td>
                 <td
                   style={minimumTdStyle}>
                   <a href={result.response.track_view_url} target="_blank">Buy</a>
