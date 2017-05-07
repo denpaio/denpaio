@@ -54,8 +54,10 @@ gem 'pry-rails'
 # Use mime-types to look up the likely MIME type definitions
 gem 'mime-types'
 
-# Use Foundation as UI framework
-gem 'foundation-rails'
+# Use normalize.css for HTML element and attribute style-normalizations
+gem 'rails-assets-normalize.css', source: 'https://rails-assets.org'
+# Use sprockets-es6 as ES6 transformer
+gem 'sprockets-es6'
 # Use react_on_rails for integrating Ruby on Rails with modern JavaScript tooling and libraries
 gem 'react_on_rails', '~> 6'
 

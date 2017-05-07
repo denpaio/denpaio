@@ -12,13 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require foundation
 //= require webpack-bundle
 //= require cable
 //= require_tree ./channels
 //= require_tree .
-
-$(function(){ $(document).foundation(); });
 
 window.onload = function () {
   function handleHotKeys(event) {
