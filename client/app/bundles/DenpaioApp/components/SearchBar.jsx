@@ -34,11 +34,9 @@ const searchFormStyle = {
   float: 'right',
 };
 const searchBarStyle = {
-  display: 'inline-block',
   backgroundColor: 'transparent',
-  margin: 0,
   border: 'none',
-  maxWidth: '300px',
+  maxWidth: '12em',
   height: '2em',
   boxShadow: '0px 2px 0px #cc4b37',
   ':focus': {

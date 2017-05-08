@@ -76,7 +76,7 @@ const containerStyle = {
 };
 
 const playOrPauseButtonStyle = {
-  fontSize: '32px',
-  marginLeft: '0px',
-  padding: '0px',
+  fontSize: '2em',
+  marginLeft: '0',
+  padding: '0',
 };

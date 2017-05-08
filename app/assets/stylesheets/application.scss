@@ -16,6 +16,12 @@
  *= require_self
  */
 
+$futuristic-blue-background: #3a86b7;
+$futuristic-blue-border: #19a5ff;
+$futuristic-blue-text: #009bff;
+$futuristic-blue-4: #b26900;
+$futuristic-blue-5: #ff9500;
+
 html,
 body {
   width: 100%;
@@ -23,6 +29,45 @@ body {
 }
 
 body {
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-color: #0a0a0a;
   color: #fefefe;
+}
+
+input {
+  box-sizing: border-box;
+  padding: 0.5rem;
+  color: inherit;
+
+  &::placeholder {
+    color: #cacaca;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+a {
+  color: $futuristic-blue-text;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    color: lighten($futuristic-blue-text, 20%);
+  }
+}
+
+th,
+td {
+  padding: 0.5em;
+  background-color: transparentize(darken($futuristic-blue-border, 50%), 0.5);
+  border: 1px solid $futuristic-blue-border;
+}
+
+th > *,
+td > * {
+  vertical-align: middle;
 }

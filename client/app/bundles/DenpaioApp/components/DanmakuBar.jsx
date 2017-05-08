@@ -45,14 +45,16 @@ export default class DanmakuBar extends React.Component {
 
 const danmakuBarStyle = {
   backgroundColor: 'transparent',
-  margin: '2px',
+  margin: '0.2em',
   border: 'none',
   width: '320px',
   maxWidth: '98%',
   height: '2em',
-  'transition': '.5s',
+  boxShadow: 'inset 0 1px 2px rgba(254, 254, 254, 0.1)',
+  'transition': '0.5s',
   ':focus': {
     width: '400px',
+    boxShadow: '0 0 5px #cacaca',
   }
 };
 
@@ -65,8 +67,8 @@ const danmakuFormStyle = {
 
 const danmakuHistoryOverlayStyle = {
   position: 'absolute',
-  bottom: '3em',
-  left: '.5em',
+  bottom: '2.5em',
+  left: '0.5em',
   right: '0',
 };
 
@@ -74,4 +76,6 @@ const danmakuHistoryContainerStyle = {
   maxHeight: '40vh',
   overflowY: 'scroll',
   margin: '0',
+  padding: '0',
+  listStyleType: 'none',
 };
