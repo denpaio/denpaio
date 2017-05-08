@@ -15,10 +15,14 @@
   "devDependencies": {
     "babel-eslint": "^7.1.1",
     "eslint": "^3.14.0",
-    "eslint-plugin-react": "^6.9.0"
+    "eslint-plugin-react": "^6.9.0",
+    "stylelint-config-standard": "^16.0.0"
   },
   "cacheDirectories": [
     "node_modules",
     "client/node_modules"
-  ]
+  ],
+  "stylelint": {
+    "extends": "stylelint-config-standard"
+  }
 }
