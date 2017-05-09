@@ -24,7 +24,7 @@ class Api::V1::PlaysController < ApplicationController
       @play = Play.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       @track = Track.find(params[:track_id])
-      @play = @track.plays.create!
+      @play = @track.plays.build
     end
 
     @play.played_at ||= Time.now.utc

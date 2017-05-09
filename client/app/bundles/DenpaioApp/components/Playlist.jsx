@@ -28,7 +28,13 @@ export default class Playlist extends React.Component {
           break;
         case 'create':
           playlist = self.state.playlist;
-          playlist.push(data.object);
+
+          if (data.object.played_at) {
+            playlist.shift();
+            playlist.unshift(data.object);
+          } else {
+            playlist.push(data.object);
+          }
 
           self.setState({ playlist: playlist });
           break;
