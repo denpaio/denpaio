@@ -1,9 +1,10 @@
 import React from 'react';
-import SpinPlayer from './SpinPlayer';
+import SpinPlayer from '../SpinPlayer';
 
 export default class SearchPage extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       keyword: null,
       results: [],
@@ -112,7 +113,8 @@ export default class SearchPage extends React.Component {
 
   render() {
     return (
-      <table>
+      <table
+        style={searchTableStyle}>
         <thead>
           <tr>
             <th style={minimumTdStyle}></th>
@@ -181,6 +183,10 @@ Object.assign(Number.prototype, {
     return `${minutes}:${padSeconds}`;
   }
 });
+
+const searchTableStyle = {
+  width: '100%',
+};
 
 const minimumTdStyle = {
   width: '1em',

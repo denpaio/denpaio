@@ -5,6 +5,7 @@ import FaPauseCircle from 'react-icons/lib/fa/pause-circle';
 export default class SpinPlayer extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isPlaying: false
     };
@@ -35,9 +36,11 @@ export default class SpinPlayer extends React.Component {
   playOrPausePreviewAudio(event) {
     if (this.props.disabled)
       return;
+
     let target = event.currentTarget;
     let audio = target.querySelector('audio');
     let audios = document.querySelectorAll('.container audio');
+
     if (audio.paused) {
       audios.forEach((el) => el.pause());
       audio.play();
@@ -49,9 +52,11 @@ export default class SpinPlayer extends React.Component {
   updatePreviewAudioIcon = (event) => {
     let audio = event.currentTarget;
     let isPlaying = !audio.paused;
+
     if (audio.paused)
       audio.currentTime = 0;
-    this.setState({isPlaying});
+
+    this.setState({ isPlaying });
   }
 
   render() {
