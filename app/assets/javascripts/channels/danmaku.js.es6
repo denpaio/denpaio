@@ -1,4 +1,4 @@
-App.danmakuChannel = App.cable.subscriptions.create({ channel: 'DanmakuChannel' }, {
+window.App.danmakuChannel = window.App.cable.subscriptions.create('DanmakuChannel', {
   received: function(data) {
     let speed = data.speed || 1.0;
     let duration = Math.floor(window.innerWidth / 150 / speed); // 150px/s
