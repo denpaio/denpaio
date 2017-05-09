@@ -1,6 +1,5 @@
 import React from 'react';
-import AudioPlayer from './AudioPlayer';
-import SearchBar from './SearchBar';
+import Playlist from './Playlist';
 import DanmakuBar from './DanmakuBar';
 import { HotKeys } from 'react-hotkeys';
 
@@ -28,6 +27,7 @@ export default class AppLayout extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = {};
   }
 
@@ -39,11 +39,6 @@ export default class AppLayout extends React.Component {
     return pathname === '/' ? {} : defaultStyle;
   }
 
-  handleSearch = (keyword) => {
-    this.setState({ keyword });
-    this.props.router.push('/search?q=' + encodeURIComponent(keyword));
-  };
-
   render() {
     backgroundStyle['backgroundImage'] = `url(${this.props.route.backgroundImage})`;
 
@@ -54,9 +49,8 @@ export default class AppLayout extends React.Component {
         handlers={this.handlers}
         style={backgroundStyle}>
         <header className="player">
-          <AudioPlayer />
-          <SearchBar
-            onSearch={this.handleSearch}
+          <Playlist
+            router={this.props.router}
           />
         </header>
         <section className="container" style={this.currentStyle()}>

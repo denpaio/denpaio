@@ -2,7 +2,7 @@ class Api::V1::PlaysController < ApplicationController
   before_action :authenticate, except: [:index, :create]
 
   def index
-    @plays = Play.page(params[:page]).order(played_at: :desc, id: :desc)
+    @plays = Play.page(params[:page])
 
     @object = {
       result_count: @plays.total_count,
