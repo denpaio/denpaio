@@ -2,13 +2,15 @@ import React from 'react';
 import AudioPlayer from './AudioPlayer';
 import SpinPlayer from './SpinPlayer';
 import SearchBar from './SearchBar';
+import Slider from 'rc-slider';
 
 export default class Playlist extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      playlist: []
+      volume: 0.7,
+      playlist: [],
     };
   }
 
@@ -49,11 +51,34 @@ export default class Playlist extends React.Component {
     });
   }
 
+  volumeSlideBar() {
+    const sliderContainerStyle = {
+      width: '5em',
+    };
+
+    return (
+      <div style={sliderContainerStyle}>
+        <Slider
+          min={0}
+          max={1}
+          step={0.1}
+          defaultValue={0.7}
+          onChange={this.handleVolumeChange.bind(this)}
+        />
+      </div>
+    );
+  }
+
   headColumn(playing) {
     if (playing) {
       return (
         <tr>
-          <th style={minimumTdStyle}><AudioPlayer /></th>
+          <th style={minimumTdStyle}>
+            <AudioPlayer
+              volume={this.state.volume}
+              ref="AudioPlayer"
+            />
+          </th>
           <th style={minimumTdStyle}>
             <img
               src={playing.track.response.artwork_url60}
@@ -64,19 +89,37 @@ export default class Playlist extends React.Component {
             <div>{playing.track.name}</div>
             <div>{playing.track.response.artist_name}</div>
           </th>
-          <th style={minimumTdStyle}>Volume Control</th>
+          <th style={minimumTdStyle}>
+            {this.volumeSlideBar()}
+          </th>
         </tr>
       );
     } else {
       return (
         <tr>
-          <th style={minimumTdStyle}><AudioPlayer /></th>
-          <th style={minimumTdStyle}>-</th>
-          <th>Loading . . .</th>
-          <th style={minimumTdStyle}>Volume Control</th>
+          <th style={minimumTdStyle}>
+            <AudioPlayer
+              volume={this.state.volume}
+              ref="AudioPlayer"
+            />
+          </th>
+          <th style={minimumTdStyle}>
+            -
+          </th>
+          <th>
+            Loading . . .
+          </th>
+          <th
+            style={minimumTdStyle}>
+            {this.volumeSlideBar()}
+          </th>
         </tr>
       );
     }
+  }
+
+  handleVolumeChange(value) {
+    this.setState({ volume: value });
   }
 
   handleSearch(keyword) {

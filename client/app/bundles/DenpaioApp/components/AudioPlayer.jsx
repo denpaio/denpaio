@@ -16,6 +16,15 @@ export default class AudioPlayer extends React.Component {
     }, 5000);
   }
 
+  componentDidMount() {
+    this.refs.audio.addEventListener('progress', () => window.ping = Date.now());
+  }
+
+  componentWillReceiveProps(nextProps) {
+    let newVolume = nextProps.volume;
+    this.refs.audio.volume = newVolume;
+  }
+
   playOrPauseAudio(event) {
     let target = event.currentTarget;
     let audio = target.querySelector('audio');
@@ -32,15 +41,13 @@ export default class AudioPlayer extends React.Component {
   }
 
   reconnect() {
-    if (!this.audio)
+    if (!this.state.isPlaying)
       return;
 
-    if (this.state.isPlaying) {
-      this.audio.pause();
-      this.audio.currentTime = 0;
-      this.audio.load();
-      this.audio.play();
-    }
+    this.refs.audio.pause();
+    this.refs.audio.currentTime = 0;
+    this.refs.audio.load();
+    this.refs.audio.play();
   }
 
   render() {
@@ -55,13 +62,7 @@ export default class AudioPlayer extends React.Component {
         }
         <audio
           preload="none"
-          ref={(audio) => {
-            if (audio) {
-              this.audio = audio;
-              this.audio.volume = 0.7;
-              this.audio.addEventListener('progress', () => window.ping = Date.now());
-            }
-          }}>
+          ref="audio">
           <source src="https://stream.denpa.io/denpaio.ogg" type="audio/ogg" />
           <source src="https://stream.denpa.io/denpaio.mp3" type="audio/mpeg" />
         </audio>
