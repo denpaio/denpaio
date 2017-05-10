@@ -175,7 +175,7 @@ export default class Playlist extends React.Component {
 
 const playlistContainerStyle = {
   maxHeight: '40vh',
-  overflowY: 'scroll',
+  overflowY: 'auto',
 };
 
 const playlistTableStyle = {

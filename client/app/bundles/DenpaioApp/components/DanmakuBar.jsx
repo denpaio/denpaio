@@ -74,7 +74,7 @@ const danmakuHistoryOverlayStyle = {
 
 const danmakuHistoryContainerStyle = {
   maxHeight: '40vh',
-  overflowY: 'scroll',
+  overflowY: 'auto',
   margin: '0',
   padding: '0',
   listStyleType: 'none',
