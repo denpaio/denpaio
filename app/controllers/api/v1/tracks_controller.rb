@@ -17,7 +17,7 @@ class Api::V1::TracksController < ApplicationController
       results: songs.results.map do |result|
         add_affiliate_token_to_view_urls!(result)
         proxy_insecure_urls!(result)
-        Track.new(response: result)
+        Track.find_by_identity(result.track_id) || Track.new(response: result)
       end
     }
     respond_with @object
