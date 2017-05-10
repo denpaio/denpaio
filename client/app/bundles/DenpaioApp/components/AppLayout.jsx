@@ -1,8 +1,11 @@
 import React from 'react';
+import MdClose from 'react-icons/lib/md/close';
 import Playlist from './Playlist';
 import DanmakuBar from './DanmakuBar';
 import { HotKeys } from 'react-hotkeys';
+import Radium from 'radium';
 
+@Radium
 export default class AppLayout extends React.Component {
   keyMap = {
     'focusDanmakuBar': 'enter'
@@ -39,6 +42,25 @@ export default class AppLayout extends React.Component {
     return pathname === '/' ? {} : defaultStyle;
   }
 
+  handleCloseButton() {
+    this.props.router.push('/');
+  }
+
+  closeButton() {
+    let pathname = this.props.location.pathname;
+
+    if (pathname === '/')
+      return;
+
+    return (
+      <a
+        onClick={this.handleCloseButton.bind(this)}
+        style={closeButtonStyle}>
+        <MdClose />
+      </a>
+    );
+  }
+
   render() {
     backgroundStyle['backgroundImage'] = `url(${this.props.route.backgroundImage})`;
 
@@ -54,6 +76,7 @@ export default class AppLayout extends React.Component {
           />
         </header>
         <section className="container" style={this.currentStyle()}>
+          {this.closeButton()}
           {this.props.children}
         </section>
         <footer className="navbar">
@@ -69,4 +92,14 @@ export default class AppLayout extends React.Component {
 const backgroundStyle = {
   backgroundSize: 'cover',
   backgroundPosition: '50% 30%',
+};
+
+const closeButtonStyle = {
+  float: 'right',
+  padding: '0.25em',
+  fontSize: '2em',
+  color: '#666',
+  ':hover': {
+    color: '#777'
+  }
 };
