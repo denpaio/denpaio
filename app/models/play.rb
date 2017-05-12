@@ -11,9 +11,10 @@ class Play < ApplicationRecord
   private
 
   def broadcast_playlist(action)
-    ActionCable.server.broadcast('playlist', {
+    ActionCable.server.broadcast(
+      'playlist',
       action: action,
       object: as_json(include: :track)
-    })
+    )
   end
 end
