@@ -9,15 +9,15 @@ class Api::V1::PlaysController < ApplicationController
       result_count: @plays.total_count,
       results: @plays
     }
-    render json: @object, include: {track: { except: :response }}
+    render json: @object, include: { track: { except: :response } }
   end
 
   def create
     @track = Track.find(params[:track_id])
-    fail unless @track.sha1?
+    raise unless @track.sha1?
     @play = @track.plays.create!
 
-    render json: @play, include: {track: { except: :response }}
+    render json: @play, include: { track: { except: :response } }
   end
 
   def update
@@ -31,6 +31,6 @@ class Api::V1::PlaysController < ApplicationController
     @play.played_at ||= Time.now.utc
     @play.save!
 
-    render json: @play, include: {track: { except: :response }}
+    render json: @play, include: { track: { except: :response } }
   end
 end
