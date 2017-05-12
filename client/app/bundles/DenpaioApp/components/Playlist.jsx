@@ -69,53 +69,55 @@ export default class Playlist extends React.Component {
     );
   }
 
+  imageSection(track) {
+    return (
+      <img
+        src={track.response.artwork_url60}
+        style={{ maxWidth: '45px', maxHeight: '45px' }}
+      />
+    );
+  }
+
+  titleSection(track) {
+    return (
+      <div>
+        <div>{track.name}</div>
+        <div>{track.response.artist_name}</div>
+      </div>
+    );
+  }
+
   headColumn(playing) {
+    let image = '-';
+    let title = 'Loading . . .';
+
     if (playing) {
-      return (
-        <tr>
-          <th style={minimumTdStyle}>
-            <AudioPlayer
-              volume={this.state.volume}
-              ref="AudioPlayer"
-            />
-          </th>
-          <th style={minimumTdStyle}>
-            <img
-              src={playing.track.response.artwork_url60}
-              style={{maxWidth: '45px', maxHeight: '45px'}}
-            />
-          </th>
-          <th>
-            <div>{playing.track.name}</div>
-            <div>{playing.track.response.artist_name}</div>
-          </th>
-          <th style={minimumTdStyle}>
-            {this.volumeSlideBar()}
-          </th>
-        </tr>
-      );
-    } else {
-      return (
-        <tr>
-          <th style={minimumTdStyle}>
-            <AudioPlayer
-              volume={this.state.volume}
-              ref="AudioPlayer"
-            />
-          </th>
-          <th style={minimumTdStyle}>
-            -
-          </th>
-          <th>
-            Loading . . .
-          </th>
-          <th
-            style={minimumTdStyle}>
-            {this.volumeSlideBar()}
-          </th>
-        </tr>
-      );
+      image = this.imageSection(playing.track);
+      title = this.titleSection(playing.track);
     }
+
+    return (
+      <tr>
+        <th
+          style={minimumTdStyle}>
+          <AudioPlayer
+            volume={this.state.volume}
+            ref="AudioPlayer"
+          />
+        </th>
+        <th
+          style={minimumTdStyle}>
+          {image}
+        </th>
+        <th>
+          {title}
+        </th>
+        <th
+          style={minimumTdStyle}>
+          {this.volumeSlideBar()}
+        </th>
+      </tr>
+    );
   }
 
   handleVolumeChange(value) {
@@ -150,14 +152,10 @@ export default class Playlist extends React.Component {
                   </th>
                   <td
                     style={minimumTdStyle}>
-                    <img
-                      src={play.track.response.artwork_url60}
-                      style={{maxWidth: '45px', maxHeight: '45px'}}
-                    />
+                    {this.titleSection(play.track)}
                   </td>
                   <td>
-                    <div>{play.track.name}</div>
-                    <div>{play.track.response.artist_name}</div>
+                    {this.titleSection(play.track)}
                   </td>
                   <td style={minimumTdStyle}>...</td>
                 </tr>
