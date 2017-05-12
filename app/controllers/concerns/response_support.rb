@@ -22,7 +22,7 @@ module ResponseSupport
         new_uri = URI.parse(url)
         new_form_params = URI.decode_www_form(new_uri.query)
         new_form_params << ['at', ENV['ITUNES_AFFILIATE_TOKEN']]
-        new_form_params << ['app', 'iTunes']
+        new_form_params << %w(app iTunes)
         new_form_params << ['ct', request.host]
         new_uri.query = URI.encode_www_form(new_form_params)
         response[attr] = new_uri.to_s
