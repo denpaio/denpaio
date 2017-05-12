@@ -69,23 +69,31 @@ export default class Playlist extends React.Component {
     );
   }
 
+  imageSection(track) {
+    return (
+      <img
+        src={track.response.artwork_url60}
+        style={{ maxWidth: '45px', maxHeight: '45px' }}
+      />
+    );
+  }
+
+  titleSection(track) {
+    return (
+      <div>
+        <div>{track.name}</div>
+        <div>{track.response.artist_name}</div>
+      </div>
+    );
+  }
+
   headColumn(playing) {
     let image = '-';
     let title = 'Loading . . .';
 
     if (playing) {
-      image = (
-        <img
-          src={playing.track.response.artwork_url60}
-          style={{ maxWidth: '45px', maxHeight: '45px' }}
-        />
-      );
-      title = (
-        <div>
-          <div>{playing.track.name}</div>
-          <div>{playing.track.response.artist_name}</div>
-        </div>
-      );
+      image = this.imageSection(playing.track);
+      title = this.titleSection(playing.track);
     }
 
     return (
@@ -144,14 +152,10 @@ export default class Playlist extends React.Component {
                   </th>
                   <td
                     style={minimumTdStyle}>
-                    <img
-                      src={play.track.response.artwork_url60}
-                      style={{maxWidth: '45px', maxHeight: '45px'}}
-                    />
+                    {this.titleSection(play.track)}
                   </td>
                   <td>
-                    <div>{play.track.name}</div>
-                    <div>{play.track.response.artist_name}</div>
+                    {this.titleSection(play.track)}
                   </td>
                   <td style={minimumTdStyle}>...</td>
                 </tr>
