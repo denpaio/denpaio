@@ -70,52 +70,46 @@ export default class Playlist extends React.Component {
   }
 
   headColumn(playing) {
+    let image = '-';
+    let title = 'Loading . . .';
+
     if (playing) {
-      return (
-        <tr>
-          <th style={minimumTdStyle}>
-            <AudioPlayer
-              volume={this.state.volume}
-              ref="AudioPlayer"
-            />
-          </th>
-          <th style={minimumTdStyle}>
-            <img
-              src={playing.track.response.artwork_url60}
-              style={{maxWidth: '45px', maxHeight: '45px'}}
-            />
-          </th>
-          <th>
-            <div>{playing.track.name}</div>
-            <div>{playing.track.response.artist_name}</div>
-          </th>
-          <th style={minimumTdStyle}>
-            {this.volumeSlideBar()}
-          </th>
-        </tr>
+      image = (
+        <img
+          src={playing.track.response.artwork_url60}
+          style={{ maxWidth: '45px', maxHeight: '45px' }}
+        />
       );
-    } else {
-      return (
-        <tr>
-          <th style={minimumTdStyle}>
-            <AudioPlayer
-              volume={this.state.volume}
-              ref="AudioPlayer"
-            />
-          </th>
-          <th style={minimumTdStyle}>
-            -
-          </th>
-          <th>
-            Loading . . .
-          </th>
-          <th
-            style={minimumTdStyle}>
-            {this.volumeSlideBar()}
-          </th>
-        </tr>
+      title = (
+        <div>
+          <div>{playing.track.name}</div>
+          <div>{playing.track.response.artist_name}</div>
+        </div>
       );
     }
+
+    return (
+      <tr>
+        <th
+          style={minimumTdStyle}>
+          <AudioPlayer
+            volume={this.state.volume}
+            ref="AudioPlayer"
+          />
+        </th>
+        <th
+          style={minimumTdStyle}>
+          {image}
+        </th>
+        <th>
+          {title}
+        </th>
+        <th
+          style={minimumTdStyle}>
+          {this.volumeSlideBar()}
+        </th>
+      </tr>
+    );
   }
 
   handleVolumeChange(value) {
