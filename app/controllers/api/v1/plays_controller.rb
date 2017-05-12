@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Api::V1::PlaysController < ApplicationController
   before_action :authenticate, except: [:index, :create]
 

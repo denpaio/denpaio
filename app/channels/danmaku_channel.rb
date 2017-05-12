@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class DanmakuChannel < ApplicationCable::Channel
   def subscribed
     stream_from 'messages'

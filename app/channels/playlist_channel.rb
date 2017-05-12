@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class PlaylistChannel < ApplicationCable::Channel
   def subscribed
     stream_from 'playlist'
