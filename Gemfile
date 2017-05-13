@@ -81,5 +81,12 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :test do
+  # Use codeclimate-test-reporter uploading Ruby test coverage data to Code Climate
+  gem 'codeclimate-test-reporter', '~> 1.0.0'
+  # Use simplecov as code coverage analysis tool
+  gem 'simplecov'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

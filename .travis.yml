@@ -1,12 +1,28 @@
-language: ruby
 sudo: false
+
+language: ruby
+
 services:
-- redis
+  - redis
+
+cache:
+  bundler: true
+  directories:
+    - node_modules # NPM packages
+  yarn: true
+
+addons:
+  code_climate:
+    repo_token:
+      secure: a5Jno6OD8qzSoujHNIE7EHneQ+xfowN7H6gQg8wSyy/2JFlsz244+RYvLB3ZWJALuL5JOQy5LzReYG5TToy5HZiqlCMcJn/ZtmYmAf73jdjj9skS1zFlLjkzV43WQYaXKoIjsM3Kd0+kUCwoj6PxiJCsPn2c14Yd790lUcg4t0SdITshCHVCLDLx+9zP8RHCNBvAXJ91rIgqAp71Iuy3a1wypM6jLdZTs8sxLcCcwygD+mfzYDi9N1PU0T/vLLXpRhhwyRxv4OpgRbFiLXWnAqKYOUHhAFK7WOly42V4NI43huyFaZXRys9Ke9cyqW7PcIvqu49Led75cLC4NDe7SjQmNHrXfxwVaCnf1YPmuq5G4ws5ckYzOraHXqqN3vhDmdQlzok6j84uKtWL1BT7tH8x7fN1KXUnl2kR9ux4SRfZ2ikR6EgbjrU1v35DGorwOnBkqrATl5uL2kukLEPxOLPKZGfcN7P/ipaq1k8deT1h8bFSXUsmXhL8tNqyLOFJG2OyQMEu/5IV25X6uF3JDmaKeK4diRxSLwt1LeiB2rx2ZkVm3ebkAjtEV+sUkDSnXFY9e7dN3TQnWlUCZGrsPYgy6T6NEIBTCKEi+e7FT0fbTudhESsSmxvswoO3Lxhe5y/wpCH1XhSZOzsDI4SnluBa0S1+k+wPNU2BFdBY2Wo=
+
 before_script:
-- bundle exec rake db:test:prepare
-cache: bundler
+  - bundle exec rake db:test:prepare
+
 notifications:
   email: false
   slack:
-    rooms:
-      secure: Eh6zUQWwzaYMIfAJKpW3uNNuSE/xjEQCHamopoSjnh/C0JWkXiqD33LeiKsStq/vHjUFQU0rrabOsTBezRUjmYhGtGjRwr5yu628AkQq+/m3P62ki+A7yVqZqAlS4hPw4c13ICbjgKhtuaman58KnzYX33aDCHeU5dYXHGG0eq5xgHUTfFwRHBaHNskIYGX25jYltvm7T7N6jtrBZKKA3J/tN+T7+TwVNY9KorDvs0e9ATw1iYvBk9LS0P7DVDN4I3TBuL6msf+zcv/bFnDp8Pf/amZ7VE4xE0YnYJI/Oj4KWG9eAndd0UX/O//56E5Cd5uSKgkNZiCNBMu/+9Q6BHhqQlrJgnrk2wYecdYIrib+WkgGS67qCSa4NpjIdEthOKNjiNJxL+9HmSKnxLD75KPfJ6PRGqg1Us/sY6SSuA+CwkrJdfpemMewywI8QpiV7C90Wprh28YJGsaOslkHn9CVBMPruoZvM4qqbAtrGqTtJ/zDdqSk2viYAZf8OPVwNoacnfBKCmBg/Zr/75ws283zyEQBe1+wW6N4erufmh3djhSuW1ccn7y6djgeM1ZONzgfk+6enVBcN8upiyBlePCc23QddTpmIa8sSBCDNGgR6yON+zeejY/D4bLd8lX4IBQEjJ8ugVckZIH9cSBHBC1HdJOQIT+49teRjgiS9RA=
+    secure: Zf8G48cnR7GW1usxKEpXrilgk9Hx7tD8NU5FFkTWWCT+2GHeIWVYgN2d183hq+hEeNdKRP4w+xEKOXMtfq0YHEr3RfDI8HK0L/fza1ybOnIpCFd6ZbSuCTuXcLtPRen7W1EvSCpMlioc9f7BI95kp2KSJtV7NHVwkNXUkLWGoN8bC/0Kx8BXVinboq9z0yjMTmhX9ek9Rk18b4GKUXMvPeIStXuVCqqaPD1klImQ3iYa2FdC7WgRIIqezJGzHm5Kdp6zeI6SBsJmMn9QrsQBmmmyqsLI5vwmJ/kPJelLo2T4m2onLz/Tor3GWUyrJ6FA5pChS39JVINyspdVc432y1MqnYlMvSWDh+N/+slWwLbPCHezKdPxC3LeZ3MjzPPP8fDaMvGIMdH03eyTC8+9SNzsxG+vdrxzc4o8nzKzh8bIVOHOpAzv5Mq8hRlXeHpfwZESFi1sB5TxcXXoS9EZOecjghdrBxBMD4rPWhn2uxqtNwpWXRbojrd3Ak5mh/i6zHNTDJEmy/UDy0GXRrfMB1PNZaOVOR/Bzm4TxxL8XPDwgP4vA8UKf1BOcmYn8TLH4m/Y4W2LdLKBSHrJii37nzJuWzvO5NK2bo4Q6uiFkqXx/Sk/UhVKsCGCRrObjqKXM1w4q/ayzZGTjQtheLfS3IaxKZHng+9YY+tj0vIv5Vc=
+
+after_success:
+  - bundle exec codeclimate-test-reporter
