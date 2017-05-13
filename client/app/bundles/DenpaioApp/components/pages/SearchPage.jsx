@@ -7,8 +7,11 @@ export default class SearchPage extends React.Component {
 
     this.state = {
       keyword: null,
-      results: [],
-      isPlayingPreviewAudio: []
+      data: {
+        result_count: 0,
+        results: [],
+      },
+      isPlayingPreviewAudio: [],
     };
   }
 
@@ -23,14 +26,14 @@ export default class SearchPage extends React.Component {
       response.json().then(function(data) {
         self.setState({
           keyword: keyword,
-          results: data.results
+          data: data,
         });
       });
     });
   }
 
   fetchRequestResult(trackId) {
-    fetch('/api/v1/plays', {
+    fetch('/api/v1/plays.json', {
       method: 'POST',
       body: 'track_id=' + encodeURIComponent(trackId),
       headers: {
@@ -113,64 +116,67 @@ export default class SearchPage extends React.Component {
 
   render() {
     return (
-      <table
-        style={searchTableStyle}>
-        <thead>
-          <tr>
-            <th style={minimumTdStyle}></th>
-            <th style={minimumTdStyle}></th>
-            <th style={minimumTdStyle}></th>
-            <th>Name</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th style={minimumTdStyle}>Genre</th>
-            <th style={minimumTdStyle}>Time</th>
-            <th style={minimumTdStyle}></th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            this.state.results.map((result) =>
-              <tr key={result.response.track_id}>
-                <td
-                  style={minimumTdStyle}>
-                  {this.requestColumn(result)}
-                </td>
-                <td
-                  style={minimumTdStyle}>
-                  <SpinPlayer
-                    src={result.response.preview_url}
-                    disabled={result.response.preview_url ? '' : 'disabled'}
-                    title="Preview"
-                  />
-                </td>
-                <td
-                  style={minimumTdStyle}>
-                  <img
-                    src={result.response.artwork_url60}
-                    style={{maxWidth: '30px', maxHeight: '30px'}}
-                  />
-                </td>
-                <td>{this.nameColumn(result)}</td>
-                <td>{result.response.artist_name}</td>
-                <td>{result.response.collection_name}</td>
-                <td
-                  style={minimumTdStyle}>
-                  {result.response.primary_genre_name}
-                </td>
-                <td
-                  style={minimumTdStyle}>
-                  {result.response.track_time_millis.toHumanDuration()}
-                </td>
-                <td
-                  style={minimumTdStyle}>
-                  <a href={result.response.track_view_url} target="_blank">Buy</a>
-                </td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
+      <div>
+        <p>About {this.state.data.result_count} results</p>
+        <table
+          style={searchTableStyle}>
+          <thead>
+            <tr>
+              <th style={minimumTdStyle}></th>
+              <th style={minimumTdStyle}></th>
+              <th style={minimumTdStyle}></th>
+              <th>Name</th>
+              <th>Artist</th>
+              <th>Album</th>
+              <th style={minimumTdStyle}>Genre</th>
+              <th style={minimumTdStyle}>Time</th>
+              <th style={minimumTdStyle}></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.state.data.results.map((result) =>
+                <tr key={result.response.track_id}>
+                  <td
+                    style={minimumTdStyle}>
+                    {this.requestColumn(result)}
+                  </td>
+                  <td
+                    style={minimumTdStyle}>
+                    <SpinPlayer
+                      src={result.response.preview_url}
+                      disabled={result.response.preview_url ? '' : 'disabled'}
+                      title="Preview"
+                    />
+                  </td>
+                  <td
+                    style={minimumTdStyle}>
+                    <img
+                      src={result.response.artwork_url60}
+                      style={{ maxWidth: '30px', maxHeight: '30px' }}
+                    />
+                  </td>
+                  <td>{this.nameColumn(result)}</td>
+                  <td>{result.response.artist_name}</td>
+                  <td>{result.response.collection_name}</td>
+                  <td
+                    style={minimumTdStyle}>
+                    {result.response.primary_genre_name}
+                  </td>
+                  <td
+                    style={minimumTdStyle}>
+                    {result.response.track_time_millis.toHumanDuration()}
+                  </td>
+                  <td
+                    style={minimumTdStyle}>
+                    <a href={result.response.track_view_url} target="_blank">Buy</a>
+                  </td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
