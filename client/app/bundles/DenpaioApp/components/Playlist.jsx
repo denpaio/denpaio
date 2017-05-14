@@ -82,7 +82,7 @@ export default class Playlist extends React.Component {
     return (
       <div>
         <div>{track.name}</div>
-        <div>{track.response.artist_name}</div>
+        <div>{track.response.artist_name} - {track.response.collection_name}</div>
       </div>
     );
   }
