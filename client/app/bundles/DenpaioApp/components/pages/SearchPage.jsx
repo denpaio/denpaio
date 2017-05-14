@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactPaginate from 'react-paginate';
 import SpinPlayer from '../SpinPlayer';
 
 export default class SearchPage extends React.Component {
@@ -7,14 +8,18 @@ export default class SearchPage extends React.Component {
 
     this.state = {
       keyword: null,
-      results: [],
-      isPlayingPreviewAudio: []
+      page: null,
+      data: {
+        result_count: 0,
+        results: [],
+      },
+      isPlayingPreviewAudio: [],
     };
   }
 
-  fetchSearchResults(keyword) {
+  fetchSearchResults(keyword, page = 1) {
     let self = this;
-    fetch('/api/v1/tracks/search.json?q=' + encodeURIComponent(keyword))
+    fetch('/api/v1/tracks/search.json?q=' + encodeURIComponent(keyword) + `&page=${page}`)
     .then((response) => {
       if (response.status !== 200) {
         alert(response.statusText);
@@ -22,15 +27,14 @@ export default class SearchPage extends React.Component {
       }
       response.json().then(function(data) {
         self.setState({
-          keyword: keyword,
-          results: data.results
+          data: data,
         });
       });
     });
   }
 
   fetchRequestResult(trackId) {
-    fetch('/api/v1/plays', {
+    fetch('/api/v1/plays.json', {
       method: 'POST',
       body: 'track_id=' + encodeURIComponent(trackId),
       headers: {
@@ -51,16 +55,16 @@ export default class SearchPage extends React.Component {
 
   componentDidMount() {
     let keyword = this.props.location.query.q;
-    this.fetchSearchResults(keyword);
+    let page = this.props.location.query.page;
+    this.setState({ keyword, page });
+    this.fetchSearchResults(keyword, page);
   }
 
   componentWillReceiveProps(nextProps) {
     let keyword = nextProps.location.query.q;
-    this.fetchSearchResults(keyword);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.keyword !== this.props.location.query.q;
+    let page = this.props.location.query.page;
+    this.setState({ keyword, page });
+    this.fetchSearchResults(keyword, page);
   }
 
   handleRequest(event) {
@@ -75,6 +79,17 @@ export default class SearchPage extends React.Component {
     let self = event.target;
     let trackId = self.dataset.trackId;
     this.props.router.push(`/tracks/${trackId}`);
+  }
+
+  handlePageHref(page) {
+    let keyword = this.state.keyword;
+    return '/search?q=' + encodeURIComponent(keyword) + `&page=${page}`;
+  }
+
+  handlePageClick(event) {
+    let keyword = this.state.keyword;
+    let page = event.selected + 1;
+    this.props.router.push('/search?q=' + encodeURIComponent(keyword) + `&page=${page}`);
   }
 
   requestColumn(result) {
@@ -111,66 +126,89 @@ export default class SearchPage extends React.Component {
     }
   }
 
+  paginator() {
+    let currentPage = parseInt(this.state.page) || 1;
+    let pageCount = Math.ceil(this.state.data.result_count / 50);
+
+    return (
+      <ReactPaginate
+        initialPage={currentPage}
+        pageCount={pageCount}
+        pageRangeDisplayed={4}
+        marginPagesDisplayed={2}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+        hrefBuilder={this.handlePageHref.bind(this)}
+        onPageChange={this.handlePageClick.bind(this)}
+        disableInitialCallback={true}
+      />
+    );
+  }
+
   render() {
     return (
-      <table
-        style={searchTableStyle}>
-        <thead>
-          <tr>
-            <th style={minimumTdStyle}></th>
-            <th style={minimumTdStyle}></th>
-            <th style={minimumTdStyle}></th>
-            <th>Name</th>
-            <th>Artist</th>
-            <th>Album</th>
-            <th style={minimumTdStyle}>Genre</th>
-            <th style={minimumTdStyle}>Time</th>
-            <th style={minimumTdStyle}></th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            this.state.results.map((result) =>
-              <tr key={result.response.track_id}>
-                <td
-                  style={minimumTdStyle}>
-                  {this.requestColumn(result)}
-                </td>
-                <td
-                  style={minimumTdStyle}>
-                  <SpinPlayer
-                    src={result.response.preview_url}
-                    disabled={result.response.preview_url ? '' : 'disabled'}
-                    title="Preview"
-                  />
-                </td>
-                <td
-                  style={minimumTdStyle}>
-                  <img
-                    src={result.response.artwork_url60}
-                    style={{maxWidth: '30px', maxHeight: '30px'}}
-                  />
-                </td>
-                <td>{this.nameColumn(result)}</td>
-                <td>{result.response.artist_name}</td>
-                <td>{result.response.collection_name}</td>
-                <td
-                  style={minimumTdStyle}>
-                  {result.response.primary_genre_name}
-                </td>
-                <td
-                  style={minimumTdStyle}>
-                  {result.response.track_time_millis.toHumanDuration()}
-                </td>
-                <td
-                  style={minimumTdStyle}>
-                  <a href={result.response.track_view_url} target="_blank">Buy</a>
-                </td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
+      <div>
+        <p>About {this.state.data.result_count} results</p>
+        <table
+          style={searchTableStyle}>
+          <thead>
+            <tr>
+              <th style={minimumTdStyle}></th>
+              <th style={minimumTdStyle}></th>
+              <th style={minimumTdStyle}></th>
+              <th>Name</th>
+              <th>Artist</th>
+              <th>Album</th>
+              <th style={minimumTdStyle}>Genre</th>
+              <th style={minimumTdStyle}>Time</th>
+              <th style={minimumTdStyle}></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.state.data.results.map((result) =>
+                <tr key={result.response.track_id}>
+                  <td
+                    style={minimumTdStyle}>
+                    {this.requestColumn(result)}
+                  </td>
+                  <td
+                    style={minimumTdStyle}>
+                    <SpinPlayer
+                      src={result.response.preview_url}
+                      disabled={result.response.preview_url ? '' : 'disabled'}
+                      title="Preview"
+                    />
+                  </td>
+                  <td
+                    style={minimumTdStyle}>
+                    <img
+                      src={result.response.artwork_url60}
+                      style={{ maxWidth: '30px', maxHeight: '30px' }}
+                    />
+                  </td>
+                  <td>{this.nameColumn(result)}</td>
+                  <td>{result.response.artist_name}</td>
+                  <td>{result.response.collection_name}</td>
+                  <td
+                    style={minimumTdStyle}>
+                    {result.response.primary_genre_name}
+                  </td>
+                  <td
+                    style={minimumTdStyle}>
+                    {result.response.track_time_millis.toHumanDuration()}
+                  </td>
+                  <td
+                    style={minimumTdStyle}>
+                    <a href={result.response.track_view_url} target="_blank">Buy</a>
+                  </td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+        {this.paginator()}
+      </div>
     );
   }
 }

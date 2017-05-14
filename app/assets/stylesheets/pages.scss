@@ -37,11 +37,53 @@
     flex: 1;
     z-index: 1;
     overflow: auto;
+
+    .close-button {
+      position: fixed;
+      right: 0;
+      margin: 0.25em;
+      padding: 0.05em;
+      border: 1px solid rgba(25, 165, 255, 0.3);
+      line-height: 0;
+      background-color: rgba(0, 15, 25, 0.3);
+      font-size: 2em;
+      color: #666;
+      transition: all 0.1s linear;
+
+      &:hover {
+        border: 1px solid #19a5ff;
+        background-color: rgba(0, 15, 25, 0.5);
+        color: #999;
+      }
+    }
   }
 
   .navbar {
     position: relative; /* Fix z-index of Safari */
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 1;
+  }
+}
+
+.pagination {
+  float: right;
+  padding: 0 1em;
+
+  li {
+    display: inline-block;
+    margin-left: 0.5em;
+
+    &.active a,
+    &.disabled a {
+      pointer-events: none;
+      color: #999;
+    }
+
+    a {
+      padding: 0.25em 0.5em;
+      background-color: rgba(0, 15, 25, 0.3);
+      border: 1px solid #19a5ff;
+      user-select: none;
+    }
   }
 }

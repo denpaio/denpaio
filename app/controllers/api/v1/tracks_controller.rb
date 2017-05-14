@@ -10,10 +10,11 @@ class Api::V1::TracksController < ApplicationController
       return
     end
 
-    songs = ITunes.music(params[:q], country: :jp, entity: :song, limit: 25)
+    songs = ITunes.music(params[:q], country: :jp, entity: :song, limit: 50)
 
     @object = {
       result_count: songs.result_count,
+      result_limit: 50,
       results: songs.results.map do |result|
         add_affiliate_token_to_view_urls!(result)
         proxy_insecure_urls!(result)

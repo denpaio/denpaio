@@ -3,12 +3,10 @@ import MdClose from 'react-icons/lib/md/close';
 import Playlist from './Playlist';
 import DanmakuBar from './DanmakuBar';
 import { HotKeys } from 'react-hotkeys';
-import Radium from 'radium';
 
-@Radium
 export default class AppLayout extends React.Component {
   keyMap = {
-    'focusDanmakuBar': 'enter'
+    'focusDanmakuBar': 'enter',
   };
 
   handleFocusDanmakuBar = (event) => {
@@ -54,8 +52,8 @@ export default class AppLayout extends React.Component {
 
     return (
       <a
-        onClick={this.handleCloseButton.bind(this)}
-        style={closeButtonStyle}>
+        className="close-button"
+        onClick={this.handleCloseButton.bind(this)}>
         <MdClose />
       </a>
     );
@@ -70,16 +68,20 @@ export default class AppLayout extends React.Component {
         keyMap={this.keyMap}
         handlers={this.handlers}
         style={backgroundStyle}>
-        <header className="player">
+        <header
+          className="player">
           <Playlist
             router={this.props.router}
           />
         </header>
-        <section className="container" style={this.currentStyle()}>
+        <section
+          className="container"
+          style={this.currentStyle()}>
           {this.closeButton()}
           {this.props.children}
         </section>
-        <footer className="navbar">
+        <footer
+          className="navbar">
           <DanmakuBar
             ref="danmakubar"
           />
@@ -92,14 +94,4 @@ export default class AppLayout extends React.Component {
 const backgroundStyle = {
   backgroundSize: 'cover',
   backgroundPosition: '50% 30%',
-};
-
-const closeButtonStyle = {
-  float: 'right',
-  padding: '0.25em',
-  fontSize: '2em',
-  color: '#666',
-  ':hover': {
-    color: '#777'
-  }
 };
