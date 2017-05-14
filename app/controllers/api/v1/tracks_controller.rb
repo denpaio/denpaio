@@ -31,7 +31,7 @@ class Api::V1::TracksController < ApplicationController
   end
 
   def browse
-    @tracks = Track.page(params[:page]).order(id: :desc)
+    @tracks = Track.page(params[:page]).per(50).order(id: :desc)
 
     @tracks.each do |track|
       add_affiliate_token_to_view_urls!(track.response)
@@ -40,6 +40,7 @@ class Api::V1::TracksController < ApplicationController
 
     @object = {
       result_count: @tracks.total_count,
+      result_limit: 50,
       results: @tracks
     }
     respond_with @object

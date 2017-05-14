@@ -11,6 +11,7 @@ export default class SearchPage extends React.Component {
       page: null,
       data: {
         result_count: 0,
+        result_limit: 0,
         results: [],
       },
       isPlayingPreviewAudio: [],
@@ -62,7 +63,7 @@ export default class SearchPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     let keyword = nextProps.location.query.q;
-    let page = this.props.location.query.page;
+    let page = nextProps.location.query.page;
     this.setState({ keyword, page });
     this.fetchSearchResults(keyword, page);
   }
@@ -127,8 +128,8 @@ export default class SearchPage extends React.Component {
   }
 
   paginator() {
-    let currentPage = parseInt(this.state.page) || 1;
-    let pageCount = Math.ceil(this.state.data.result_count / 50);
+    let currentPage = parseInt(this.state.page) - 1 || 0;
+    let pageCount = Math.ceil(this.state.data.result_count / this.state.data.result_limit);
 
     return (
       <ReactPaginate
