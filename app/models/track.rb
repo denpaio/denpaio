@@ -5,6 +5,8 @@ class Track < ApplicationRecord
 
   attr_accessor :file
 
+  scope :requestable, -> { where.not(sha1: nil) }
+
   before_update :upload_file_to_storage, if: :file
 
   def upload_file_to_storage
