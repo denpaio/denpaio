@@ -52,11 +52,11 @@ class Api::V1::TracksController < ApplicationController
     )
 
     @tracks = Track.requestable.
-              select(%{"tracks".*, COUNT(tracks.id) AS id_count}).
+              select(%{"tracks".*, COUNT("tracks"."id") AS "id_count"}).
               joins(plays_join_subquery).
-              group(:id).order(%{"id_count", RANDOM()}).
+              group(:id).
+              order(%{"id_count", RANDOM()}).
               page(params[:page])
-    @tracks.map { |t| [t.name, t.id_count] }
 
     @tracks.each do |track|
       add_affiliate_token_to_view_urls!(track.response)
