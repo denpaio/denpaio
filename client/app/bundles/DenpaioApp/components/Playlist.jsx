@@ -23,6 +23,7 @@ export default class Playlist extends React.Component {
       },
       received: function(data) {
         let playlist = [];
+        let index = null;
 
         switch(data.action) {
         case 'reload':
@@ -41,6 +42,17 @@ export default class Playlist extends React.Component {
           self.setState({ playlist: playlist });
           break;
         case 'update':
+          playlist = self.state.playlist;
+          index = playlist.findIndex((el) => el.id === data.object.id);
+
+          if (data.object.played_at && index !== -1) {
+            playlist.splice(0, index + 1, data.object);
+          } else {
+            playlist.splice(index, 1, data.object);
+          }
+
+          self.setState({ playlist: playlist });
+          break;
         case 'destroy':
           playlist = self.state.playlist.filter((el) => el.id !== data.object.id);
 
