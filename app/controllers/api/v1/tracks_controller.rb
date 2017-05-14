@@ -52,7 +52,7 @@ class Api::V1::TracksController < ApplicationController
     )
 
     @tracks = Track.requestable.
-              select(%{"tracks".*, COUNT("tracks"."id") AS "id_count"}).
+              select(%{"tracks".*, COUNT("plays"."id") AS "id_count"}).
               joins(plays_join_subquery).
               group(:id).
               order(%{"id_count", RANDOM()}).
