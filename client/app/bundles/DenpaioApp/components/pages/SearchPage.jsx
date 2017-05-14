@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactPaginate from 'react-paginate';
 import SpinPlayer from '../SpinPlayer';
 
 export default class SearchPage extends React.Component {
@@ -7,6 +8,7 @@ export default class SearchPage extends React.Component {
 
     this.state = {
       keyword: null,
+      page: null,
       data: {
         result_count: 0,
         results: [],
@@ -15,9 +17,9 @@ export default class SearchPage extends React.Component {
     };
   }
 
-  fetchSearchResults(keyword) {
+  fetchSearchResults(keyword, page = 1) {
     let self = this;
-    fetch('/api/v1/tracks/search.json?q=' + encodeURIComponent(keyword))
+    fetch('/api/v1/tracks/search.json?q=' + encodeURIComponent(keyword) + `&page=${page}`)
     .then((response) => {
       if (response.status !== 200) {
         alert(response.statusText);
@@ -25,7 +27,6 @@ export default class SearchPage extends React.Component {
       }
       response.json().then(function(data) {
         self.setState({
-          keyword: keyword,
           data: data,
         });
       });
@@ -54,16 +55,16 @@ export default class SearchPage extends React.Component {
 
   componentDidMount() {
     let keyword = this.props.location.query.q;
-    this.fetchSearchResults(keyword);
+    let page = this.props.location.query.page;
+    this.setState({ keyword, page });
+    this.fetchSearchResults(keyword, page);
   }
 
   componentWillReceiveProps(nextProps) {
     let keyword = nextProps.location.query.q;
-    this.fetchSearchResults(keyword);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.keyword !== this.props.location.query.q;
+    let page = this.props.location.query.page;
+    this.setState({ keyword, page });
+    this.fetchSearchResults(keyword, page);
   }
 
   handleRequest(event) {
@@ -78,6 +79,17 @@ export default class SearchPage extends React.Component {
     let self = event.target;
     let trackId = self.dataset.trackId;
     this.props.router.push(`/tracks/${trackId}`);
+  }
+
+  handlePageHref(page) {
+    let keyword = this.state.keyword;
+    return '/search?q=' + encodeURIComponent(keyword) + `&page=${page}`;
+  }
+
+  handlePageClick(event) {
+    let keyword = this.state.keyword;
+    let page = event.selected + 1;
+    this.props.router.push('/search?q=' + encodeURIComponent(keyword) + `&page=${page}`);
   }
 
   requestColumn(result) {
@@ -112,6 +124,25 @@ export default class SearchPage extends React.Component {
     } else {
       return result.response.track_name;
     }
+  }
+
+  paginator() {
+    let currentPage = parseInt(this.state.page) || 1;
+    let pageCount = Math.ceil(this.state.data.result_count / 50);
+
+    return (
+      <ReactPaginate
+        initialPage={currentPage}
+        pageCount={pageCount}
+        pageRangeDisplayed={4}
+        marginPagesDisplayed={2}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+        hrefBuilder={this.handlePageHref.bind(this)}
+        onPageChange={this.handlePageClick.bind(this)}
+        disableInitialCallback={true}
+      />
+    );
   }
 
   render() {
@@ -176,6 +207,7 @@ export default class SearchPage extends React.Component {
             }
           </tbody>
         </table>
+        {this.paginator()}
       </div>
     );
   }
