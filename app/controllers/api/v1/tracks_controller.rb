@@ -46,14 +46,17 @@ class Api::V1::TracksController < ApplicationController
 
   def random
     last_cycle_played_at = Play.first(Track.requestable.count).last.played_at
-    unconcerned_plays_arel = Play.arel_table[:played_at].lt(last_cycle_played_at)
+    plays_join_subquery = format(
+      %{LEFT OUTER JOIN (%s) "plays" ON "plays"."track_id" = "tracks"."id"},
+      Play.where.not(Play.arel_table[:played_at].lt(last_cycle_played_at)).to_sql
+    )
 
-    @tracks = Track.requestable
-                   .select('tracks.*, count(tracks.id) AS id_count')
-                   .left_joins(:plays)
-                   .where.not(unconcerned_plays_arel)
-                   .group(:id).order('id_count, RANDOM()')
-                   .page(params[:page])
+    @tracks = Track.requestable.
+              select(%{"tracks".*, COUNT(tracks.id) AS id_count}).
+              joins(plays_join_subquery).
+              group(:id).order(%{"id_count", RANDOM()}).
+              page(params[:page])
+    @tracks.map { |t| [t.name, t.id_count] }
 
     @tracks.each do |track|
       add_affiliate_token_to_view_urls!(track.response)
