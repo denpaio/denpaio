@@ -20,3 +20,6 @@ Style/ClassAndModuleChildren:
 
 Style/FileName:
   Enabled: false
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
