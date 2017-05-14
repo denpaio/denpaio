@@ -152,7 +152,7 @@ export default class Playlist extends React.Component {
                   </th>
                   <td
                     style={minimumTdStyle}>
-                    {this.titleSection(play.track)}
+                    {this.imageSection(play.track)}
                   </td>
                   <td>
                     {this.titleSection(play.track)}
