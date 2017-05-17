@@ -111,12 +111,12 @@ export default class Playlist extends React.Component {
             style={{float: 'left'}}>
             0:00
           </span>
-          <span>
-            {track.response.artist_name} - {track.response.collection_name}
-          </span>
           <span
             style={{ float: 'right' }}>
             {track.response.track_time_millis.toHumanDuration()}
+          </span>
+          <span>
+            {track.response.artist_name} - {track.response.collection_name}
           </span>
         </div>
       </div>
