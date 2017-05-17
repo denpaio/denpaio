@@ -39,6 +39,8 @@ gem 'redis', '~> 3.0'
 
 # Use dotenv for environment variables management
 gem 'dotenv-rails'
+# Use redis-rails for Rails cache stores
+gem 'redis-rails'
 # Use responders for using respond_to and respond_with placeholder methods
 gem 'responders'
 # Use iTunes for searching data on the iTunes store
