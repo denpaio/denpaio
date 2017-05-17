@@ -16,8 +16,7 @@ export default class SearchBar extends React.Component {
     return (
       <form
         onSubmit={this.handleSubmit}
-        style={searchFormStyle}
-        >
+        style={this.props.style}>
         <input
           name="searchbar"
           className="searchbar"
@@ -30,9 +29,6 @@ export default class SearchBar extends React.Component {
   }
 }
 
-const searchFormStyle = {
-  float: 'right',
-};
 const searchBarStyle = {
   backgroundColor: 'transparent',
   border: 'none',

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       resources :plays do
         patch action: :update, on: :collection
       end
+      resources :caches
     end
   end
 

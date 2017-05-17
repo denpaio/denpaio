@@ -15,6 +15,15 @@
 //= require_tree ./channels
 //= require_tree .
 
+Object.assign(Number.prototype, {
+  toHumanDuration() {
+    let minutes = parseInt(this / 60000);
+    let seconds = parseInt(this % 60000 / 1000);
+    let padSeconds = seconds.toString().padStart(2, '0');
+    return `${minutes}:${padSeconds}`;
+  }
+});
+
 window.onload = function () {
   function handleHotKeys(event) {
     if (event.eventPhase !== 2)

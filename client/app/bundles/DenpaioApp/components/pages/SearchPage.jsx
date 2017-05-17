@@ -214,15 +214,6 @@ export default class SearchPage extends React.Component {
   }
 }
 
-Object.assign(Number.prototype, {
-  toHumanDuration() {
-    let minutes = parseInt(this / 60000);
-    let seconds = parseInt(this % 60000 / 1000);
-    let padSeconds = seconds.toString().padStart(2, '0');
-    return `${minutes}:${padSeconds}`;
-  }
-});
-
 const searchTableStyle = {
   width: '100%',
 };

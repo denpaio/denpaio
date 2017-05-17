@@ -11,6 +11,7 @@ export default class Playlist extends React.Component {
     this.state = {
       volume: 0.7,
       playlist: [],
+      listenerCount: 0,
     };
   }
 
@@ -61,6 +62,16 @@ export default class Playlist extends React.Component {
         }
       }
     });
+
+    window.App.StatusChannel = window.App.cable.subscriptions.create('StatusChannel', {
+      connected: function() {
+        window.App.StatusChannel.send({action: 'reload'});
+      },
+      received: function(data) {
+        let listenerCount = data.object.listener_count || 0;
+        self.setState({ listenerCount });
+      }
+    });
   }
 
   volumeSlideBar() {
@@ -94,7 +105,20 @@ export default class Playlist extends React.Component {
     return (
       <div>
         <div>{track.name}</div>
-        <div>{track.response.artist_name} - {track.response.collection_name}</div>
+        <div
+          style={{fontSize: 'smaller'}}>
+          <span
+            style={{float: 'left'}}>
+            0:00
+          </span>
+          <span>
+            {track.response.artist_name} - {track.response.collection_name}
+          </span>
+          <span
+            style={{ float: 'right' }}>
+            {track.response.track_time_millis.toHumanDuration()}
+          </span>
+        </div>
       </div>
     );
   }
@@ -110,22 +134,19 @@ export default class Playlist extends React.Component {
 
     return (
       <tr>
-        <th
-          style={minimumTdStyle}>
+        <th>
           <AudioPlayer
             volume={this.state.volume}
             ref="AudioPlayer"
           />
         </th>
-        <th
-          style={minimumTdStyle}>
+        <th>
           {image}
         </th>
         <th>
           {title}
         </th>
-        <th
-          style={minimumTdStyle}>
+        <th>
           {this.volumeSlideBar()}
         </th>
       </tr>
@@ -142,57 +163,57 @@ export default class Playlist extends React.Component {
 
   render() {
     return (
-      <div
-        style={playlistContainerStyle}>
-        <table
-          style={playlistTableStyle}>
+      <div>
+        <table>
           <thead>
             {this.headColumn(this.state.playlist[0])}
           </thead>
+          <tbody>
+            <tr>
+              <td
+                colSpan="4">
+                <SearchBar
+                  onSearch={this.handleSearch.bind(this)}
+                  style={searchBarStyle}
+                />
+                <div
+                  style={listenersStyle}>
+                  <span>{this.state.listenerCount} listeners</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
           <tbody>
             {
               this.state.playlist.slice(1).map((play) =>
                 <tr
                   key={play.id}>
-                  <th
-                    style={minimumTdStyle}>
+                  <th>
                     <SpinPlayer
                       src={play.track.response.preview_url}
                       disabled={play.track.response.preview_url ? '' : 'disabled'}
                       title="Preview"
                     />
                   </th>
-                  <td
-                    style={minimumTdStyle}>
-                    {this.imageSection(play.track)}
-                  </td>
-                  <td>
-                    {this.titleSection(play.track)}
-                  </td>
-                  <td style={minimumTdStyle}>...</td>
+                  <td>{this.imageSection(play.track)}</td>
+                  <td>{this.titleSection(play.track)}</td>
+                  <td>...</td>
                 </tr>
               )
             }
           </tbody>
         </table>
-        <SearchBar
-          onSearch={this.handleSearch.bind(this)}
-        />
       </div>
     );
   }
 }
 
-const playlistContainerStyle = {
-  maxHeight: '40vh',
-  overflowY: 'auto',
+const listenersStyle = {
+  float: 'right',
+  lineHeight: '2em',
+  paddingRight: '1em',
 };
 
-const playlistTableStyle = {
-  width: '100%',
-};
-
-const minimumTdStyle = {
-  width: '1em',
-  whiteSpace: 'nowrap',
+const searchBarStyle = {
+  float: 'right',
 };
