@@ -32,6 +32,12 @@ export default class AppLayout extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    document.querySelector('#denpaio-app').addEventListener(window.whichTransitionEvent(), function(event) {
+      event.target.style.transform = '';
+    });
+  }
+
   currentStyle() {
     let pathname = this.props.location.pathname;
     let defaultStyle = {
@@ -65,9 +71,11 @@ export default class AppLayout extends React.Component {
     return (
       <HotKeys
         id="denpaio-app"
+        ref="denpaioApp"
         keyMap={this.keyMap}
         handlers={this.handlers}
         style={backgroundStyle}>
+        <canvas id="visualizer_render"></canvas>
         <header
           className="player">
           <Playlist

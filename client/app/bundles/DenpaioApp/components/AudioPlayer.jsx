@@ -17,7 +17,35 @@ export default class AudioPlayer extends React.Component {
   }
 
   componentDidMount() {
-    this.refs.audio.addEventListener('progress', () => window.ping = Date.now());
+    let stream = this.refs.audio;
+
+    stream.addEventListener('progress', () => window.ping = Date.now());
+
+    window.canvas = document.getElementById('visualizer_render');
+    window.ctx = window.canvas.getContext('2d');
+
+    let audioCtx = new AudioContext();
+    window.analyser = audioCtx.createAnalyser();
+
+    let source = audioCtx.createMediaElementSource(stream);
+    let destination = audioCtx.destination;
+
+    source.connect(window.analyser);
+    window.analyser.connect(destination);
+
+    let bufferLength = window.analyser.frequencyBinCount;
+    window.dataArray = new Uint8Array(bufferLength);
+
+    stream.addEventListener('play', function () {
+      window.drawVisual = requestAnimationFrame(window.frameLooper);
+    });
+
+    stream.addEventListener('pause', function () {
+      setTimeout(function () {
+        cancelAnimationFrame(window.drawVisual);
+        window.drawVisual = null;
+      }, 1000);
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,7 +89,9 @@ export default class AudioPlayer extends React.Component {
             <MdPlay style={playOrPauseButtonStyle} />
         }
         <audio
+          id="denpaio-audio"
           preload="none"
+          crossOrigin="anonymous"
           ref="audio">
           <source src="https://stream.denpa.io/denpaio.ogg" type="audio/ogg" />
           <source src="https://stream.denpa.io/denpaio.mp3" type="audio/mpeg" />

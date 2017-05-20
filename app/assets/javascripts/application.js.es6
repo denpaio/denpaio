@@ -12,6 +12,7 @@
 //
 //= require webpack-bundle
 //= require cable
+//= require visualizer
 //= require_tree ./channels
 //= require_tree .
 
@@ -42,3 +43,21 @@ window.onload = function () {
   document.body.addEventListener('keyup', handleHotKeys, false);
   document.body.addEventListener('keypress', handleHotKeys, false);
 };
+
+/* From Modernizr */
+function whichTransitionEvent() {
+  var t;
+  var el = document.createElement('fakeelement');
+  var transitions = {
+    'transition': 'transitionend',
+    'OTransition': 'oTransitionEnd',
+    'MozTransition': 'transitionend',
+    'WebkitTransition': 'webkitTransitionEnd'
+  };
+
+  for (t in transitions) {
+    if (el.style[t] !== undefined) {
+      return transitions[t];
+    }
+  }
+}
