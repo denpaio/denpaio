@@ -12,6 +12,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  transition: transform 100ms linear;
 
   &::before {
     content: '';
@@ -20,6 +21,14 @@
     background-repeat: repeat;
     width: 100%;
     height: 100%;
+  }
+
+  #visualizer_render {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 
   .player {
