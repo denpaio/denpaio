@@ -1,5 +1,3 @@
-var canvas, context, analyser, dataArray;
-
 class Point {
   constructor(x, y) {
     this.x = x;
@@ -23,15 +21,15 @@ class Point {
     window.drawVisual = requestAnimationFrame(window.draw);
     window.canvas.width = window.innerWidth;
     window.canvas.height = window.innerHeight;
-    center.x = canvas.width / 2;
-    center.y = canvas.height / 2;
+    center.x = window.canvas.width / 2;
+    center.y = window.canvas.height / 2;
 
     let intensity = 0;
 
-    analyser.getByteFrequencyData(dataArray);
+    window.analyser.getByteFrequencyData(window.dataArray);
 
     for (let i = 0; i < spikeCount; i++) {
-      let spikeHeight = dataArray[i];
+      let spikeHeight = window.dataArray[i];
       let spikeWidth = Math.PI * 2 * radius / spikeCount * 0.8; // smaller than radian width
 
       let spikeStart = new Point(
@@ -45,13 +43,13 @@ class Point {
       );
 
       // Draw a spike
-      let data = Math.max(80 - dataArray[i], 0);
-      context.strokeStyle = `rgba(${data}, ${data}, ${data}, 0.5)`;
-      context.lineWidth = spikeWidth;
-      context.beginPath();
-      context.moveTo(spikeStart.x, spikeStart.y);
-      context.lineTo(spikeEnd.x, spikeEnd.y);
-      context.stroke();
+      let data = Math.max(80 - window.dataArray[i], 0);
+      window.context.strokeStyle = `rgba(${data}, ${data}, ${data}, 0.5)`;
+      window.context.lineWidth = spikeWidth;
+      window.context.beginPath();
+      window.context.moveTo(spikeStart.x, spikeStart.y);
+      window.context.lineTo(spikeEnd.x, spikeEnd.y);
+      window.context.stroke();
 
       intensity += spikeHeight;
     }
@@ -65,17 +63,17 @@ class Point {
     if (radius - oldRadius > shorterSideLength / 15) {
       document.getElementById('denpaio-app').style.transform = 'scale(1.1)';
       shockwave = 0;
-      context.fillStyle = 'rgba(255, 255, 255, 0.5)';
-      context.fillRect(0, 0, canvas.width, canvas.height);
+      window.context.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      window.context.fillRect(0, 0, window.canvas.width, window.canvas.height);
     }
     if (shockwave < Math.max(window.innerWidth, window.innerHeight)) {
       shockwave += 60;
       rotationRadian += 0.4;
-      context.lineWidth = 15;
-      context.strokeStyle = 'white';
-      context.beginPath();
-      context.arc(center.x, center.y, shockwave + radius, 0, Math.PI * 2);
-      context.stroke();
+      window.context.lineWidth = 15;
+      window.context.strokeStyle = 'white';
+      window.context.beginPath();
+      window.context.arc(center.x, center.y, shockwave + radius, 0, Math.PI * 2);
+      window.context.stroke();
     }
 
     // Recurring parameters
@@ -91,4 +89,3 @@ function initializeVisualizer() {
 }
 
 window.addEventListener('load', initializeVisualizer);
-window.addEventListener('resize', initializeVisualizer);
