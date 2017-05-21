@@ -21,9 +21,7 @@ export default class AudioPlayer extends React.Component {
 
     stream.addEventListener('progress', () => window.ping = Date.now());
 
-    window.canvas = document.getElementById('visualizer_render');
-    window.ctx = window.canvas.getContext('2d');
-
+    let AudioContext = window.AudioContext || window.webkitAudioContext;
     let audioCtx = new AudioContext();
     window.analyser = audioCtx.createAnalyser();
 
@@ -37,7 +35,7 @@ export default class AudioPlayer extends React.Component {
     window.dataArray = new Uint8Array(bufferLength);
 
     stream.addEventListener('play', function () {
-      window.drawVisual = requestAnimationFrame(window.frameLooper);
+      window.drawVisual = requestAnimationFrame(window.draw);
     });
 
     stream.addEventListener('pause', function () {

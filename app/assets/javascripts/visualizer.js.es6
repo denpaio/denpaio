@@ -1,103 +1,94 @@
-var canvas, ctx, dataArray, analyser, drawVisual;
+var canvas, context, analyser, dataArray;
+
+class Point {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
 
 (function() {
-  var center_x, center_y, radius, radius_old, deltarad, shockwave,
-    bars, bar_x, bar_y, bar_x_term, bar_y_term, bar_width,
-    bar_height, react_x, react_y, intensity, rot;
+  var radius = 0;
+  var oldRadius = 0;
+  var shockwave = Math.max(window.innerWidth, window.innerHeight);
+  var center = new Point(0, 0);
+  var rotationRadian = 0;
 
-  bars = 200;
-  react_x = 0;
-  react_y = 0;
-  radius = 100;
-  radius_old = 100;
-  deltarad = 0;
-  shockwave = 1024;
-  rot = 0;
-  intensity = 0;
+  const spikeCount = 180;
+  const macSpikeHeight = 255;
+  const maxIntensity = spikeCount * macSpikeHeight;
+  const radian = Math.PI * 2 / spikeCount;
 
-  function resize_canvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
+  window.draw = function () {
+    window.drawVisual = requestAnimationFrame(window.draw);
+    window.canvas.width = window.innerWidth;
+    window.canvas.height = window.innerHeight;
+    center.x = canvas.width / 2;
+    center.y = canvas.height / 2;
 
-  window.frameLooper = function () {
-    resize_canvas();
-
-    ctx.fillStyle = 'rgba(255, 255, 255, ' + (intensity * 0.0000125 - 0.4) + ')';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    rot = rot + intensity * 0.0000001;
-
-    react_x = 0;
-    react_y = 0;
-
-    intensity = 0;
+    let intensity = 0;
 
     analyser.getByteFrequencyData(dataArray);
 
-    for (var i = 0; i < bars; i++) {
-      let rads = Math.PI * 2 / bars;
+    for (let i = 0; i < spikeCount; i++) {
+      let spikeHeight = dataArray[i];
+      let spikeWidth = Math.PI * 2 * radius / spikeCount * 0.8; // smaller than radian width
 
-      bar_x = center_x;
-      bar_y = center_y;
+      let spikeStart = new Point(
+        center.x + Math.cos(radian * i + rotationRadian) * radius,
+        center.y + Math.sin(radian * i + rotationRadian) * radius
+      );
 
-      bar_height = Math.min(99999, Math.max((dataArray[i] * 2.5 - 200), 0));
-      bar_width = bar_height * 0.02;
+      let spikeEnd = new Point(
+        center.x + Math.cos(radian * i + rotationRadian) * (radius + spikeHeight / 2),
+        center.y + Math.sin(radian * i + rotationRadian) * (radius + spikeHeight / 2),
+      );
 
-      bar_x_term = center_x + Math.cos(rads * i + rot) * (radius + bar_height);
-      bar_y_term = center_y + Math.sin(rads * i + rot) * (radius + bar_height);
+      // Draw a spike
+      let data = Math.max(80 - dataArray[i], 0);
+      context.strokeStyle = `rgba(${data}, ${data}, ${data}, 0.5)`;
+      context.lineWidth = spikeWidth;
+      context.beginPath();
+      context.moveTo(spikeStart.x, spikeStart.y);
+      context.lineTo(spikeEnd.x, spikeEnd.y);
+      context.stroke();
 
-      ctx.save();
-
-      let n = Math.max(128 - dataArray[i], 0);
-      var lineColor = `rgba(${n}, ${n}, ${n}, 0.5)`;
-
-      ctx.strokeStyle = lineColor;
-      ctx.lineWidth = bar_width;
-      ctx.beginPath();
-      ctx.moveTo(bar_x, bar_y);
-      ctx.lineTo(bar_x_term, bar_y_term);
-      ctx.stroke();
-
-      react_x += Math.cos(rads * i + rot) * (radius + bar_height);
-      react_y += Math.sin(rads * i + rot) * (radius + bar_height);
-
-      intensity += bar_height;
+      intensity += spikeHeight;
     }
 
-    center_x = canvas.width / 2 - (react_x * 0.007);
-    center_y = canvas.height / 2 - (react_y * 0.007);
+    // Radius calculation
+    let shorterSideLength = Math.min(window.innerWidth, window.innerHeight);
+    oldRadius = radius;
+    radius = intensity / maxIntensity * shorterSideLength / 2;
 
-    radius_old = radius;
-    radius = 25 + (intensity * 0.002);
-    deltarad = radius - radius_old;
-
-    // shockwave effect      
-    shockwave += 60;
-
-    ctx.lineWidth = 15;
-    ctx.strokeStyle = 'rgb(255, 255, 255)';
-    ctx.beginPath();
-    ctx.arc(center_x, center_y, shockwave + radius, 0, Math.PI * 2, false);
-    ctx.stroke();
-
-    ctx.fillStyle = 'rgb(0, 0, 0)';
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(center_x, center_y, (radius + 2) * 2, 0, Math.PI * 2, false);
-    ctx.fill();
-    ctx.restore();
-
-    if (deltarad > 20) {
+    // Shockwave effects
+    if (radius - oldRadius > shorterSideLength / 15) {
+      document.getElementById('denpaio-app').style.transform = 'scale(1.1)';
       shockwave = 0;
-      document.querySelector('#denpaio-app').style.transform = 'scale(1.1)';
-
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      rot = rot + 0.4;
+      context.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    if (shockwave < Math.max(window.innerWidth, window.innerHeight)) {
+      shockwave += 60;
+      rotationRadian += 0.4;
+      context.lineWidth = 15;
+      context.strokeStyle = 'white';
+      context.beginPath();
+      context.arc(center.x, center.y, shockwave + radius, 0, Math.PI * 2);
+      context.stroke();
     }
 
-    drawVisual = requestAnimationFrame(window.frameLooper);
+    // Recurring parameters
+    rotationRadian += 0.002;
   };
 })();
+
+function initializeVisualizer() {
+  window.canvas = document.getElementById('visualizer_render');
+  window.canvas.width = window.innerWidth;
+  window.canvas.height = window.innerHeight;
+  window.context = window.canvas.getContext('2d');
+}
+
+window.addEventListener('load', initializeVisualizer);
+window.addEventListener('resize', initializeVisualizer);
