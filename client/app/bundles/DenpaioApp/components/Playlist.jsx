@@ -84,7 +84,7 @@ export default class Playlist extends React.Component {
         <Slider
           min={0}
           max={1}
-          step={0.1}
+          step={0.05}
           defaultValue={0.7}
           onChange={this.handleVolumeChange.bind(this)}
         />
