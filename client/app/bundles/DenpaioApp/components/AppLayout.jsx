@@ -33,8 +33,9 @@ export default class AppLayout extends React.Component {
   }
 
   componentDidMount() {
-    document.querySelector('#denpaio-app').addEventListener(window.whichTransitionEvent(), function(event) {
-      event.target.style.transform = '';
+    document.getElementById('denpaio-app').addEventListener(window.whichTransitionEvent(), function(event) {
+      let target = event.target;
+      target.style.transform = '';
     });
   }
 
