@@ -1,23 +1,27 @@
 .player {
   table {
     width: 100vw;
+    border-spacing: 0;
 
-    thead,
-    tbody:nth-of-type(2) {
-      display: block;
-
-      :nth-child(3) {
-        width: 100%;
-      }
+    th,
+    td {
+      border: none;
+      border-bottom: 2px solid #0a0a0a;
     }
 
-    tbody:nth-of-type(2) {
+    thead {
       display: block;
-      max-height: 40vh;
-      overflow-y: auto;
 
-      span:nth-of-type(1) {
-        display: none;
+      tr > th.image {
+        padding: 0;
+      }
+
+      tr > th.title {
+        width: 100%;
+      }
+
+      tr > th.listeners {
+        white-space: nowrap;
       }
     }
   }

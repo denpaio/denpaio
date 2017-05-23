@@ -1,5 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
+import MdSearch from 'react-icons/lib/md/search';
 
 @Radium
 export default class SearchBar extends React.Component {
@@ -17,7 +18,14 @@ export default class SearchBar extends React.Component {
       <form
         onSubmit={this.handleSubmit}
         style={this.props.style}>
+        <label
+          htmlFor="searchbar">
+          <MdSearch
+            style={{ fontSize: '2em', cursor: 'pointer' }}
+          />
+        </label>
         <input
+          id="searchbar"
           name="searchbar"
           className="searchbar"
           type="search"
@@ -32,10 +40,14 @@ export default class SearchBar extends React.Component {
 const searchBarStyle = {
   backgroundColor: 'transparent',
   border: 'none',
-  maxWidth: '12em',
+  maxWidth: '0',
   height: '2em',
+  opacity: '0',
+  transition: 'all 0.3s linear',
   boxShadow: '0px 2px 0px #cc4b37',
   ':focus': {
+    maxWidth: '12em',
+    opacity: '1',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
   }
 };

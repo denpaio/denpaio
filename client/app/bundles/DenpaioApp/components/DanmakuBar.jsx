@@ -43,6 +43,14 @@ export default class DanmakuBar extends React.Component {
   }
 }
 
+const danmakuFormStyle = {
+  display: 'inline-block',
+  ':focus': {
+    outline: 'none',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+  }
+};
+
 const danmakuBarStyle = {
   backgroundColor: 'transparent',
   margin: '0.2em',
@@ -55,13 +63,6 @@ const danmakuBarStyle = {
   ':focus': {
     width: '400px',
     boxShadow: '0 0 5px #cacaca',
-  }
-};
-
-const danmakuFormStyle = {
-  ':focus': {
-    outline: 'none',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
   }
 };
 
