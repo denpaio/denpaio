@@ -6,8 +6,10 @@ import FaAngleDown from 'react-icons/lib/fa/angle-down';
 import FaAngleUp from 'react-icons/lib/fa/angle-up';
 import MdFavorite from 'react-icons/lib/md/favorite';
 import MdPlaylistPlay from 'react-icons/lib/md/playlist-play';
-import FaTwitter from 'react-icons/lib/fa/twitter-square';
-import FaFacebook from 'react-icons/lib/fa/facebook-square';
+import FaTwitter from 'react-icons/lib/fa/twitter';
+import FaFacebook from 'react-icons/lib/fa/facebook-official';
+import FaYouTube from 'react-icons/lib/fa/youtube-play';
+import FaGitHub from 'react-icons/lib/fa/github';
 
 import Playlist from './Playlist';
 import DanmakuBar from './DanmakuBar';
@@ -63,9 +65,9 @@ export default class AppLayout extends React.Component {
     let isShowDanmakuHistory = this.state.isShowDanmakuHistory;
 
     if (isShowDanmakuHistory) {
-      return <FaAngleDown style={{ fontSize: '2em' }} />;
-    } {
       return <FaAngleUp style={{ fontSize: '2em' }} />;
+    } {
+      return <FaAngleDown style={{ fontSize: '2em' }} />;
     }
   }
 
@@ -162,6 +164,26 @@ export default class AppLayout extends React.Component {
               <FaFacebook
                 style={{ fontSize: '2em' }}
                 alt="Twitter"
+              />
+            </a>
+            <a
+              href="https://github.com/denpaio/denpaio"
+              target="_blank"
+              title="GitHub"
+              style={{ color: '#fefefe' }}>
+              <FaGitHub
+                style={{ fontSize: '2em' }}
+                alt="GitHub"
+              />
+            </a>
+            <a
+              href="https://www.youtube.com/channel/UCmU7uHdtumev4giWUGHt9xA?sub_confirmation=1"
+              target="_blank"
+              title="YouTube"
+              style={{ color: '#fefefe' }}>
+              <FaYouTube
+                style={{ fontSize: '2em' }}
+                alt="YouTube"
               />
             </a>
             <a
