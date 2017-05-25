@@ -1,9 +1,19 @@
 import React from 'react';
+import Radium from 'radium';
+
 import MdClose from 'react-icons/lib/md/close';
+import FaAngleDown from 'react-icons/lib/fa/angle-down';
+import FaAngleUp from 'react-icons/lib/fa/angle-up';
+import MdFavorite from 'react-icons/lib/md/favorite';
+import MdPlaylistPlay from 'react-icons/lib/md/playlist-play';
+import FaTwitter from 'react-icons/lib/fa/twitter-square';
+import FaFacebook from 'react-icons/lib/fa/facebook-square';
+
 import Playlist from './Playlist';
 import DanmakuBar from './DanmakuBar';
 import { HotKeys } from 'react-hotkeys';
 
+@Radium
 export default class AppLayout extends React.Component {
   keyMap = {
     'focusDanmakuBar': 'enter',
@@ -29,7 +39,9 @@ export default class AppLayout extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      isShowDanmakuHistory: true,
+    };
   }
 
   componentDidMount() {
@@ -47,8 +59,27 @@ export default class AppLayout extends React.Component {
     return pathname === '/' ? {} : defaultStyle;
   }
 
+  currentDanmakuHistoryToggleButtonTag() {
+    let isShowDanmakuHistory = this.state.isShowDanmakuHistory;
+
+    if (isShowDanmakuHistory) {
+      return <FaAngleDown style={{ fontSize: '2em' }} />;
+    } {
+      return <FaAngleUp style={{ fontSize: '2em' }} />;
+    }
+  }
+
   handleCloseButton() {
     this.props.router.push('/');
+  }
+
+  handleLikeButton() {
+    window.App.danmakuChannel.send({ message: '❤️' });
+  }
+
+  handleToggleDanmakuHistory() {
+    let isShowDanmakuHistory = this.state.isShowDanmakuHistory;
+    this.setState({ isShowDanmakuHistory: !isShowDanmakuHistory });
   }
 
   closeButton() {
@@ -91,9 +122,54 @@ export default class AppLayout extends React.Component {
         </section>
         <footer
           className="navbar">
+          <button
+            onClick={this.handleLikeButton.bind(this)}
+            style={likeButtonStyle}>
+            <MdFavorite
+              style={{ fontSize: '1.5em' }}
+            />
+          </button>
           <DanmakuBar
             ref="danmakubar"
+            showDanmakuHistory={this.state.isShowDanmakuHistory}
           />
+          <div
+            style={{ display: 'inline-block', textAlign: 'right' }}>
+            <a
+              href="denpaio.m3u"
+              title="M3U playlist"
+              style={{ color: '#fefefe' }}>
+              <MdPlaylistPlay
+                style={{ fontSize: '2em' }}
+                alt="Twitter"
+              />
+            </a>
+            <a
+              href="https://twitter.com/denpaio"
+              target="_blank"
+              title="Twitter"
+              style={{ color: '#fefefe' }}>
+              <FaTwitter
+                style={{ fontSize: '2em' }}
+                alt="Twitter"
+              />
+            </a>
+            <a
+              href="https://www.facebook.com/denpaio/"
+              target="_blank"
+              title="Facebook"
+              style={{ color: '#fefefe' }}>
+              <FaFacebook
+                style={{ fontSize: '2em' }}
+                alt="Twitter"
+              />
+            </a>
+            <a
+              onClick={this.handleToggleDanmakuHistory.bind(this)}
+              style={{ color: '#fefefe', cursor: 'pointer' }}>
+              {this.currentDanmakuHistoryToggleButtonTag()}
+            </a>
+          </div>
         </footer>
       </HotKeys>
     );
@@ -103,4 +179,12 @@ export default class AppLayout extends React.Component {
 const backgroundStyle = {
   backgroundSize: 'cover',
   backgroundPosition: '50% 30%',
+};
+
+const likeButtonStyle = {
+  border: 'none',
+  backgroundColor: 'transparent',
+  ':active': {
+    color: 'red',
+  }
 };

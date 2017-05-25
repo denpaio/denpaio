@@ -1,12 +1,5 @@
 #danmaku-history-overlay {
   transition: all 0.1s linear;
-  visibility: hidden;
-  opacity: 0;
-
-  &:focus {
-    visibility: visible;
-    opacity: 1;
-  }
 
   li {
     line-height: 1.6;
@@ -19,12 +12,6 @@
       background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 80%, transparent);
     }
   }
-}
-
-#danmaku-form:focus #danmaku-history-overlay,
-#danmaku-input:focus + #danmaku-history-overlay {
-  visibility: visible;
-  opacity: 1;
 }
 
 .danmaku {

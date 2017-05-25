@@ -94,10 +94,15 @@ export default class Playlist extends React.Component {
 
   imageSection(track) {
     return (
-      <img
-        src={track.response.artwork_url60}
-        style={{ maxWidth: '45px', maxHeight: '45px' }}
-      />
+      <a
+        href={track.response.artwork_url60.replace('60x60bb', '1280x1280bb')}
+        target="_blank"
+        style={{ display: 'inline-block' }}>
+        <img
+          src={track.response.artwork_url60}
+          style={{ maxWidth: '45px', maxHeight: '45px', verticalAlign: 'middle' }}
+        />
+      </a>
     );
   }
 
@@ -106,17 +111,17 @@ export default class Playlist extends React.Component {
       <div>
         <div>{track.name}</div>
         <div
-          style={{fontSize: 'smaller'}}>
+          style={{ fontSize: 'smaller' }}>
           <span
-            style={{float: 'left'}}>
+            style={{ float: 'left' }}>
             0:00
+          </span>
+          <span>
+            {track.response.artist_name} - {track.response.collection_name}
           </span>
           <span
             style={{ float: 'right' }}>
             {track.response.track_time_millis.toHumanDuration()}
-          </span>
-          <span>
-            {track.response.artist_name} - {track.response.collection_name}
           </span>
         </div>
       </div>
@@ -141,13 +146,25 @@ export default class Playlist extends React.Component {
           />
         </th>
         <th>
+          {this.volumeSlideBar()}
+        </th>
+        <th
+          className="image">
           {image}
         </th>
-        <th>
+        <th
+          className="title">
           {title}
         </th>
+        <th
+          className="listeners">
+          <span>{this.state.listenerCount} listeners</span>
+        </th>
         <th>
-          {this.volumeSlideBar()}
+          <SearchBar
+            onSearch={this.handleSearch.bind(this)}
+            style={{ whiteSpace: 'nowrap' }}
+          />
         </th>
       </tr>
     );
@@ -168,52 +185,8 @@ export default class Playlist extends React.Component {
           <thead>
             {this.headColumn(this.state.playlist[0])}
           </thead>
-          <tbody>
-            <tr>
-              <td
-                colSpan="4">
-                <SearchBar
-                  onSearch={this.handleSearch.bind(this)}
-                  style={searchBarStyle}
-                />
-                <div
-                  style={listenersStyle}>
-                  <span>{this.state.listenerCount} listeners</span>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            {
-              this.state.playlist.slice(1).map((play) =>
-                <tr
-                  key={play.id}>
-                  <th>
-                    <SpinPlayer
-                      src={play.track.response.preview_url}
-                      disabled={play.track.response.preview_url ? '' : 'disabled'}
-                      title="Preview"
-                    />
-                  </th>
-                  <td>{this.imageSection(play.track)}</td>
-                  <td>{this.titleSection(play.track)}</td>
-                  <td>...</td>
-                </tr>
-              )
-            }
-          </tbody>
         </table>
       </div>
     );
   }
 }
-
-const listenersStyle = {
-  float: 'right',
-  lineHeight: '2em',
-  paddingRight: '1em',
-};
-
-const searchBarStyle = {
-  float: 'right',
-};
