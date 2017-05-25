@@ -38,6 +38,20 @@ body {
   color: #fefefe;
 }
 
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  box-sizing: border-box;
+  border: 1px solid #888;
+  background-color: inherit;
+  color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+}
+
 input {
   box-sizing: border-box;
   padding: 0.5rem;
