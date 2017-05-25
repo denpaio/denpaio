@@ -65,9 +65,9 @@ export default class AppLayout extends React.Component {
     let isShowDanmakuHistory = this.state.isShowDanmakuHistory;
 
     if (isShowDanmakuHistory) {
-      return <FaAngleUp style={{ fontSize: '2em' }} />;
-    } {
       return <FaAngleDown style={{ fontSize: '2em' }} />;
+    } {
+      return <FaAngleUp style={{ fontSize: '2em' }} />;
     }
   }
 
