@@ -9,10 +9,14 @@ Rails.application.routes.draw do
         get :search, on: :collection
         get :random, on: :collection
       end
+
       resources :plays do
         patch action: :update, on: :collection
       end
+
       resources :caches
+
+      get :nightbot, to: 'nightbot#execute'
     end
   end
 
