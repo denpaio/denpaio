@@ -9,6 +9,8 @@ import MdPlaylistPlay from 'react-icons/lib/md/playlist-play';
 import FaTwitter from 'react-icons/lib/fa/twitter';
 import FaFacebook from 'react-icons/lib/fa/facebook-official';
 import FaYouTube from 'react-icons/lib/fa/youtube-play';
+import FaAdjust from 'react-icons/lib/fa/adjust';
+import FaComment from 'react-icons/lib/fa/comment-o';
 import FaGitHub from 'react-icons/lib/fa/github';
 
 import Playlist from './Playlist';
@@ -61,6 +63,32 @@ export default class AppLayout extends React.Component {
     return pathname === '/' ? {} : defaultStyle;
   }
 
+  currentToggleAudioVisualizer() {
+    let defaultStyle = {
+      color: '#fefefe',
+      cursor: 'pointer'
+    };
+
+    if (window.isDisabledVisualizer) {
+      return Object.assign(defaultStyle, { color: '#666' });
+    }
+
+    return defaultStyle;
+  }
+
+  currentToggleDanmakuMessages() {
+    let defaultStyle = {
+      color: '#fefefe',
+      cursor: 'pointer'
+    };
+
+    if (window.isDisabledDanmakuMessage) {
+      return Object.assign(defaultStyle, { color: '#666' });
+    }
+
+    return defaultStyle;
+  }
+
   currentDanmakuHistoryToggleButtonTag() {
     let isShowDanmakuHistory = this.state.isShowDanmakuHistory;
 
@@ -82,6 +110,28 @@ export default class AppLayout extends React.Component {
   handleToggleDanmakuHistory() {
     let isShowDanmakuHistory = this.state.isShowDanmakuHistory;
     this.setState({ isShowDanmakuHistory: !isShowDanmakuHistory });
+  }
+
+  handleToggleAudioVisualizer() {
+    if (window.isDisabledVisualizer) {
+      window.isDisabledVisualizer = false;
+      window.drawVisual = requestAnimationFrame(window.draw);
+    } else {
+      window.isDisabledVisualizer = true;
+      cancelAnimationFrame(window.drawVisual);
+      window.drawVisual = null;
+      window.resizeCanvas();
+    }
+    this.setState({});
+  }
+
+  handleToggleDanmakuMessages() {
+    if (window.isDisabledDanmakuMessage) {
+      window.isDisabledDanmakuMessage = false;
+    } else {
+      window.isDisabledDanmakuMessage = true;
+    }
+    this.setState({});
   }
 
   closeButton() {
@@ -126,6 +176,7 @@ export default class AppLayout extends React.Component {
           className="navbar">
           <button
             onClick={this.handleLikeButton.bind(this)}
+            title="Like it!"
             style={likeButtonStyle}>
             <MdFavorite
               style={{ fontSize: '1.5em' }}
@@ -143,7 +194,6 @@ export default class AppLayout extends React.Component {
               style={{ color: '#fefefe' }}>
               <MdPlaylistPlay
                 style={{ fontSize: '2em' }}
-                alt="Twitter"
               />
             </a>
             <a
@@ -153,7 +203,6 @@ export default class AppLayout extends React.Component {
               style={{ color: '#fefefe' }}>
               <FaTwitter
                 style={{ fontSize: '2em' }}
-                alt="Twitter"
               />
             </a>
             <a
@@ -163,7 +212,6 @@ export default class AppLayout extends React.Component {
               style={{ color: '#fefefe' }}>
               <FaFacebook
                 style={{ fontSize: '2em' }}
-                alt="Twitter"
               />
             </a>
             <a
@@ -173,7 +221,6 @@ export default class AppLayout extends React.Component {
               style={{ color: '#fefefe' }}>
               <FaGitHub
                 style={{ fontSize: '2em' }}
-                alt="GitHub"
               />
             </a>
             <a
@@ -183,11 +230,27 @@ export default class AppLayout extends React.Component {
               style={{ color: '#fefefe' }}>
               <FaYouTube
                 style={{ fontSize: '2em' }}
-                alt="YouTube"
+              />
+            </a>
+            <a
+              onClick={this.handleToggleAudioVisualizer.bind(this)}
+              title="Toogle Audio Visualizer"
+              style={this.currentToggleAudioVisualizer()}>
+              <FaAdjust
+                style={{ fontSize: '2em' }}
+              />
+            </a>
+            <a
+              onClick={this.handleToggleDanmakuMessages.bind(this)}
+              title="Toogle Danmaku messages"
+              style={this.currentToggleDanmakuMessages()}>
+              <FaComment
+                style={{ fontSize: '2em' }}
               />
             </a>
             <a
               onClick={this.handleToggleDanmakuHistory.bind(this)}
+              title="Toogle Danmaku history"
               style={{ color: '#fefefe', cursor: 'pointer' }}>
               {this.currentDanmakuHistoryToggleButtonTag()}
             </a>

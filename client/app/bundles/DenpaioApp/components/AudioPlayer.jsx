@@ -35,6 +35,8 @@ export default class AudioPlayer extends React.Component {
     window.dataArray = new Uint8Array(bufferLength);
 
     stream.addEventListener('play', function () {
+      if (window.isDisabledVisualizer)
+        return;
       window.drawVisual = requestAnimationFrame(window.draw);
     });
 
@@ -42,7 +44,7 @@ export default class AudioPlayer extends React.Component {
       setTimeout(function () {
         cancelAnimationFrame(window.drawVisual);
         window.drawVisual = null;
-      }, 1000);
+      }, 3000);
     });
   }
 

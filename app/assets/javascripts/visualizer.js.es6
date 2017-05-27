@@ -1,11 +1,11 @@
-class Point {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-}
-
 (function() {
+  class Point {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
   var radius = 0;
   var oldVolume = 0;
   var shockwave = Math.max(window.innerWidth, window.innerHeight);
@@ -19,8 +19,7 @@ class Point {
 
   window.draw = function () {
     window.drawVisual = requestAnimationFrame(window.draw);
-    window.canvas.width = window.innerWidth;
-    window.canvas.height = window.innerHeight;
+    resizeCanvas();
     center.x = window.canvas.width / 2;
     center.y = window.canvas.height / 2;
 
@@ -86,10 +85,14 @@ class Point {
   };
 })();
 
-function initializeVisualizer() {
-  window.canvas = document.getElementById('visualizer_render');
+function resizeCanvas() {
   window.canvas.width = window.innerWidth;
   window.canvas.height = window.innerHeight;
+}
+
+function initializeVisualizer() {
+  window.canvas = document.getElementById('visualizer_render');
+  resizeCanvas();
   window.context = window.canvas.getContext('2d');
 }
 

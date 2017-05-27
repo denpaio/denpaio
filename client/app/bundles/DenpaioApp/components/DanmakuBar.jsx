@@ -81,13 +81,6 @@ const danmakuBarStyle = {
   }
 };
 
-const danmakuHistoryOverlayStyle = {
-  position: 'absolute',
-  bottom: '2.5em',
-  left: '0.5em',
-  right: '0',
-};
-
 const danmakuHistoryContainerStyle = {
   maxWidth: '40vw',
   maxHeight: '40vh',
