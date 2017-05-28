@@ -8,7 +8,7 @@
 ## Requirements
 * `rbenv -v` # rbenv 1.0.0
 * `ruby -v` # ruby 2.3.3p222 (2016-11-21 revision 56859) [x86_64-darwin15]
-* `postgres --version` # postgres (PostgreSQL) 9.4.11
+* `postgres --version` # postgres (PostgreSQL) 9.6.3
 
 ## Installation
 
@@ -20,15 +20,23 @@
 
        $ bin/setup
 
-3. Install Foreman if you haven't yet:
+3. Install yarn if you haven't yet:
+
+       $ brew install yarn
+
+4. Install packages:
+
+       $ yarn install
+
+5. Install Foreman if you haven't yet:
 
        $ gem install foreman
 
-4. Start the web server:
+6. Start the web server:
 
        $ foreman start -f Procfile.dev
 
-5. Using a browser, go to `http://localhost:3000` and you'll see the home page.
+7. Using a browser, go to `http://localhost:3000` and you'll see the home page.
 
 ## Testing
 
