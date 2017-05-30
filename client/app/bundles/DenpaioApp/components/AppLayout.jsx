@@ -17,8 +17,7 @@ import Playlist from './Playlist';
 import DanmakuBar from './DanmakuBar';
 import { HotKeys } from 'react-hotkeys';
 
-@Radium
-export default class AppLayout extends React.Component {
+class AppLayout extends React.Component {
   keyMap = {
     'focusDanmakuBar': 'enter',
   };
@@ -273,3 +272,5 @@ const likeButtonStyle = {
     color: 'red',
   }
 };
+
+export default Radium(AppLayout);

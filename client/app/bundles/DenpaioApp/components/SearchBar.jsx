@@ -2,8 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import MdSearch from 'react-icons/lib/md/search';
 
-@Radium
-export default class SearchBar extends React.Component {
+class SearchBar extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let searchbar = e.target.searchbar;
@@ -51,3 +50,5 @@ const searchBarStyle = {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
   }
 };
+
+export default Radium(SearchBar);

@@ -1,21 +1,14 @@
 {
-  "name": "react-webpack-rails-tutorial",
-  "version": "0.0.1",
-  "private": true,
-  "engines": {
-    "node": "6.9.0",
-    "npm": "4.1.1"
-  },
   "scripts": {
-    "postinstall": "cd client && yarn install",
-    "rails-server": "echo 'visit http://localhost:3000/' && foreman start -f Procfile.dev",
-    "test": "rspec"
+    "postinstall": "cd client && yarn install"
   },
+  "name": "denpaio",
+  "private": true,
   "dependencies": {},
   "devDependencies": {
-    "babel-eslint": "^7.1.1",
-    "eslint": "^3.14.0",
-    "eslint-plugin-react": "^6.9.0",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.1",
     "stylelint-config-standard": "^16.0.0"
   },
   "cacheDirectories": [

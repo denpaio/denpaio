@@ -1,8 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 
-@Radium
-export default class DanmakuBar extends React.Component {
+class DanmakuBar extends React.Component {
   sendDanmaku = (event) => {
     event.preventDefault();
     let input = this.refs.input;
@@ -89,3 +88,5 @@ const danmakuHistoryContainerStyle = {
   padding: '0',
   listStyleType: 'none',
 };
+
+export default Radium(DanmakuBar);
