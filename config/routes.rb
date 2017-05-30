@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'pages#index'
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
       end
 
       resources :plays do
-        patch action: :update, on: :collection
+        patch :index, action: :update, on: :collection
       end
 
       resources :caches

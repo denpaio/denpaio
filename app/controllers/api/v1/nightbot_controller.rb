@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Api::V1::NightbotController < ApplicationController
   def execute
     # Usage: !songs current/delete/list/playlist/next/request/skip/save/promote/volume/play/pause

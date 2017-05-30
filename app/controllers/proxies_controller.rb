@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ProxiesController < ApplicationController
   def any
     url = decrypt_by_secret_key(params[:url])
