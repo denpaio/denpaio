@@ -1,8 +1,10 @@
+dist: trusty
 sudo: false
 
 language: ruby
 
 services:
+  - postgresql
   - redis
 
 cache:
@@ -12,6 +14,7 @@ cache:
   yarn: true
 
 addons:
+  postgresql: 9.6
   code_climate:
     repo_token:
       secure: a5Jno6OD8qzSoujHNIE7EHneQ+xfowN7H6gQg8wSyy/2JFlsz244+RYvLB3ZWJALuL5JOQy5LzReYG5TToy5HZiqlCMcJn/ZtmYmAf73jdjj9skS1zFlLjkzV43WQYaXKoIjsM3Kd0+kUCwoj6PxiJCsPn2c14Yd790lUcg4t0SdITshCHVCLDLx+9zP8RHCNBvAXJ91rIgqAp71Iuy3a1wypM6jLdZTs8sxLcCcwygD+mfzYDi9N1PU0T/vLLXpRhhwyRxv4OpgRbFiLXWnAqKYOUHhAFK7WOly42V4NI43huyFaZXRys9Ke9cyqW7PcIvqu49Led75cLC4NDe7SjQmNHrXfxwVaCnf1YPmuq5G4ws5ckYzOraHXqqN3vhDmdQlzok6j84uKtWL1BT7tH8x7fN1KXUnl2kR9ux4SRfZ2ikR6EgbjrU1v35DGorwOnBkqrATl5uL2kukLEPxOLPKZGfcN7P/ipaq1k8deT1h8bFSXUsmXhL8tNqyLOFJG2OyQMEu/5IV25X6uF3JDmaKeK4diRxSLwt1LeiB2rx2ZkVm3ebkAjtEV+sUkDSnXFY9e7dN3TQnWlUCZGrsPYgy6T6NEIBTCKEi+e7FT0fbTudhESsSmxvswoO3Lxhe5y/wpCH1XhSZOzsDI4SnluBa0S1+k+wPNU2BFdBY2Wo=

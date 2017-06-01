@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Api::V1::CachesController < ApplicationController
   before_action :authenticate
   after_action :update_listener_count, only: :create

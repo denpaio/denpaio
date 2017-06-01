@@ -1,14 +1,15 @@
 # frozen_string_literal: true
+
 # Shown below are the defaults for configuration
 ReactOnRails.configure do |config|
   # Client bundles are configured in application.js
 
   # Directory where your generated assets go. All generated assets must go to the same directory.
   # Configure this in your webpack config files. This relative to your Rails root directory.
-  config.generated_assets_dir = File.join(%w(app assets webpack))
+  config.generated_assets_dir = File.join(%w[public webpack], Rails.env)
 
   # Define the files we need to check for webpack compilation when running tests.
-  config.webpack_generated_files = %w(webpack-bundle.js)
+  config.webpack_generated_files = %w[webpack-bundle.js]
 
   # This is the file used for server rendering of React when using `(prerender: true)`
   # If you are never using server rendering, you may set this to "".
@@ -17,7 +18,7 @@ ReactOnRails.configure do |config|
   config.server_bundle_js_file = 'webpack-bundle.js'
 
   # If you are using the ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
-  # with rspec then this controls what npm command is run
+  # with rspec then this controls what yarn command is run
   # to automatically refresh your webpack assets on every test run.
   config.npm_build_test_command = 'yarn run build:test'
 
@@ -63,21 +64,24 @@ ReactOnRails.configure do |config|
   ################################################################################
   # I18N OPTIONS
   ################################################################################
-  # Replace the following line to the location where you keep translation.js & default.js.
-  config.i18n_dir = Rails.root.join('client', 'app', 'libs', 'i18n')
+  # Replace the following line to the location where you keep translation.js & default.js for use
+  # by the npm packages react-intl. Be sure this directory exists!
+  # config.i18n_dir = Rails.root.join("client", "app", "libs", "i18n")
+  #
+  # Replace the following line to the location where you keep your client i18n yml files
+  # that will source for automatic generation on translations.js & default.js
+  # By default(without this option) all yaml files from Rails.root.join("config", "locales") and installed gems are loaded
+  # config.i18n_yml_dir = Rails.root.join("config", "locales", "client")
 
   ################################################################################
   # MISCELLANEOUS OPTIONS
   ################################################################################
 
-  # Default is false, enable if your content security policy doesn't include `style-src: 'unsafe-inline'`
-  config.skip_display_none = false
-
   # The server render method - either ExecJS or NodeJS
   config.server_render_method = 'ExecJS'
 
-  # Client js uses assets not digested by rails.
-  # For any asset matching this regex, non-digested symlink will be created (what webpack's css wants)
-  # To disable symlinks set this parameter to nil.
-  config.symlink_non_digested_assets_regex = /\.(png|jpg|jpeg|gif|tiff|woff|ttf|eot|svg|map)/
+  # If you want to use webpack for CSS and images, and still use the asset pipeline,
+  # see https://github.com/shakacode/react_on_rails/blob/master/docs/additional-reading/rails-assets.md
+  # And you will use a setting like this.
+  # config.symlink_non_digested_assets_regex = /\.(png|jpg|jpeg|gif|tiff|woff|ttf|eot|svg|map)/
 end

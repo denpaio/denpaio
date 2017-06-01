@@ -1,49 +1,66 @@
-/* eslint comma-dangle: ["error",
-  {"functions": "never", "arrays": "only-multiline", "objects":
-"only-multiline"} ] */
+// For inspiration on your webpack configuration, see:
+// https://github.com/shakacode/react_on_rails/tree/master/spec/dummy/client
+// https://github.com/shakacode/react-webpack-rails-tutorial/tree/master/client
 
 const webpack = require('webpack');
-const path = require('path');
+const { resolve } = require('path');
 
-const devBuild = process.env.NODE_ENV !== 'production';
-const nodeEnv = devBuild ? 'development' : 'production';
+const ManifestPlugin = require('webpack-manifest-plugin');
+const webpackConfigLoader = require('react-on-rails/webpackConfigLoader');
+
+const configPath = resolve('..', 'config');
+const { devBuild, manifest, webpackOutputPath, webpackPublicOutputDir } =
+  webpackConfigLoader(configPath);
 
 const config = {
-  entry: [
-    'es5-shim/es5-shim',
-    'es5-shim/es5-sham',
-    'babel-polyfill',
-    './app/bundles/DenpaioApp/startup/registration',
-  ],
+
+  context: resolve(__dirname),
+
+  entry: {
+    'webpack-bundle': [
+      'es5-shim/es5-shim',
+      'es5-shim/es5-sham',
+      'babel-polyfill',
+      './app/bundles/DenpaioApp/startup/registration',
+    ],
+  },
 
   output: {
-    filename: 'webpack-bundle.js',
-    path: '../app/assets/webpack',
+    // Name comes from the entry section.
+    filename: '[name]-[hash].js',
+
+    // Leading slash is necessary
+    publicPath: `/${webpackPublicOutputDir}`,
+    path: webpackOutputPath,
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
-    alias: {
-      react: path.resolve('./node_modules/react'),
-      'react-dom': path.resolve('./node_modules/react-dom'),
-    },
+    extensions: ['.js', '.jsx'],
   },
+
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(nodeEnv),
-      },
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
+      DEBUG: false,
     }),
+    new ManifestPlugin({ fileName: manifest, writeToFileEmit: true }),
   ],
+
   module: {
-    loaders: [
+    rules: [
       {
         test: require.resolve('react'),
-        loader: 'imports?shim=es5-shim/es5-shim&sham=es5-shim/es5-sham',
+        use: {
+          loader: 'imports-loader',
+          options: {
+            shim: 'es5-shim/es5-shim',
+            sham: 'es5-shim/es5-sham',
+          },
+        },
       },
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
     ],
@@ -56,8 +73,5 @@ if (devBuild) {
   console.log('Webpack dev build for Rails'); // eslint-disable-line no-console
   module.exports.devtool = 'eval-source-map';
 } else {
-  config.plugins.push(
-    new webpack.optimize.DedupePlugin()
-  );
   console.log('Webpack production build for Rails'); // eslint-disable-line no-console
 }

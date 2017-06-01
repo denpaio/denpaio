@@ -9,6 +9,9 @@ AllCops:
 Rails:
   Enabled: true
 
+Bundler/OrderedGems:
+  Enabled: false
+
 Documentation:
   Enabled: false
 
@@ -25,6 +28,9 @@ Style/ClassAndModuleChildren:
   Enabled: false
 
 Style/FileName:
+  Enabled: false
+
+Style/SymbolArray:
   Enabled: false
 
 Layout/DotPosition:

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :tracks do
   desc "Create or update by identity"
   task :create_or_update_by_identity, [:identity] => :environment do |_t, args|

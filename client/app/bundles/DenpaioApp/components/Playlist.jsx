@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+
 import AudioPlayer from './AudioPlayer';
-import SpinPlayer from './SpinPlayer';
 import SearchBar from './SearchBar';
 import Slider from 'rc-slider';
 
@@ -175,7 +176,7 @@ export default class Playlist extends React.Component {
   }
 
   handleSearch(keyword) {
-    this.props.router.push('/search?q=' + encodeURIComponent(keyword));
+    this.context.router.history.push('/search?q=' + encodeURIComponent(keyword));
   }
 
   render() {
@@ -190,3 +191,8 @@ export default class Playlist extends React.Component {
     );
   }
 }
+
+Playlist.contextTypes = {
+  router: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
+};
