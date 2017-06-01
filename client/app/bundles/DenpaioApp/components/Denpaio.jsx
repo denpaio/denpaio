@@ -66,39 +66,21 @@ class Denpaio extends React.Component {
     return pathname === '/' ? {} : defaultStyle;
   }
 
-  currentToggleAudioVisualizer() {
-    let defaultStyle = {
-      color: '#fefefe',
-      cursor: 'pointer'
-    };
-
-    if (window.isDisabledVisualizer) {
-      return Object.assign(defaultStyle, { color: '#666' });
+  currentButtonStyle(state) {
+    if (state) {
+      return Object.assign({}, linkButtonStyle, { color: '#666' });
     }
 
-    return defaultStyle;
-  }
-
-  currentToggleDanmakuMessages() {
-    let defaultStyle = {
-      color: '#fefefe',
-      cursor: 'pointer'
-    };
-
-    if (window.isDisabledDanmakuMessage) {
-      return Object.assign(defaultStyle, { color: '#666' });
-    }
-
-    return defaultStyle;
+    return linkButtonStyle;
   }
 
   currentDanmakuHistoryToggleButtonTag() {
     let isShowDanmakuHistory = this.state.isShowDanmakuHistory;
 
     if (isShowDanmakuHistory) {
-      return <FaAngleDown style={{ fontSize: '2em' }} />;
+      return <FaAngleDown style={linkButtonIconStyle} />;
     } {
-      return <FaAngleUp style={{ fontSize: '2em' }} />;
+      return <FaAngleUp style={linkButtonIconStyle} />;
     }
   }
 
@@ -196,67 +178,67 @@ class Denpaio extends React.Component {
             <a
               href="denpaio.m3u"
               title="M3U playlist"
-              style={{ color: '#fefefe' }}>
+              style={linkButtonStyle}>
               <MdPlaylistPlay
-                style={{ fontSize: '2em' }}
+                style={linkButtonIconStyle}
               />
             </a>
             <a
               href="https://twitter.com/denpaio"
               target="_blank"
               title="Twitter"
-              style={{ color: '#fefefe' }}>
+              style={linkButtonStyle}>
               <FaTwitter
-                style={{ fontSize: '2em' }}
+                style={linkButtonIconStyle}
               />
             </a>
             <a
               href="https://www.facebook.com/denpaio/"
               target="_blank"
               title="Facebook"
-              style={{ color: '#fefefe' }}>
+              style={linkButtonStyle}>
               <FaFacebook
-                style={{ fontSize: '2em' }}
+                style={linkButtonIconStyle}
               />
             </a>
             <a
               href="https://github.com/denpaio/denpaio"
               target="_blank"
               title="GitHub"
-              style={{ color: '#fefefe' }}>
+              style={linkButtonStyle}>
               <FaGitHub
-                style={{ fontSize: '2em' }}
+                style={linkButtonIconStyle}
               />
             </a>
             <a
               href="https://www.youtube.com/channel/UCmU7uHdtumev4giWUGHt9xA?sub_confirmation=1"
               target="_blank"
               title="YouTube"
-              style={{ color: '#fefefe' }}>
+              style={linkButtonStyle}>
               <FaYouTube
-                style={{ fontSize: '2em' }}
+                style={linkButtonIconStyle}
               />
             </a>
             <a
               onClick={this.handleToggleAudioVisualizer.bind(this)}
               title="Toogle Audio Visualizer"
-              style={this.currentToggleAudioVisualizer()}>
+              style={this.currentButtonStyle(window.isDisabledVisualizer)}>
               <FaAdjust
-                style={{ fontSize: '2em' }}
+                style={linkButtonIconStyle}
               />
             </a>
             <a
               onClick={this.handleToggleDanmakuMessages.bind(this)}
               title="Toogle Danmaku messages"
-              style={this.currentToggleDanmakuMessages()}>
+              style={this.currentButtonStyle(window.isDisabledDanmakuMessage)}>
               <FaComment
-                style={{ fontSize: '2em' }}
+                style={linkButtonIconStyle}
               />
             </a>
             <a
               onClick={this.handleToggleDanmakuHistory.bind(this)}
               title="Toogle Danmaku history"
-              style={{ color: '#fefefe', cursor: 'pointer' }}>
+              style={linkButtonStyle}>
               {this.currentDanmakuHistoryToggleButtonTag()}
             </a>
           </div>
@@ -282,6 +264,16 @@ const likeButtonStyle = {
   ':active': {
     color: 'red',
   }
+};
+
+const linkButtonStyle = {
+  display: 'inline-block',
+  color: '#fefefe',
+  cursor: 'pointer',
+};
+
+const linkButtonIconStyle = {
+  fontSize: '2em',
 };
 
 export default Radium(Denpaio);
