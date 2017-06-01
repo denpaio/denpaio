@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactPaginate from 'react-paginate';
+
 import SpinPlayer from '../SpinPlayer';
 
 export default class SearchPage extends React.Component {
@@ -55,15 +57,21 @@ export default class SearchPage extends React.Component {
   }
 
   componentDidMount() {
-    let keyword = this.props.location.query.q;
-    let page = this.props.location.query.page;
+    let search = this.props.location.search;
+    let params = new URLSearchParams(search);
+    let keyword = params.get('q');
+    let page = params.get('page');
+
     this.setState({ keyword, page });
     this.fetchSearchResults(keyword, page);
   }
 
   componentWillReceiveProps(nextProps) {
-    let keyword = nextProps.location.query.q;
-    let page = nextProps.location.query.page;
+    let search = nextProps.location.search;
+    let params = new URLSearchParams(search);
+    let keyword = params.get('q');
+    let page = params.get('page');
+
     this.setState({ keyword, page });
     this.fetchSearchResults(keyword, page);
   }
@@ -79,7 +87,7 @@ export default class SearchPage extends React.Component {
     event.preventDefault();
     let self = event.target;
     let trackId = self.dataset.trackId;
-    this.props.router.push(`/tracks/${trackId}`);
+    this.context.router.history.push(`/tracks/${trackId}`);
   }
 
   handlePageHref(page) {
@@ -90,7 +98,7 @@ export default class SearchPage extends React.Component {
   handlePageClick(event) {
     let keyword = this.state.keyword;
     let page = event.selected + 1;
-    this.props.router.push('/search?q=' + encodeURIComponent(keyword) + `&page=${page}`);
+    this.context.router.history.push('/search?q=' + encodeURIComponent(keyword) + `&page=${page}`);
   }
 
   requestColumn(result) {
@@ -213,6 +221,11 @@ export default class SearchPage extends React.Component {
     );
   }
 }
+
+SearchPage.contextTypes = {
+  router: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
+};
 
 const searchTableStyle = {
   width: '100%',

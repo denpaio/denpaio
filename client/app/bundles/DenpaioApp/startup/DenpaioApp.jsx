@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import configureStore from '../store/denpaioStore';
 import DenpaioContainer from '../containers/DenpaioContainer';
@@ -11,7 +12,9 @@ import DenpaioContainer from '../containers/DenpaioContainer';
 // knowing the locale. See the React on Rails documentation for more info on the railsContext
 const DenpaioApp = (props, _railsContext) => (
   <Provider store={configureStore(props)}>
-    <DenpaioContainer />
+    <BrowserRouter>
+      <DenpaioContainer />
+    </BrowserRouter>
   </Provider>
 );
 
