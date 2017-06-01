@@ -18,4 +18,6 @@ Rake::Task['tracks:create_or_update_by_identity'].reenable
 Rake::Task['tracks:create_or_update_by_identity'].invoke('570091034')
 Rake::Task['tracks:create_or_update_by_identity'].reenable
 
-Track.find_by(identity: '1106341688').update!(sha1: 'a5cb4c93e0f4d5b8a81926b35924a0e5ab44afae')
+initial_track = Track.find_by(identity: '1106341688')
+initial_track.update!(sha1: 'a5cb4c93e0f4d5b8a81926b35924a0e5ab44afae')
+initial_track.plays.create!(played_at: Time.zone.now)
