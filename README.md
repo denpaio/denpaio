@@ -6,9 +6,10 @@
 * A cup of coffee.
 
 ## Requirements
-* `rbenv -v` # rbenv 1.0.0
-* `ruby -v` # ruby 2.3.3p222 (2016-11-21 revision 56859) [x86_64-darwin15]
+* `rbenv --version` # rbenv 1.0.0
+* `ruby --version` # ruby 2.3.3p222 (2016-11-21 revision 56859) [x86_64-darwin15]
 * `postgres --version` # postgres (PostgreSQL) 9.6.3
+* `redis-server --version` # Redis server v=3.2.1 sha=00000000:0 malloc=libc bits=64 build=62a67eec83b28403
 
 ## Installation
 
