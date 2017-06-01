@@ -135,9 +135,7 @@ class Denpaio extends React.Component {
   }
 
   render() {
-    const { store } = this.context;
-    let backgroundImage = store.getState().backgroundImage;
-
+    let backgroundImage = this.props.backgroundImage;
     backgroundStyle['backgroundImage'] = `url(${backgroundImage})`;
 
     return (
@@ -247,11 +245,6 @@ class Denpaio extends React.Component {
     );
   }
 }
-
-Denpaio.contextTypes = {
-  router: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
-};
 
 const backgroundStyle = {
   backgroundSize: 'cover',
