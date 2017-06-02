@@ -36,12 +36,12 @@ const playlist = (state = [], action) => {
     return newState;
   case DENPAIO_PLAY_UPDATE:
     newPlay = action.play;
-    index = playlist.findIndex((el) => el.id === newPlay.id);
+    index = newState.findIndex((el) => el.id === newPlay.id);
 
     if (newPlay.played_at && index !== -1) {
-      playlist.splice(0, index + 1, newPlay);
+      newState.splice(0, index + 1, newPlay);
     } else {
-      playlist.splice(index, 1, newPlay);
+      newState.splice(index, 1, newPlay);
     }
 
     return newState;
