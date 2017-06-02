@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Radium from 'radium';
 import { HotKeys } from 'react-hotkeys';
-import { Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import MdClose from 'react-icons/lib/md/close';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
@@ -84,10 +84,6 @@ class Denpaio extends React.Component {
     }
   }
 
-  handleCloseButton() {
-    this.context.router.history.push('/');
-  }
-
   handleLikeButton() {
     window.App.danmakuChannel.send({ message: '❤️' });
   }
@@ -126,11 +122,11 @@ class Denpaio extends React.Component {
       return;
 
     return (
-      <a
+      <Link
         className="close-button"
-        onClick={this.handleCloseButton.bind(this)}>
+        to="/">
         <MdClose />
-      </a>
+      </Link>
     );
   }
 
@@ -154,8 +150,10 @@ class Denpaio extends React.Component {
           className="container"
           style={this.currentStyle()}>
           {this.closeButton()}
-          <Route path="/search" component={SearchPage} />
-          <Route path="/tracks/:id" component={TracksPage} />
+          <Switch>
+            <Route path="/search" component={SearchPage} />
+            <Route path="/tracks/:id" component={TracksPage} />
+          </Switch>
         </section>
         <footer
           className="navbar">
