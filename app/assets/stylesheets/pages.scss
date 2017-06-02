@@ -56,13 +56,13 @@
       line-height: 0;
       background-color: rgba(0, 15, 25, 0.3);
       font-size: 2em;
-      color: #666;
+      color: #999;
       transition: all 0.1s linear;
 
       &:hover {
         border: 1px solid #19a5ff;
         background-color: rgba(0, 15, 25, 0.5);
-        color: #999;
+        color: #ccc;
       }
     }
   }
