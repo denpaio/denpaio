@@ -16,10 +16,12 @@ import FaAdjust from 'react-icons/lib/fa/adjust';
 import FaComment from 'react-icons/lib/fa/comment-o';
 import FaGitHub from 'react-icons/lib/fa/github';
 
-import Playlist from './Playlist';
 import DanmakuBar from './DanmakuBar';
 import SearchPage from './pages/SearchPage';
 import TracksPage from './pages/TracksPage';
+
+import PlaylistContainer from '../containers/PlaylistContainer';
+import PlaylistPageContainer from '../containers/PlaylistPageContainer';
 
 class Denpaio extends React.Component {
   keyMap = {
@@ -144,13 +146,14 @@ class Denpaio extends React.Component {
         <canvas id="visualizer_render"></canvas>
         <header
           className="player">
-          <Playlist />
+          <PlaylistContainer />
         </header>
         <section
           className="container"
           style={this.currentStyle()}>
           {this.closeButton()}
           <Switch>
+            <Route path="/playlist" component={PlaylistPageContainer} />
             <Route path="/search" component={SearchPage} />
             <Route path="/tracks/:id" component={TracksPage} />
           </Switch>
