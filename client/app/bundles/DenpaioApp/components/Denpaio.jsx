@@ -259,7 +259,7 @@ const likeButtonStyle = {
 
 const linkButtonStyle = {
   display: 'inline-block',
-  color: '#fefefe',
+  color: 'inherit',
   cursor: 'pointer',
 };
 
