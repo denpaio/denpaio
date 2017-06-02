@@ -1,9 +1,17 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Slider from 'rc-slider';
+import { Link } from 'react-router-dom';
 
 import AudioPlayer from './AudioPlayer';
 import SearchBar from './SearchBar';
-import Slider from 'rc-slider';
+
+import {
+  reloadPlaylist,
+  addToPlaylist,
+  updatePlaylist,
+  destroyOfPlaylist,
+} from '../actions/denpaioActionCreators';
 
 export default class Playlist extends React.Component {
   constructor(props) {
@@ -17,48 +25,26 @@ export default class Playlist extends React.Component {
   }
 
   componentDidMount() {
-    let self = this;
+    const self = this;
+    const { store } = this.context;
 
     window.App.playlistChannel = window.App.cable.subscriptions.create('PlaylistChannel', {
       connected: function() {
         window.App.playlistChannel.send({action: 'reload'});
       },
       received: function(data) {
-        let playlist = [];
-        let index = null;
-
         switch(data.action) {
         case 'reload':
-          self.setState({ playlist: data.objects.reverse() });
+          store.dispatch(reloadPlaylist(data.objects));
           break;
         case 'create':
-          playlist = self.state.playlist;
-
-          if (data.object.played_at) {
-            playlist.shift();
-            playlist.unshift(data.object);
-          } else {
-            playlist.push(data.object);
-          }
-
-          self.setState({ playlist: playlist });
+          store.dispatch(addToPlaylist(data.object));
           break;
         case 'update':
-          playlist = self.state.playlist;
-          index = playlist.findIndex((el) => el.id === data.object.id);
-
-          if (data.object.played_at && index !== -1) {
-            playlist.splice(0, index + 1, data.object);
-          } else {
-            playlist.splice(index, 1, data.object);
-          }
-
-          self.setState({ playlist: playlist });
+          store.dispatch(updatePlaylist(data.object));
           break;
         case 'destroy':
-          playlist = self.state.playlist.filter((el) => el.id !== data.object.id);
-
-          self.setState({ playlist: playlist });
+          store.dispatch(destroyOfPlaylist(data.object));
           break;
         }
       }
@@ -109,7 +95,9 @@ export default class Playlist extends React.Component {
 
   titleSection(track) {
     return (
-      <div>
+      <Link
+        to="/playlist"
+        style={{ display: 'block', color: 'inherit' }}>
         <div>{track.name}</div>
         <div
           style={{ fontSize: 'smaller' }}>
@@ -125,7 +113,7 @@ export default class Playlist extends React.Component {
             {track.response.track_time_millis.toHumanDuration()}
           </span>
         </div>
-      </div>
+      </Link>
     );
   }
 
@@ -184,7 +172,7 @@ export default class Playlist extends React.Component {
       <div>
         <table>
           <thead>
-            {this.headColumn(this.state.playlist[0])}
+            {this.headColumn(this.props.playlist[0])}
           </thead>
         </table>
       </div>

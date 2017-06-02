@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactPaginate from 'react-paginate';
+import { Link } from 'react-router-dom';
 
 import SpinPlayer from '../SpinPlayer';
 
@@ -83,13 +84,6 @@ export default class SearchPage extends React.Component {
     this.fetchRequestResult(trackId);
   }
 
-  handleClickName(event) {
-    event.preventDefault();
-    let self = event.target;
-    let trackId = self.dataset.trackId;
-    this.context.router.history.push(`/tracks/${trackId}`);
-  }
-
   handlePageHref(page) {
     let keyword = this.state.keyword;
     return '/search?q=' + encodeURIComponent(keyword) + `&page=${page}`;
@@ -123,12 +117,10 @@ export default class SearchPage extends React.Component {
   nameColumn(result) {
     if (result.id) {
       return (
-        <a
-          href={`/tracks/${result.id}`}
-          data-track-id={result.id}
-          onClick={this.handleClickName.bind(this)}>
+        <Link
+          to={`/tracks/${result.id}`}>
           {result.response.track_name}
-        </a>
+        </Link>
       );
     } else {
       return result.response.track_name;

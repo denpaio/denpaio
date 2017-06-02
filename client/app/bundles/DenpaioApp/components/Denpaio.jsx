@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Radium from 'radium';
 import { HotKeys } from 'react-hotkeys';
-import { Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import MdClose from 'react-icons/lib/md/close';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
@@ -16,10 +16,12 @@ import FaAdjust from 'react-icons/lib/fa/adjust';
 import FaComment from 'react-icons/lib/fa/comment-o';
 import FaGitHub from 'react-icons/lib/fa/github';
 
-import Playlist from './Playlist';
 import DanmakuBar from './DanmakuBar';
 import SearchPage from './pages/SearchPage';
 import TracksPage from './pages/TracksPage';
+
+import PlaylistContainer from '../containers/PlaylistContainer';
+import PlaylistPageContainer from '../containers/PlaylistPageContainer';
 
 class Denpaio extends React.Component {
   keyMap = {
@@ -84,10 +86,6 @@ class Denpaio extends React.Component {
     }
   }
 
-  handleCloseButton() {
-    this.context.router.history.push('/');
-  }
-
   handleLikeButton() {
     window.App.danmakuChannel.send({ message: '❤️' });
   }
@@ -126,18 +124,16 @@ class Denpaio extends React.Component {
       return;
 
     return (
-      <a
+      <Link
         className="close-button"
-        onClick={this.handleCloseButton.bind(this)}>
+        to="/">
         <MdClose />
-      </a>
+      </Link>
     );
   }
 
   render() {
-    const { store } = this.context;
-    let backgroundImage = store.getState().backgroundImage;
-
+    let backgroundImage = this.props.backgroundImage;
     backgroundStyle['backgroundImage'] = `url(${backgroundImage})`;
 
     return (
@@ -150,14 +146,17 @@ class Denpaio extends React.Component {
         <canvas id="visualizer_render"></canvas>
         <header
           className="player">
-          <Playlist />
+          <PlaylistContainer />
         </header>
         <section
           className="container"
           style={this.currentStyle()}>
           {this.closeButton()}
-          <Route path="/search" component={SearchPage} />
-          <Route path="/tracks/:id" component={TracksPage} />
+          <Switch>
+            <Route path="/playlist" component={PlaylistPageContainer} />
+            <Route path="/search" component={SearchPage} />
+            <Route path="/tracks/:id" component={TracksPage} />
+          </Switch>
         </section>
         <footer
           className="navbar">
@@ -248,11 +247,6 @@ class Denpaio extends React.Component {
   }
 }
 
-Denpaio.contextTypes = {
-  router: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired,
-};
-
 const backgroundStyle = {
   backgroundSize: 'cover',
   backgroundPosition: '50% 30%',
@@ -268,7 +262,7 @@ const likeButtonStyle = {
 
 const linkButtonStyle = {
   display: 'inline-block',
-  color: '#fefefe',
+  color: 'inherit',
   cursor: 'pointer',
 };
 

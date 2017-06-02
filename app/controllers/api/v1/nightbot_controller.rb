@@ -10,7 +10,7 @@ class Api::V1::NightbotController < ApplicationController
       render text: format('Now playing: %s - %s', track.artist, track.name)
     when 'playlist'
       plays = Play.where(played_at: nil)
-      render text: plays.map { |play| play.track.name }.reverse.join(', ')
+      render text: plays.map { |play| play.track.name }.reverse.inspect
     when /request\s+(?<name>.+)/
       name = Regexp.last_match(:name)
       track = Track.find_by(name: name)

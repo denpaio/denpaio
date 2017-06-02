@@ -32,12 +32,12 @@ export default class TracksPage extends React.Component {
   }
 
   componentDidMount() {
-    let id = this.props.params.id;
+    let id = this.props.match.params.id;
     this.fetchTrackDetail(id);
   }
 
   componentWillReceiveProps(nextProps) {
-    let id = nextProps.params.id;
+    let id = nextProps.match.params.id;
     this.fetchTrackDetail(id);
   }
 
