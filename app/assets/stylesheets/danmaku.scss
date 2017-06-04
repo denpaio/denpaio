@@ -1,5 +1,6 @@
-#danmaku-history-overlay {
+#danmaku-history-wrapper {
   transition: all 0.1s linear;
+  pointer-events: none;
 
   li {
     line-height: 1.6;
@@ -9,6 +10,7 @@
       display: inline-block;
       padding-left: 0.5em;
       padding-right: 3em;
+      pointer-events: visible;
       background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 80%, transparent);
     }
   }
