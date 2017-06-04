@@ -14,19 +14,20 @@ export default class DanmakuBar extends React.Component {
       input.blur();
   };
 
-  currentDanmakuHistoryOverlayStyle() {
-    const danmakuHistoryOverlayStyle = {
+  currentDanmakuHistoryWrapperStyle() {
+    const defaultStyle = {
       position: 'absolute',
       bottom: '2.5em',
-      left: '0.5em',
+      left: '0',
       right: '0',
+      overflow: 'hidden',
     };
 
     if (!this.props.showDanmakuHistory) {
-      return Object.assign(danmakuHistoryOverlayStyle, { display: 'none' });
+      return Object.assign({}, defaultStyle, { display: 'none' });
     }
 
-    return danmakuHistoryOverlayStyle;
+    return defaultStyle;
   }
 
   render() {
@@ -46,8 +47,8 @@ export default class DanmakuBar extends React.Component {
           style={danmakuBarStyle}
         />
         <div
-          id="danmaku-history-overlay"
-          style={this.currentDanmakuHistoryOverlayStyle()}>
+          id="danmaku-history-wrapper"
+          style={this.currentDanmakuHistoryWrapperStyle()}>
           <ul
             id="danmaku-history-container"
             style={danmakuHistoryContainerStyle}>
@@ -82,10 +83,11 @@ const danmakuBarStyle = {
 };
 
 const danmakuHistoryContainerStyle = {
-  maxWidth: '40vw',
+  width: 'calc(100% + 17px)',
   maxHeight: '40vh',
+  overflow: 'hidden',
   overflowY: 'auto',
-  margin: '0',
+  margin: '0 0.5em',
   padding: '0',
   listStyleType: 'none',
 };
