@@ -64,26 +64,26 @@ export default class AppLayout extends React.Component {
   }
 
   currentToggleAudioVisualizer() {
-    let defaultStyle = {
+    const defaultStyle = {
       color: '#fefefe',
       cursor: 'pointer'
     };
 
     if (window.isDisabledVisualizer) {
-      return Object.assign(defaultStyle, { color: '#666' });
+      return Object.assign({}, defaultStyle, { color: '#666' });
     }
 
     return defaultStyle;
   }
 
   currentToggleDanmakuMessages() {
-    let defaultStyle = {
+    const defaultStyle = {
       color: '#fefefe',
       cursor: 'pointer'
     };
 
     if (window.isDisabledDanmakuMessage) {
-      return Object.assign(defaultStyle, { color: '#666' });
+      return Object.assign({}, defaultStyle, { color: '#666' });
     }
 
     return defaultStyle;
