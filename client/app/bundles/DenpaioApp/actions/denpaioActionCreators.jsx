@@ -5,7 +5,7 @@ import {
   DENPAIO_PLAY_RELOAD,
   DENPAIO_PLAY_CREATE,
   DENPAIO_PLAY_UPDATE,
-  DENPAIO_PLAY_DESTROY
+  DENPAIO_PLAY_DESTROY,
 } from '../constants/denpaioConstants';
 
 export const updateBackgroundImage = (url) => ({

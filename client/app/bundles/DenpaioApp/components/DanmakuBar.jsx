@@ -7,7 +7,7 @@ class DanmakuBar extends React.Component {
     let input = this.refs.input;
     let text = input.value.trim();
     if (text)
-      window.App.danmakuChannel.send({ message: text });
+      window.App.danmakuChannel.send({ action: 'create', message: text });
     input.value = '';
     if (!text)
       input.blur();
@@ -63,7 +63,7 @@ const danmakuFormStyle = {
   ':focus': {
     outline: 'none',
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
-  }
+  },
 };
 
 const danmakuBarStyle = {
@@ -78,7 +78,7 @@ const danmakuBarStyle = {
   ':focus': {
     width: '400px',
     boxShadow: '0 0 5px #cacaca',
-  }
+  },
 };
 
 const danmakuHistoryContainerStyle = {

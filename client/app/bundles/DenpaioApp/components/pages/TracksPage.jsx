@@ -6,7 +6,7 @@ export default class TracksPage extends React.Component {
     this.state = {
       id: null,
       isAdmin: window.isAdmin,
-      data: {}
+      data: {},
     };
   }
 
@@ -25,7 +25,7 @@ export default class TracksPage extends React.Component {
         }
         self.setState({
           id: id,
-          data: data
+          data: data,
         });
       });
     });
@@ -43,7 +43,7 @@ export default class TracksPage extends React.Component {
 
   adminFunctionStyle() {
     let defaultStyle = {
-      display: 'none'
+      display: 'none',
     };
 
     if (this.state.isAdmin) {

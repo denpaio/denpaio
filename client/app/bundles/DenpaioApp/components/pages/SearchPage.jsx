@@ -43,7 +43,7 @@ export default class SearchPage extends React.Component {
       body: 'track_id=' + encodeURIComponent(trackId),
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
       },
     })
     .then((response) => {
