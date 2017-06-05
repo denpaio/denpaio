@@ -7,7 +7,7 @@ class DanmakuBar extends React.Component {
     let input = this.refs.input;
     let text = input.value.trim();
     if (text)
-      window.App.danmakuChannel.send({ message: text });
+      window.App.danmakuChannel.send({ action: 'create', message: text });
     input.value = '';
     if (!text)
       input.blur();

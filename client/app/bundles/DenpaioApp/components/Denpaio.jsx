@@ -87,7 +87,7 @@ class Denpaio extends React.Component {
   }
 
   handleLikeButton() {
-    window.App.danmakuChannel.send({ message: '❤️' });
+    window.App.danmakuChannel.send({ action: 'create', message: '❤️' });
   }
 
   handleToggleDanmakuHistory() {
