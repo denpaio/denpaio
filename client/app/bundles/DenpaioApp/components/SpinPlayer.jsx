@@ -7,7 +7,7 @@ export default class SpinPlayer extends React.Component {
     super(props);
 
     this.state = {
-      isPlaying: false
+      isPlaying: false,
     };
     this.eventListenerEventNames = ['play', 'pause'];
   }
@@ -21,7 +21,7 @@ export default class SpinPlayer extends React.Component {
   currentStyle() {
     let defaultStyle = {
       color: '#FFFFFF',
-      fontSize: 'larger'
+      fontSize: 'larger',
     };
 
     if (this.props.disabled) {

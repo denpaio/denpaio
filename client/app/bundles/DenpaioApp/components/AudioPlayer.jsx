@@ -6,7 +6,7 @@ export default class AudioPlayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isPlaying: false
+      isPlaying: false,
     };
 
     let self = this;

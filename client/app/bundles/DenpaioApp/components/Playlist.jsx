@@ -30,7 +30,7 @@ export default class Playlist extends React.Component {
 
     window.App.playlistChannel = window.App.cable.subscriptions.create('PlaylistChannel', {
       connected: function() {
-        window.App.playlistChannel.send({action: 'reload'});
+        window.App.playlistChannel.send({ action: 'reload' });
       },
       received: function(data) {
         switch(data.action) {
@@ -47,17 +47,17 @@ export default class Playlist extends React.Component {
           store.dispatch(destroyOfPlaylist(data.object));
           break;
         }
-      }
+      },
     });
 
     window.App.StatusChannel = window.App.cable.subscriptions.create('StatusChannel', {
       connected: function() {
-        window.App.StatusChannel.send({action: 'reload'});
+        window.App.StatusChannel.send({ action: 'reload' });
       },
       received: function(data) {
         let listenerCount = data.object.listener_count || 0;
         self.setState({ listenerCount });
-      }
+      },
     });
   }
 

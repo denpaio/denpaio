@@ -63,7 +63,7 @@ const danmakuFormStyle = {
   ':focus': {
     outline: 'none',
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
-  }
+  },
 };
 
 const danmakuBarStyle = {
@@ -78,7 +78,7 @@ const danmakuBarStyle = {
   ':focus': {
     width: '400px',
     boxShadow: '0 0 5px #cacaca',
-  }
+  },
 };
 
 const danmakuHistoryContainerStyle = {

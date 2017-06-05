@@ -42,7 +42,7 @@ class Denpaio extends React.Component {
   };
 
   handlers = {
-    'focusDanmakuBar': this.handleFocusDanmakuBar
+    'focusDanmakuBar': this.handleFocusDanmakuBar,
   };
 
   constructor(props) {
@@ -63,7 +63,7 @@ class Denpaio extends React.Component {
   currentStyle() {
     let pathname = this.props.location.pathname;
     let defaultStyle = {
-      backgroundColor: 'rgba(0, 0, 0, 0.4)'
+      backgroundColor: 'rgba(0, 0, 0, 0.4)',
     };
     return pathname === '/' ? {} : defaultStyle;
   }
@@ -257,7 +257,7 @@ const likeButtonStyle = {
   backgroundColor: 'transparent',
   ':active': {
     color: 'red',
-  }
+  },
 };
 
 const linkButtonStyle = {
