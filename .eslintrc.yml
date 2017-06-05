@@ -13,12 +13,21 @@ parserOptions:
 plugins:
   - react
 rules:
+  array-bracket-spacing:
+    - error
+    - never
+  comma-dangle:
+    - error
+    - always-multiline
   indent:
     - error
     - 2
   linebreak-style:
     - error
     - unix
+  object-curly-spacing:
+    - error
+    - always
   quotes:
     - error
     - single
