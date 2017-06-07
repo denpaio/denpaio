@@ -18,6 +18,12 @@ Documentation:
 Metrics/AbcSize:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
 Metrics/LineLength:
   Max: 120
 
