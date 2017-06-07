@@ -26,7 +26,7 @@ const PlaylistPage = ({ playlist }) => (
               <td
                 style={minimumTdStyle}>
                 <img
-                  src={play.track.response.artwork_url60}
+                  src={play.track.response.artwork_url100}
                   style={{ maxWidth: '30px', maxHeight: '30px' }}
                 />
               </td>

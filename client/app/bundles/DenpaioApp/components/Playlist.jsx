@@ -82,11 +82,11 @@ export default class Playlist extends React.Component {
   imageSection(track) {
     return (
       <a
-        href={track.response.artwork_url60.replace('60x60bb', '1280x1280bb')}
+        href={track.response.artwork_url100.replace('100x100bb', '1280x1280bb')}
         target="_blank"
         style={{ display: 'inline-block' }}>
         <img
-          src={track.response.artwork_url60}
+          src={track.response.artwork_url100}
           style={{ maxWidth: '45px', maxHeight: '45px', verticalAlign: 'middle' }}
         />
       </a>

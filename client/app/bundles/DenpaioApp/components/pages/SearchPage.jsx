@@ -184,7 +184,7 @@ export default class SearchPage extends React.Component {
                   <td
                     style={minimumTdStyle}>
                     <img
-                      src={result.response.artwork_url60}
+                      src={result.response.artwork_url100}
                       style={{ maxWidth: '30px', maxHeight: '30px' }}
                     />
                   </td>
