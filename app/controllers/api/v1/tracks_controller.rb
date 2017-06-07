@@ -6,7 +6,7 @@ class Api::V1::TracksController < ApplicationController
   before_action :authenticate, except: [:search, :browse, :random, :show]
 
   def search
-    unless params[:q].present?
+    if params[:q].blank?
       browse
       return
     end
@@ -17,9 +17,10 @@ class Api::V1::TracksController < ApplicationController
       result_count: songs.result_count,
       result_limit: 50,
       results: songs.results.map do |result|
-        add_affiliate_token_to_view_urls!(result)
-        proxy_insecure_urls!(result)
-        Track.find_by(identity: result.track_id) || Track.new(response: result)
+        Track.find_by(identity: result.track_id) || Track.new(response: result).tap do |t|
+          fix_insecure_urls!(t.response)
+          add_affiliate_token_to_view_urls!(t.response)
+        end
       end
     }
     respond_with @object
@@ -33,11 +34,6 @@ class Api::V1::TracksController < ApplicationController
 
   def browse
     @tracks = Track.page(params[:page]).per(50).order(id: :desc)
-
-    @tracks.each do |track|
-      add_affiliate_token_to_view_urls!(track.response)
-      proxy_insecure_urls!(track.response)
-    end
 
     @object = {
       result_count: @tracks.total_count,
@@ -60,11 +56,6 @@ class Api::V1::TracksController < ApplicationController
               group(:id).
               order(%{"id_count", RANDOM()}).
               page(params[:page])
-
-    @tracks.each do |track|
-      add_affiliate_token_to_view_urls!(track.response)
-      proxy_insecure_urls!(track.response)
-    end
 
     @object = {
       result_count: @tracks.total_count,
