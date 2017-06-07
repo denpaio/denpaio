@@ -2,7 +2,7 @@
 
 class Track < ApplicationRecord
   has_many :plays
-  validates :identity, uniqueness: { scope: :provider }
+  validates :identity, presence: true, uniqueness: { scope: :provider }
 
   attr_accessor :file
 
