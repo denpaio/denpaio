@@ -13,5 +13,9 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe PagesHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe '#render_denpaio_app' do
+    it 'render react component' do
+      expect(helper.render_denpaio_app).to be_truthy
+    end
+  end
 end
