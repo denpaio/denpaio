@@ -72,7 +72,7 @@
 
     if (shockwave < Math.max(window.innerWidth, window.innerHeight)) {
       shockwave += 60;
-      rotationRadian += 0.4;
+      rotationRadian += 0.1;
       window.context.lineWidth = 15;
       window.context.strokeStyle = 'white';
       window.context.beginPath();
