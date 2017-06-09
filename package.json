@@ -4,7 +4,9 @@
   },
   "name": "denpaio",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "node-gyp": "^3.6.2"
+  },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^3.19.0",
