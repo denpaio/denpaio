@@ -11,7 +11,7 @@ module ResponseSupport
         url = response[attr]
         next if url.nil?
         next if url.start_with?('https://')
-        response[attr] = url.sub(%r{\Ahttp://(\w+)}, 'https://\1-ssl')
+        response[attr] = url.sub(%r{\Ahttp://(audio|is\d+)}, 'https://\1-ssl')
       end
     end
 
