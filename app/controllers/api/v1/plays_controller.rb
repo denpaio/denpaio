@@ -10,7 +10,8 @@ class Api::V1::PlaysController < ApplicationController
       result_count: @plays.total_count,
       results: @plays
     }
-    render json: @object, include: { track: { except: :response } }
+    # render plain: params.permit(include: {}).to_h.deep_symbolize_keys[:include].inspect
+    render json: @object, include: include_params
   end
 
   def create
@@ -18,7 +19,7 @@ class Api::V1::PlaysController < ApplicationController
     raise unless @track.sha1?
     @play = @track.plays.create!
 
-    render json: @play, include: { track: { except: :response } }
+    render json: @play, include: include_params
   end
 
   def update
@@ -32,6 +33,13 @@ class Api::V1::PlaysController < ApplicationController
     @play.played_at ||= Time.now.utc
     @play.save!
 
-    render json: @play, include: { track: { except: :response } }
+    render json: @play, include: include_params
+  end
+
+  private
+
+  def include_params
+    params.permit(:include)[:include] ||
+      params.permit(include: {}).to_h.deep_symbolize_keys[:include]
   end
 end
