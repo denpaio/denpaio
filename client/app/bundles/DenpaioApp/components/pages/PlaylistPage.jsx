@@ -1,9 +1,11 @@
 import React from 'react';
 
+import PlaylistNavBar from '../partials/PlaylistNavBar';
 import SpinPlayer from '../SpinPlayer';
 
 const PlaylistPage = ({ playlist }) => (
   <div>
+    <PlaylistNavBar />
     <p>About {playlist.length} requests</p>
     <table
       style={playlistTableStyle}>

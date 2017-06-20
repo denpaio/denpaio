@@ -22,6 +22,7 @@ import TracksPage from './pages/TracksPage';
 
 import PlaylistContainer from '../containers/PlaylistContainer';
 import PlaylistPageContainer from '../containers/PlaylistPageContainer';
+import HistoryPageContainer from '../containers/HistoryPageContainer';
 
 class Denpaio extends React.Component {
   keyMap = {
@@ -154,6 +155,7 @@ class Denpaio extends React.Component {
           {this.closeButton()}
           <Switch>
             <Route path="/playlist" component={PlaylistPageContainer} />
+            <Route path="/history" component={HistoryPageContainer} />
             <Route path="/search" component={SearchPage} />
             <Route path="/tracks/:id" component={TracksPage} />
           </Switch>
