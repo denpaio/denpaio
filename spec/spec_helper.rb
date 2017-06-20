@@ -102,10 +102,4 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-
-  # Load seeds.rb before suite started
-  config.before(:suite) do
-    Rails.application.load_tasks
-    Rails.application.load_seed
-  end
 end
