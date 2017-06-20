@@ -40,6 +40,8 @@ gem 'redis', '~> 3.0'
 gem 'dotenv-rails'
 # Use redis-rails for Rails cache stores
 gem 'redis-rails'
+# Use has_scope for mapping incoming controller parameters to named scopes
+gem 'has_scope'
 # Use responders for using respond_to and respond_with placeholder methods
 gem 'responders'
 # Use iTunes for searching data on the iTunes store

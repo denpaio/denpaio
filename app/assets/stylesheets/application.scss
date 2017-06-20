@@ -70,6 +70,7 @@ a {
   color: $futuristic-blue-text;
   cursor: pointer;
   text-decoration: none;
+  user-select: none;
 
   &:hover {
     color: lighten($futuristic-blue-text, 20%);
