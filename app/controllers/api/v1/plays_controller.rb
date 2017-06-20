@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class Api::V1::PlaysController < ApplicationController
+  has_scope :played, type: :boolean
+
   before_action :authenticate, except: [:index, :create]
 
   def index
-    @plays = Play.page(params[:page])
+    @plays = apply_scopes(Play).page(params[:page])
 
     @object = {
       result_count: @plays.total_count,
