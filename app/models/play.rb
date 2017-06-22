@@ -6,6 +6,7 @@ class Play < ApplicationRecord
   default_scope { order(played_at: :desc, id: :desc) }
 
   scope :played, -> { where.not(played_at: nil) }
+  scope :not_played, -> { where(played_at: nil) }
 
   after_create -> { broadcast_playlist('create') }
   after_update -> { broadcast_playlist('update') }, if: :played_at_changed?
