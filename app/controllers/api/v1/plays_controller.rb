@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class Api::V1::PlaysController < ApplicationController
-  has_scope :played, type: :boolean
+  has_scope :played do |_controller, scope, value|
+    ActiveRecord::Type::Boolean.new.cast(value) ? scope.played : scope.not_played
+  end
+  has_scope :by_played_at
 
   before_action :authenticate, except: [:index, :create]
 

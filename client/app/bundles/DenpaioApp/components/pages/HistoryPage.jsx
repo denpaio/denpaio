@@ -19,7 +19,7 @@ export default class HistoryPage extends React.Component {
   componentDidMount() {
     const self = this;
 
-    fetch('/api/v1/plays?include=track&played=true')
+    fetch('/api/v1/plays.json?include=track&played=true')
     .then((response) => {
       if (response.status !== 200) {
         alert(response.statusText);
@@ -41,7 +41,7 @@ export default class HistoryPage extends React.Component {
           style={playlistTableStyle}>
           <tbody>
             {
-              this.state.data.results.filter((el) => el.played_at).reverse().map((play) => (
+              this.state.data.results.filter((el) => el.played_at).map((play) => (
                 <tr key={play.id}>
                   <td
                     style={minimumTdStyle}>
