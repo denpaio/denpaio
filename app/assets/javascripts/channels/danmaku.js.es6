@@ -19,8 +19,17 @@ document.addEventListener('DOMContentLoaded', function() {
 function reloadDanmakuHistory(data) {
   let objects = data.objects || [];
 
+  clearDanmakuHistory();
   for (let object of objects) {
     addToDanmakuHistory(object);
+  }
+}
+
+function clearDanmakuHistory() {
+  let danmakuHistoryContainer = document.getElementById('danmaku-history-container');
+
+  while (danmakuHistoryContainer.hasChildNodes()) {
+    danmakuHistoryContainer.removeChild(danmakuHistoryContainer.lastChild);
   }
 }
 
