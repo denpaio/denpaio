@@ -38,7 +38,7 @@ export default class SearchPage extends React.Component {
   }
 
   fetchRequestResult(trackId) {
-    fetch('/api/v1/plays.json', {
+    fetch('/api/v1/plays.json?include=track', {
       method: 'POST',
       body: 'track_id=' + encodeURIComponent(trackId),
       headers: {
