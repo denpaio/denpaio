@@ -2400,9 +2400,9 @@ react-icons@^2.2.5:
   dependencies:
     react-icon-base "2.0.7"
 
-react-on-rails@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/react-on-rails/-/react-on-rails-8.0.0.tgz#97fda265cdc5e4cd4334ae7a7f2bacd85346161e"
+react-on-rails@8.0.6:
+  version "8.0.6"
+  resolved "https://registry.yarnpkg.com/react-on-rails/-/react-on-rails-8.0.6.tgz#b0f30772a850dca6fa2c508576455557a2dd40ea"
 
 react-paginate@^4.4.2:
   version "4.4.2"

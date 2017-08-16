@@ -63,7 +63,7 @@ gem 'rails-assets-normalize.css', source: 'https://rails-assets.org'
 gem 'sprockets-es6'
 
 # Use react_on_rails for integrating Ruby on Rails with modern JavaScript tooling and libraries
-gem 'react_on_rails', '8.0.0'
+gem 'react_on_rails', '8.0.6'
 
 gem 'mini_racer', platforms: :ruby
 gem 'webpacker_lite'

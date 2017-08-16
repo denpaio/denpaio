@@ -206,12 +206,12 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.8)
       ffi (>= 0.5.0)
-    react_on_rails (8.0.0)
+    react_on_rails (8.0.6)
       addressable
       connection_pool
       execjs (~> 2.5)
       rails (>= 3.2)
-      rainbow (~> 2.1)
+      rainbow (~> 2.2)
     redis (3.3.3)
     redis-actionpack (5.0.1)
       actionpack (>= 4.0, < 6)
@@ -347,7 +347,7 @@ DEPENDENCIES
   rails (~> 5.1.1)
   rails-assets-normalize.css!
   rails_real_favicon
-  react_on_rails (= 8.0.0)
+  react_on_rails (= 8.0.6)
   redis (~> 3.0)
   redis-rails
   responders
