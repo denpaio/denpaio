@@ -53,10 +53,12 @@ export default class DanmakuHistory extends React.Component {
     return (
       messageStack.map(function(item) {
         if (item.track) {
+          let playedAt = (new Date(item.played_at)).toISOString().substr(11, 5);
+
           return (
             <li
               key={item.track.id}>
-              <span>{(new Date()).toISOString().substr(11, 5)} {item.track.name}</span>
+              <span>{playedAt} {item.track.name}</span>
             </li>
           );
         } else {
@@ -85,10 +87,6 @@ export default class DanmakuHistory extends React.Component {
     );
   }
 }
-
-DanmakuHistory.propTypes = {
-  danmakuHistory: PropTypes.array.isRequired,
-};
 
 const danmakuHistoryContainerStyle = {
   width: 'calc(100% + 17px)',
