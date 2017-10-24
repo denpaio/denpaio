@@ -1,6 +1,8 @@
 import React from 'react';
 import Radium from 'radium';
 
+import DanmakuHistoryContainer from './DanmakuHistory';
+
 class DanmakuBar extends React.Component {
   sendDanmaku = (event) => {
     event.preventDefault();
@@ -12,22 +14,6 @@ class DanmakuBar extends React.Component {
     if (!text)
       input.blur();
   };
-
-  currentDanmakuHistoryWrapperStyle() {
-    const defaultStyle = {
-      position: 'absolute',
-      bottom: '2.5em',
-      left: '0',
-      right: '0',
-      overflow: 'hidden',
-    };
-
-    if (!this.props.showDanmakuHistory) {
-      return Object.assign({}, defaultStyle, { display: 'none' });
-    }
-
-    return defaultStyle;
-  }
 
   render() {
     return (
@@ -45,14 +31,7 @@ class DanmakuBar extends React.Component {
           maxLength="100"
           style={danmakuBarStyle}
         />
-        <div
-          id="danmaku-history-wrapper"
-          style={this.currentDanmakuHistoryWrapperStyle()}>
-          <ul
-            id="danmaku-history-container"
-            style={danmakuHistoryContainerStyle}>
-          </ul>
-        </div>
+        <DanmakuHistoryContainer />
       </form>
     );
   }
@@ -79,16 +58,6 @@ const danmakuBarStyle = {
     width: '400px',
     boxShadow: '0 0 5px #cacaca',
   },
-};
-
-const danmakuHistoryContainerStyle = {
-  width: 'calc(100% + 17px)',
-  maxHeight: '40vh',
-  overflow: 'hidden',
-  overflowY: 'auto',
-  margin: '0 0.5em',
-  padding: '0',
-  listStyleType: 'none',
 };
 
 export default Radium(DanmakuBar);
