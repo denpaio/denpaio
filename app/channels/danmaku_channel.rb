@@ -7,12 +7,16 @@ class DanmakuChannel < ApplicationCable::Channel
   end
 
   def create(data)
+    data['id'] = format('%d', Time.now.to_f * 1000)
     data['top'] = format('%f%', Random.rand * 100)
+
+    last_play = Play.where.not(played_at: nil).first
+    data['playing'] = last_play.as_json(include: :track)
 
     Rails.cache.write(
       'danmaku_object', data,
       namespace: Time.now.to_f,
-      expires_in: 6.hours
+      expires_in: 24.hours
     )
 
     ActionCable.server.broadcast('messages', data)
