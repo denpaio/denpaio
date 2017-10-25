@@ -20,6 +20,8 @@ export default class AudioPlayer extends React.Component {
     let stream = this.refs.audio;
 
     stream.addEventListener('progress', () => window.ping = Date.now());
+    // Fix broken progress event in Firefox 56.0
+    stream.addEventListener('timeupdate', () => window.ping = Date.now());
 
     let AudioContext = window.AudioContext || window.webkitAudioContext;
     let audioCtx = new AudioContext();
