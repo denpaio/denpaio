@@ -44,7 +44,7 @@ export default class DanmakuHistory extends React.Component {
     let messageStack = this.state.danmakuHistory.slice(0);
     let lastPlay = 0;
 
-    messageStack.forEach(function(message, index) {
+    this.state.danmakuHistory.forEach(function(message, index) {
       if (message.playing.track.id !== lastPlay) {
         messageStack.splice(index, 0, message.playing);
         lastPlay = message.playing.track.id;
