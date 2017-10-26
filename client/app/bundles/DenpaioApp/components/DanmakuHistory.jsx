@@ -43,10 +43,11 @@ export default class DanmakuHistory extends React.Component {
   list() {
     let messageStack = this.state.danmakuHistory.slice(0);
     let lastPlay = 0;
+    let offset = 0;
 
     this.state.danmakuHistory.forEach(function(message, index) {
       if (message.playing.track.id !== lastPlay) {
-        messageStack.splice(index, 0, message.playing);
+        messageStack.splice(index + offset++, 0, message.playing);
         lastPlay = message.playing.track.id;
       }
     });
