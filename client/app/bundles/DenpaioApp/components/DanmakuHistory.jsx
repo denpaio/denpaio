@@ -20,7 +20,6 @@ export default class DanmakuHistory extends React.Component {
       },
       received: function(data) {
         var danmakuHistory;
-        var danmakuHistoryContainer = document.querySelector('#danmaku-history-container');
 
         switch (data.action) {
         case 'reload':
@@ -32,12 +31,15 @@ export default class DanmakuHistory extends React.Component {
           danmakuHistory.push(data);
           self.setState({ danmakuHistory: danmakuHistory });
           window.createDanmaku(data);
-
-          danmakuHistoryContainer.scrollTop = danmakuHistoryContainer.scrollHeight;
           break;
         }
       },
     });
+  }
+
+  componentDidUpdate() {
+    let danmakuHistoryContainer = this.refs.danmakuHistoryContainer;
+    danmakuHistoryContainer.scrollTop = danmakuHistoryContainer.scrollHeight;
   }
 
   list() {
@@ -82,6 +84,7 @@ export default class DanmakuHistory extends React.Component {
         style={currentDanmakuHistoryWrapperStyle({ showDanmakuHistory: true })}>
         <ul
           id="danmaku-history-container"
+          ref="danmakuHistoryContainer"
           style={danmakuHistoryContainerStyle}>
           {this.list()}
         </ul>
