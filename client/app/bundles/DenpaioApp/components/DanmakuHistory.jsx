@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 export default class DanmakuHistory extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ export default class DanmakuHistory extends React.Component {
     return (
       messageStack.map(function(item) {
         if (item.track) {
-          let playedAt = (new Date(item.played_at)).toISOString().substr(11, 5);
+          let playedAt = moment(item.played_at).format('HH:mm');
 
           return (
             <li
