@@ -1,7 +1,7 @@
 import React from 'react';
 import Radium from 'radium';
 
-import DanmakuHistoryContainer from './DanmakuHistory';
+import DanmakuHistory from './DanmakuHistory';
 
 class DanmakuBar extends React.Component {
   sendDanmaku = (event) => {
@@ -31,7 +31,9 @@ class DanmakuBar extends React.Component {
           maxLength="100"
           style={danmakuBarStyle}
         />
-        <DanmakuHistoryContainer />
+        <DanmakuHistory
+          showDanmakuHistory={this.props.showDanmakuHistory}
+        />
       </form>
     );
   }

@@ -78,10 +78,12 @@ export default class DanmakuHistory extends React.Component {
   }
 
   render() {
+    let showDanmakuHistory = this.props.showDanmakuHistory;
+
     return (
       <div
         id="danmaku-history-wrapper"
-        style={currentDanmakuHistoryWrapperStyle({ showDanmakuHistory: true })}>
+        style={currentDanmakuHistoryWrapperStyle({ showDanmakuHistory })}>
         <ul
           id="danmaku-history-container"
           ref="danmakuHistoryContainer"
