@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Radium from 'radium';
+
 import { HotKeys } from 'react-hotkeys';
 import { Switch, Route, Link } from 'react-router-dom';
 
@@ -50,8 +51,13 @@ class Denpaio extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isShowDanmakuHistory: true,
+    let name = this.constructor.name;
+    let localState = JSON.parse(localStorage.getItem(`${name}.state`));
+
+    this.state = localState || {
+      isDisabledVisualizer: false,
+      isDisabledDanmakuMessage: false,
+      isDisabledDanmakuHistory: false,
     };
   }
 
@@ -60,6 +66,11 @@ class Denpaio extends React.Component {
       let target = event.target;
       target.style.transform = '';
     });
+  }
+
+  componentDidUpdate() {
+    let name = this.constructor.name;
+    localStorage.setItem(`${name}.state`, JSON.stringify(this.state));
   }
 
   currentStyle() {
@@ -79,12 +90,12 @@ class Denpaio extends React.Component {
   }
 
   currentDanmakuHistoryToggleButtonTag() {
-    let isShowDanmakuHistory = this.state.isShowDanmakuHistory;
+    let isDisabledDanmakuHistory = this.state.isDisabledDanmakuHistory;
 
-    if (isShowDanmakuHistory) {
-      return <FaAngleDown style={linkButtonIconStyle} />;
-    } {
+    if (isDisabledDanmakuHistory) {
       return <FaAngleUp style={linkButtonIconStyle} />;
+    } else {
+      return <FaAngleDown style={linkButtonIconStyle} />;
     }
   }
 
@@ -93,16 +104,16 @@ class Denpaio extends React.Component {
   }
 
   handleToggleDanmakuHistory() {
-    let isShowDanmakuHistory = this.state.isShowDanmakuHistory;
-    this.setState({ isShowDanmakuHistory: !isShowDanmakuHistory });
+    let isDisabledDanmakuHistory = this.state.isDisabledDanmakuHistory;
+    this.setState({ isDisabledDanmakuHistory: !isDisabledDanmakuHistory });
   }
 
   handleToggleAudioVisualizer() {
-    if (window.isDisabledVisualizer) {
-      window.isDisabledVisualizer = false;
+    if (this.state.isDisabledVisualizer) {
+      this.setState({ isDisabledVisualizer: false });
       window.drawVisual = requestAnimationFrame(window.draw);
     } else {
-      window.isDisabledVisualizer = true;
+      this.setState({ isDisabledVisualizer: true });
       cancelAnimationFrame(window.drawVisual);
       window.drawVisual = null;
       window.resizeCanvas();
@@ -111,10 +122,10 @@ class Denpaio extends React.Component {
   }
 
   handleToggleDanmakuMessages() {
-    if (window.isDisabledDanmakuMessage) {
-      window.isDisabledDanmakuMessage = false;
+    if (this.state.isDisabledDanmakuMessage) {
+      this.setState({ isDisabledDanmakuMessage: false });
     } else {
-      window.isDisabledDanmakuMessage = true;
+      this.setState({ isDisabledDanmakuMessage: true });
     }
     this.setState({});
   }
@@ -174,7 +185,7 @@ class Denpaio extends React.Component {
           </button>
           <DanmakuBar
             ref="danmakubar"
-            showDanmakuHistory={this.state.isShowDanmakuHistory}
+            showDanmakuHistory={!this.state.isDisabledDanmakuHistory}
           />
           <div
             style={{ display: 'inline-block', textAlign: 'right' }}>
@@ -225,7 +236,7 @@ class Denpaio extends React.Component {
             <a
               onClick={this.handleToggleAudioVisualizer.bind(this)}
               title="Toogle Audio Visualizer"
-              style={this.currentButtonStyle(window.isDisabledVisualizer)}>
+              style={this.currentButtonStyle(this.state.isDisabledVisualizer)}>
               <FaAdjust
                 style={linkButtonIconStyle}
               />
@@ -233,7 +244,7 @@ class Denpaio extends React.Component {
             <a
               onClick={this.handleToggleDanmakuMessages.bind(this)}
               title="Toogle Danmaku messages"
-              style={this.currentButtonStyle(window.isDisabledDanmakuMessage)}>
+              style={this.currentButtonStyle(this.state.isDisabledDanmakuMessage)}>
               <FaComment
                 style={linkButtonIconStyle}
               />
