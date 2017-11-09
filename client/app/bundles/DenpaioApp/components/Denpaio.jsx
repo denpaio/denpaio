@@ -16,6 +16,7 @@ import FaAdjust from 'react-icons/lib/fa/adjust';
 import FaComment from 'react-icons/lib/fa/comment-o';
 import FaGitHub from 'react-icons/lib/fa/github';
 
+import NewsToast from './NewsToast';
 import DanmakuBar from './DanmakuBar';
 import SearchPage from './pages/SearchPage';
 import TracksPage from './pages/TracksPage';
@@ -152,6 +153,7 @@ class Denpaio extends React.Component {
         <section
           className="container"
           style={this.currentStyle()}>
+          <NewsToast />
           {this.closeButton()}
           <Switch>
             <Route path="/playlist" component={PlaylistPageContainer} />
