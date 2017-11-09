@@ -59,6 +59,8 @@ class Denpaio extends React.Component {
       isDisabledDanmakuMessage: false,
       isDisabledDanmakuHistory: false,
     };
+
+    window.isDisabledVisualizer = this.state.isDisabledVisualizer;
   }
 
   componentDidMount() {
@@ -110,15 +112,17 @@ class Denpaio extends React.Component {
 
   handleToggleAudioVisualizer() {
     if (this.state.isDisabledVisualizer) {
+      window.isDisabledVisualizer = false;
       this.setState({ isDisabledVisualizer: false });
-      window.drawVisual = requestAnimationFrame(window.draw);
+      if (!window.drawVisual)
+        window.drawVisual = requestAnimationFrame(window.draw);
     } else {
+      window.isDisabledVisualizer = true;
       this.setState({ isDisabledVisualizer: true });
       cancelAnimationFrame(window.drawVisual);
       window.drawVisual = null;
       window.resizeCanvas();
     }
-    this.setState({});
   }
 
   handleToggleDanmakuMessages() {
@@ -127,7 +131,6 @@ class Denpaio extends React.Component {
     } else {
       this.setState({ isDisabledDanmakuMessage: true });
     }
-    this.setState({});
   }
 
   closeButton() {
