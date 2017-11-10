@@ -193,7 +193,7 @@ class Denpaio extends React.Component {
           <div
             style={{ display: 'inline-block', textAlign: 'right' }}>
             <a
-              href="denpaio.m3u"
+              href="/denpaio.m3u"
               title="M3U playlist"
               style={linkButtonStyle}>
               <MdPlaylistPlay
