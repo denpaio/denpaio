@@ -19,9 +19,10 @@ export default class Playlist extends React.Component {
 
     this.state = {
       volume: 0.7,
-      playlist: [],
       listenerCount: 0,
     };
+
+    setInterval(() => this.setState({}), 1000);
   }
 
   componentDidMount() {
@@ -93,7 +94,15 @@ export default class Playlist extends React.Component {
     );
   }
 
-  titleSection(track) {
+  titleSection(playing) {
+    let track = playing.track;
+    let platedAt = new Date(playing.played_at);
+    let trackTimeMillis = track.response.track_time_millis;
+    let elapsedTimeMillis = Date.now() - platedAt.getTime();
+
+    if (elapsedTimeMillis > trackTimeMillis)
+      elapsedTimeMillis = trackTimeMillis;
+
     return (
       <Link
         to="/playlist"
@@ -103,14 +112,14 @@ export default class Playlist extends React.Component {
           style={{ fontSize: 'smaller' }}>
           <span
             style={{ float: 'left' }}>
-            0:00
+            {elapsedTimeMillis.toHumanDuration()}
           </span>
           <span>
             {track.response.artist_name} - {track.response.collection_name}
           </span>
           <span
             style={{ float: 'right' }}>
-            {track.response.track_time_millis.toHumanDuration()}
+            {trackTimeMillis.toHumanDuration()}
           </span>
         </div>
       </Link>
@@ -123,7 +132,7 @@ export default class Playlist extends React.Component {
 
     if (playing) {
       image = this.imageSection(playing.track);
-      title = this.titleSection(playing.track);
+      title = this.titleSection(playing);
     }
 
     return (
