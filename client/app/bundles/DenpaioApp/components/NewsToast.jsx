@@ -47,6 +47,9 @@ export default class NewsToast extends React.Component {
     let self = this;
     let lastId = this.state.lastId;
 
+    if (!Array.isArray(this.state.news))
+      return null;
+
     return this.state.news.filter(el => el.id > lastId).map(function(el) {
       return (
         <li key={el.id}>
