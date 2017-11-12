@@ -61,6 +61,10 @@ gem 'mime-types'
 gem 'rails-assets-normalize.css', source: 'https://rails-assets.org'
 # Use sprockets-es6 as ES6 transformer
 gem 'sprockets-es6'
+# Use Rollbar as an error tracking service
+gem 'rollbar'
+# Use oj for better JSON serialization
+gem 'oj', '~> 2.12.14'
 
 # Use react_on_rails for integrating Ruby on Rails with modern JavaScript tooling and libraries
 gem 'react_on_rails', '8.0.6'
