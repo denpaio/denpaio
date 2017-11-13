@@ -72,6 +72,7 @@ Rollbar.configure do |config|
   config.js_options = {
     accessToken: ENV['ROLLBAR_CLIENT_ACCESS_TOKEN'],
     captureUncaught: true,
+    maxItems: 1,
     payload: {
       environment: config.environment
     }
