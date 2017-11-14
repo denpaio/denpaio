@@ -96,4 +96,4 @@ function initializeVisualizer() {
   window.context = window.canvas.getContext('2d');
 }
 
-window.addEventListener('load', initializeVisualizer);
+window.addEventListener('DOMContentLoaded', initializeVisualizer);
