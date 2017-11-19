@@ -73,6 +73,7 @@ Rollbar.configure do |config|
     accessToken: ENV['ROLLBAR_CLIENT_ACCESS_TOKEN'],
     captureUncaught: true,
     maxItems: 1,
+    itemsPerMinute: 1,
     payload: {
       environment: config.environment
     }
