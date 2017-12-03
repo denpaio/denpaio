@@ -42,6 +42,9 @@ const config = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development', // use 'development' unless process.env.NODE_ENV is defined
       DEBUG: false,
+      AUTH0_DOMAIN: process.env.AUTH0_DOMAIN,
+      AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+      AUTH0_AUDIENCE: process.env.AUTH0_AUDIENCE,
     }),
     new ManifestPlugin({ fileName: manifest, writeToFileEmit: true }),
   ],
