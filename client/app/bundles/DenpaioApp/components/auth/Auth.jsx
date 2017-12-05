@@ -33,7 +33,13 @@ export default class Auth {
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
+    localStorage.setItem('roles', authResult.idTokenPayload.roles);
     localStorage.setItem('expires_at', expiresAt);
+  }
+
+  isAdmin() {
+    let roles = localStorage.getItem('roles');
+    return roles.includes('admin');
   }
 
   isAuthenticated() {
@@ -51,6 +57,7 @@ export default class Auth {
     // Clear access token and ID token from local storage
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
+    localStorage.removeItem('roles');
     localStorage.removeItem('expires_at');
     // navigate to the home route
     history.replace('/');

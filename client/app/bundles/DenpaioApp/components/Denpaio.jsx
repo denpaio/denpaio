@@ -196,7 +196,7 @@ class Denpaio extends React.Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props.auth;
+    const { isAdmin, isAuthenticated } = this.props.auth;
     let backgroundImage = this.props.backgroundImage;
     backgroundStyle['backgroundImage'] = `url(${backgroundImage})`;
 
@@ -221,7 +221,9 @@ class Denpaio extends React.Component {
             <Route path="/playlist" component={PlaylistPageContainer} />
             <Route path="/history" component={HistoryPageContainer} />
             <Route path="/search" component={SearchPage} />
-            <Route path="/tracks/:id" component={TracksPage} />
+            <Route path="/tracks/:id" render={(props) => {
+              return <TracksPage {...props} isAdmin={isAdmin()} />;
+            }}/>
             <Route path="/callback" render={(props) => {
               this.handleAuthentication(props);
               return <Callback {...props} />;
