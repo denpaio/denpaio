@@ -17,10 +17,14 @@ import FaAdjust from 'react-icons/lib/fa/adjust';
 import FaComment from 'react-icons/lib/fa/comment-o';
 import FaGitHub from 'react-icons/lib/fa/github';
 
+import FaSignIn from 'react-icons/lib/fa/sign-in';
+import FaSignOut from 'react-icons/lib/fa/sign-out';
+
 import NewsToast from './NewsToast';
 import DanmakuBar from './DanmakuBar';
 import SearchPage from './pages/SearchPage';
 import TracksPage from './pages/TracksPage';
+import Callback from './pages/Callback';
 
 import PlaylistContainer from '../containers/PlaylistContainer';
 import PlaylistPageContainer from '../containers/PlaylistPageContainer';
@@ -59,6 +63,9 @@ class Denpaio extends React.Component {
       isDisabledDanmakuMessage: false,
       isDisabledDanmakuHistory: false,
     };
+
+    this.handleAuthentication = this.handleAuthentication.bind(this);
+    this.signInButton = this.signInButton.bind(this);
 
     window.isDisabledVisualizer = this.state.isDisabledVisualizer;
   }
@@ -101,6 +108,12 @@ class Denpaio extends React.Component {
     }
   }
 
+  handleAuthentication(nextState, replace) {
+    if (/access_token|id_token|error/.test(nextState.location.hash)) {
+      this.props.auth.handleAuthentication(this.props.history);
+    }
+  }
+
   handleLikeButton() {
     window.App.danmakuChannel.send({ action: 'create', message: '❤️' });
   }
@@ -133,6 +146,14 @@ class Denpaio extends React.Component {
     }
   }
 
+  handleSignInClick() {
+    this.props.auth.login();
+  }
+
+  handleSignOutClick() {
+    this.props.auth.logout(this.props.history);
+  }
+
   closeButton() {
     let pathname = this.props.location.pathname;
 
@@ -148,7 +169,34 @@ class Denpaio extends React.Component {
     );
   }
 
+  signInButton(isAuthenticated) {
+    if (isAuthenticated) {
+      return (
+        <a
+          onClick={this.handleSignOutClick.bind(this)}
+          title="Sign out"
+          style={this.currentButtonStyle(false)}>
+          <FaSignOut
+            style={linkButtonIconStyle}
+          />
+        </a>
+      );
+    } else {
+      return (
+        <a
+          onClick={this.handleSignInClick.bind(this)}
+          title="Sign in"
+          style={this.currentButtonStyle(false)}>
+          <FaSignIn
+            style={linkButtonIconStyle}
+          />
+        </a>
+      );
+    }
+  }
+
   render() {
+    const { isAdmin, isAuthenticated } = this.props.auth;
     let backgroundImage = this.props.backgroundImage;
     backgroundStyle['backgroundImage'] = `url(${backgroundImage})`;
 
@@ -173,7 +221,13 @@ class Denpaio extends React.Component {
             <Route path="/playlist" component={PlaylistPageContainer} />
             <Route path="/history" component={HistoryPageContainer} />
             <Route path="/search" component={SearchPage} />
-            <Route path="/tracks/:id" component={TracksPage} />
+            <Route path="/tracks/:id" render={(props) => {
+              return <TracksPage {...props} isAdmin={isAdmin()} />;
+            }}/>
+            <Route path="/callback" render={(props) => {
+              this.handleAuthentication(props);
+              return <Callback {...props} />;
+            }}/>
           </Switch>
         </section>
         <footer
@@ -258,6 +312,7 @@ class Denpaio extends React.Component {
               style={linkButtonStyle}>
               {this.currentDanmakuHistoryToggleButtonTag()}
             </a>
+            {this.signInButton(isAuthenticated())}
           </div>
         </footer>
       </HotKeys>

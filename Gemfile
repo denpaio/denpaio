@@ -56,6 +56,8 @@ gem 'fog-google'
 gem 'pry-rails'
 # Use mime-types to look up the likely MIME type definitions
 gem 'mime-types'
+# Use jwt for JSON Web Token (JWT)
+gem 'jwt'
 
 # Use normalize.css for HTML element and attribute style-normalizations
 gem 'rails-assets-normalize.css', source: 'https://rails-assets.org'
