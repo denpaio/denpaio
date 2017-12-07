@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 class Api::V1::TracksController < ApplicationController
+  include Secured
   respond_to :xml, :json
 
-  before_action :authenticate, except: [:search, :browse, :random, :show]
+  before_action :authenticate_request!, except: [:search, :browse, :random, :show]
 
   def search
     if params[:q].blank?
