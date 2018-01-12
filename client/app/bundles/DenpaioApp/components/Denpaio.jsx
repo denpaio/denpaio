@@ -282,7 +282,7 @@ class Denpaio extends React.Component {
               />
             </a>
             <a
-              href="https://www.youtube.com/channel/UCmU7uHdtumev4giWUGHt9xA?sub_confirmation=1"
+              href="https://www.youtube.com/c/denpaio?sub_confirmation=1"
               target="_blank"
               title="YouTube"
               style={linkButtonStyle}>
