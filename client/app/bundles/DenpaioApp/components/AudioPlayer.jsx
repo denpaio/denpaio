@@ -23,22 +23,25 @@ export default class AudioPlayer extends React.Component {
     // Fix broken progress event in Firefox 56.0
     stream.addEventListener('timeupdate', () => window.ping = Date.now());
 
-    let AudioContext = window.AudioContext || window.webkitAudioContext;
-    let audioCtx = new AudioContext();
-    window.analyser = audioCtx.createAnalyser();
-
-    let source = audioCtx.createMediaElementSource(stream);
-    let destination = audioCtx.destination;
-
-    source.connect(window.analyser);
-    window.analyser.connect(destination);
-
-    let bufferLength = window.analyser.frequencyBinCount;
-    window.dataArray = new Uint8Array(bufferLength);
-
     stream.addEventListener('play', function () {
+      if (!window.analyser) {
+        let AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = new AudioContext();
+        window.analyser = audioCtx.createAnalyser();
+    
+        let source = audioCtx.createMediaElementSource(stream);
+        let destination = audioCtx.destination;
+    
+        source.connect(window.analyser);
+        window.analyser.connect(destination);
+    
+        let bufferLength = window.analyser.frequencyBinCount;
+        window.dataArray = new Uint8Array(bufferLength);
+      }
+
       if (window.isDisabledVisualizer)
         return;
+    
       window.drawVisual = requestAnimationFrame(window.draw);
     });
 
