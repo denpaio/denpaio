@@ -16,7 +16,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+# gem 'mini_racer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
 # gem 'coffee-rails', '~> 4.2'
@@ -65,7 +65,6 @@ gem 'rollbar'
 # Use react_on_rails for integrating Ruby on Rails with modern JavaScript tooling and libraries
 gem 'react_on_rails', '8.0.6'
 
-gem 'mini_racer', platforms: :ruby
 gem 'webpacker_lite'
 
 group :development, :test do
