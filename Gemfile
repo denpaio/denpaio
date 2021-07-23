@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
-  "https://github.com/#{repo_name}.git"
-end
-
-ruby '2.3.3'
+ruby '2.5.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.1'
@@ -65,8 +61,6 @@ gem 'rails-assets-normalize.css', source: 'https://rails-assets.org'
 gem 'sprockets-es6'
 # Use Rollbar as an error tracking service
 gem 'rollbar'
-# Use oj for better JSON serialization
-gem 'oj', '~> 2.12.14'
 
 # Use react_on_rails for integrating Ruby on Rails with modern JavaScript tooling and libraries
 gem 'react_on_rails', '8.0.6'
@@ -105,6 +99,3 @@ group :test do
   # Use simplecov as code coverage analysis tool
   gem 'simplecov'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
