@@ -9,15 +9,15 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Aimer with chelly (EGOIST) - ninelie
-Rake::Task['tracks:create_or_update_by_identity'].invoke('1106341688')
+Rake::Task['tracks:create_or_update_by_identity'].invoke('1537269176')
 Rake::Task['tracks:create_or_update_by_identity'].reenable
 # MYTH & ROID - Styx Helix
 Rake::Task['tracks:create_or_update_by_identity'].invoke('1112374651')
 Rake::Task['tracks:create_or_update_by_identity'].reenable
 # supercell - LOVE & ROLL
-Rake::Task['tracks:create_or_update_by_identity'].invoke('570091034')
+Rake::Task['tracks:create_or_update_by_identity'].invoke('1537428425')
 Rake::Task['tracks:create_or_update_by_identity'].reenable
 
-initial_track = Track.find_by(identity: '1106341688')
+initial_track = Track.find_by(identity: '1537269176')
 initial_track.update!(sha1: 'a5cb4c93e0f4d5b8a81926b35924a0e5ab44afae')
 initial_track.plays.create!(played_at: Time.zone.now)
