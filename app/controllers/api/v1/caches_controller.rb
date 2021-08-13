@@ -35,8 +35,8 @@ class Api::V1::CachesController < ApplicationController
     icecast_status_keys.each do |icecast_status_key|
       icecast_status = Rails.cache.read(icecast_status_key)
       next unless icecast_status
-      icecast_sources = icecast_status['icestats']['source']
-      icecast_denpaio_sources = Array(icecast_sources).select do |source|
+      icecast_sources = Array.wrap(icecast_status['icestats']['source'])
+      icecast_denpaio_sources = icecast_sources.select do |source|
         source['listenurl'] =~ %r{/denpaio(?:\.\w+)?\z}
       end
       listeners = icecast_denpaio_sources.map { |source| source['listeners'] }.inject(0, :+)
