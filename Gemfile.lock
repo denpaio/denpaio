@@ -167,7 +167,8 @@ GEM
       pry (~> 0.9)
       slop (~> 3.0)
     public_suffix (2.0.5)
-    puma (3.8.2)
+    puma (4.3.9)
+      nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.0.5)
     rack-test (0.6.3)
@@ -347,7 +348,7 @@ DEPENDENCIES
   pg (~> 0.18)
   pry-rails
   pry-remote
-  puma (~> 3.7)
+  puma (~> 4.3)
   rails (~> 5.1.1)
   rails-assets-normalize.css!
   rails_real_favicon
